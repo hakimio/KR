@@ -1,0 +1,101 @@
+fileFormatVersion: 1
+guid: 2ae36e93c40a34a4695b9d89545e04bc
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.2
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 1
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+    clips:
+      IdleFeM:
+        firstFrame: 1
+        lastFrame: 48
+        loop: 1
+        wrapMode: 0
+      CreepFem:
+        firstFrame: 50
+        lastFrame: 70
+        loop: 0
+        wrapMode: 0
+      ChewFem:
+        firstFrame: 73
+        lastFrame: 87
+        loop: 0
+        wrapMode: 0
+      PoisionFem:
+        firstFrame: 88
+        lastFrame: 120
+        loop: 0
+        wrapMode: 0
+  nodeInfo:
+    Jaw_2:
+    - 100000
+    - 400000
+    LeftAntenna_1:
+    - 100002
+    - 400002
+    SlugPelvis:
+    - 100004
+    - 400004
+    - 13700000
+    Jaw_1:
+    - 100006
+    - 400006
+    RightAntenna_2:
+    - 100008
+    - 400008
+    Spine_1:
+    - 100010
+    - 400010
+    Spine5:
+    - 100012
+    - 400012
+    Fem_Slug_2.obj:
+    - 100014
+    - 400014
+    Neck:
+    - 100016
+    - 400016
+    RightAntenna_1:
+    - 100018
+    - 400018
+    Spine_3:
+    - 100020
+    - 400020
+    Head:
+    - 100022
+    - 400022
+    Spine_2:
+    - 100024
+    - 400024
+    //RootNode:
+    - 100026
+    - 400026
+    - 11100000
+    LeftAntenna_2:
+    - 100028
+    - 400028
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Fem_Slug_2.obj
+    7400000: Take 001 //// FemSluggerBoss
+    7400002: IdleFeM //// FemSluggerBoss
+    7400004: CreepFem //// FemSluggerBoss
+    7400006: ChewFem //// FemSluggerBoss
+    7400008: PoisionFem //// FemSluggerBoss

@@ -1,0 +1,77 @@
+fileFormatVersion: 1
+guid: 5843ee7a823c0bd459421e32f8887293
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 1
+    tangentImportMode: 1
+    smoothingAngle: 89
+    splitTangents: 1
+  materials:
+    generation: 2
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+    clips:
+      Creep:
+        firstFrame: 1
+        lastFrame: 21
+        loop: 1
+        wrapMode: 2
+      Shew:
+        firstFrame: 22
+        lastFrame: 32
+        loop: 0
+        wrapMode: 1
+  nodeInfo:
+    Spine_5:
+    - 100000
+    - 400000
+    Spine_2:
+    - 100002
+    - 400002
+    Neck:
+    - 100004
+    - 400004
+    SlugPelvis:
+    - 100006
+    - 400006
+    - 13700000
+    Head:
+    - 100008
+    - 400008
+    Jaw_2:
+    - 100010
+    - 400010
+    Spine_3:
+    - 100012
+    - 400012
+    SlugRetOk:SlugRetOk:
+    - 100014
+    - 400014
+    //RootNode:
+    - 100016
+    - 400016
+    - 11100000
+    Spine_1:
+    - 100018
+    - 400018
+    Jaw_1:
+    - 100020
+    - 400020
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: SlugRetOk:SlugRetOk
+    7400000: Take 001 //// SlugAnim
+    7400002: Creep //// SlugAnim
+    7400004: Shew //// SlugAnim

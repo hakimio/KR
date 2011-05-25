@@ -1,0 +1,47 @@
+fileFormatVersion: 1
+guid: 7d083938e9446a54b9cac9f175cdf985
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    Lost_Ruin:
+    - 100000
+    - 400000
+    - 3300000
+    - 2300000
+    Default_Camera:
+    - 100002
+    - 400002
+    Lost_Ruin_9197_skinInstance:
+    - 100004
+    - 400004
+    //RootNode:
+    - 100006
+    - 400006
+    - 11100000
+    Lost_Ruin_9197:
+    - 100008
+    - 400008
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: Lost_Ruin
+    7400000: Take 001 //// ruin
