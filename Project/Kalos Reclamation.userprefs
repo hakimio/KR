@@ -1,0 +1,24 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Common\MyCamera.cs">
+    <Files>
+      <File FileName="Assets\Scripts\Common\MyCamera.cs" Line="222" Column="6" />
+      <File FileName="Assets\Scripts\Common\JumpingCamera.cs" Line="133" Column="40" />
+      <File FileName="Assets\Scripts\CharCreator\CharCreator.cs" Line="12" Column="24" />
+      <File FileName="Assets\Scripts\Common\GameMaster.cs" Line="36" Column="27" />
+      <File FileName="Assets\Scripts\A star pathfinding\Controlers\AIAnimation.cs" Line="5" Column="12" />
+      <File FileName="Assets\Scripts\Character\BaseChar.cs" Line="65" Column="3" />
+      <File FileName="Assets\Scripts\A star pathfinding\Controlers\AIFollow.cs" Line="31" Column="12" />
+      <File FileName="Assets\Scripts\A star pathfinding\Controlers\Clicker.cs" Line="38" Column="51" />
+    </Files>
+    <Pads>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

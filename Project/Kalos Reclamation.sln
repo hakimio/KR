@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+
+Project("{5C5B0EBE-2463-9CEC-119B-BA13EC5A2A8C}") = "Kalos Reclamation", "Kalos Reclamation.csproj", "{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	
+EndGlobal

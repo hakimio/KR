@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>9.0.21022</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{A91714B7-F3BE-8E3F-CDB0-2CE35F6D34C0}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace>Irrelevant</RootNamespace>
+	<AssemblyName>Irrelvant</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_3_0;UNITY_3_3;UNITY_EDITOR;ENABLE_PROFILER;UNITY_STANDALONE_WIN;ENABLE_GENERICS;ENABLE_DUCK_TYPING;ENABLE_TERRAIN;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>D:/Program Files/Unity/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>D:/Program Files/Unity/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+	<Reference Include="Boo.Lang">
+	  <HintPath>D:/Program Files/Unity/Data/Mono/lib/mono/unity/Boo.Lang.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityScript">
+	  <HintPath>D:/Program Files/Unity/Data/Mono/lib/mono/unity/UnityScript.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Editor\AstarDataEditor.cs" />
+     <Compile Include="Assets\Editor\AstarPathEditor.cs" />
+     <Compile Include="Assets\Editor\AstarWelcome.cs" />
+     <Compile Include="Assets\Pathfinding\AstarClasses.cs" />
+     <Compile Include="Assets\Pathfinding\AstarData.cs" />
+     <Compile Include="Assets\Pathfinding\AstarMath.cs" />
+     <Compile Include="Assets\Pathfinding\AstarPath.cs" />
+     <Compile Include="Assets\Pathfinding\AstarProcessing.cs" />
+     <Compile Include="Assets\Pathfinding\AstarUser.cs" />
+     <Compile Include="Assets\Pathfinding\Seeker.cs" />
+     <Compile Include="Assets\Scripts\A star pathfinding\Controlers\AIAnimation.cs" />
+     <Compile Include="Assets\Scripts\A star pathfinding\Controlers\AIFollow.cs" />
+     <None Include="Assets\Scripts\A star pathfinding\Controlers\camera_mover.js" />
+     <Compile Include="Assets\Scripts\A star pathfinding\Controlers\Clicker.cs" />
+     <Compile Include="Assets\Scripts\A star pathfinding\Controlers\RandomPathExecuter.cs" />
+     <Compile Include="Assets\Scripts\A star pathfinding\Procedural\ProceduralLevel.cs" />
+     <Compile Include="Assets\Scripts\Character\Archetype.cs" />
+     <Compile Include="Assets\Scripts\Character\Archetypes.cs" />
+     <Compile Include="Assets\Scripts\Character\Attributes.cs" />
+     <Compile Include="Assets\Scripts\Character\BaseChar.cs" />
+     <Compile Include="Assets\Scripts\Character\BaseStat.cs" />
+     <Compile Include="Assets\Scripts\Character\Discipline.cs" />
+     <Compile Include="Assets\Scripts\Character\Disciplines.cs" />
+     <Compile Include="Assets\Scripts\Character\Feat.cs" />
+     <Compile Include="Assets\Scripts\Character\ModifiedStat.cs" />
+     <Compile Include="Assets\Scripts\Character\SecondaryAttr.cs" />
+     <Compile Include="Assets\Scripts\CharCreator\CharCreator.cs" />
+     <Compile Include="Assets\Scripts\CharCreator\ComboBox.cs" />
+     <Compile Include="Assets\Scripts\Common\GameMaster.cs" />
+     <Compile Include="Assets\Scripts\Common\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\Common\JumpingCamera.cs" />
+     <Compile Include="Assets\Scripts\Common\MyCamera.cs" />
+     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
+     <None Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\CharacterMotor.js" />
+     <None Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <None Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\PlatformInputController.js" />
+     <None Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" />
+     <None Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" />
+     <None Include="Assets\Standard Assets\Particles\Legacy Particles\TimedObjectDestructor.js" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\Standard Assets\Scripts\Camera Scripts\MouseOrbit.js" />
+     <None Include="Assets\Standard Assets\Scripts\Camera Scripts\SmoothFollow.js" />
+     <None Include="Assets\Standard Assets\Scripts\Camera Scripts\SmoothLookAt.js" />
+     <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <None Include="Assets\Standard Assets\Scripts\General Scripts\DragRigidbody.js" />
+     <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
+     <None Include="Assets\Standard Assets\Skyboxes\ skybox info.txt" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <Compile Include="Assets\Standard Assets\Water (Basic)\Sources\Scripts\WaterSimple.cs" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
+	
