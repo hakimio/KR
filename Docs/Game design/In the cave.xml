@@ -1,0 +1,16 @@
+<conversation>
+  <npcName npcName="In the cave" />
+  <resetConversation resetConversation="False" />
+  <dialog>
+    <dialogNode id="My_head..._952" npcPhrase="My head..." voiceFile="" isLeaf="False" />
+    <dialogNode id="Shit,_feels_like_873" npcPhrase="Shit, feels like I've been out for some time." voiceFile="" isLeaf="False" />
+    <dialogNode id="(Removes_helmet)_211" npcPhrase="(Removes helmet)" voiceFile="" isLeaf="False" />
+    <dialogNode id="Straight_shot_to_210" npcPhrase="Straight shot to the back.(paliečia pakaušį) Ouch. Still, better hurt than dead." voiceFile="" isLeaf="False" />
+    <dialogNode id="Now,_assuming_it_945" npcPhrase="Now, assuming it wasn't an accident, who was the fucker who tried to waste me?" voiceFile="" isLeaf="False" />
+    <dialogNode id="(Pasižiūri_į_gul_12" npcPhrase="(Pasižiūri į gulintį kūną)" voiceFile="" isLeaf="False" />
+    <dialogNode id="You?_454" npcPhrase="You?" voiceFile="" isLeaf="False" />
+    <dialogNode id="(prieina_ir_pake_997" npcPhrase="(prieina ir pakelia Shotgun. Apžiūri)" voiceFile="" isLeaf="False" />
+    <dialogNode id="Not_likely_-_hol_682" npcPhrase="Not likely - hole's too narrow. Got smaller gun?" voiceFile="" isLeaf="False" />
+    <dialogNode id="(Inspects_the_de_782" npcPhrase="(Inspects the deadman)" voiceFile="" isLeaf="False" />
+  </dialog>
+</conversation>
