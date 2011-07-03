@@ -118,7 +118,7 @@
     <Content Include="User_icon_1.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ObjectListViewDemo\ObjectListView\ObjectListView2010.csproj">
+    <ProjectReference Include="..\..\..\Dialog editor\ObjectListViewDemo\ObjectListView\ObjectListView2010.csproj">
       <Project>{18FEDA0C-D147-4286-B39A-01204808106A}</Project>
       <Name>ObjectListView2010</Name>
     </ProjectReference>

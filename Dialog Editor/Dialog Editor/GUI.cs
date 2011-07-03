@@ -625,6 +625,8 @@ namespace Dialog_Editor
             if (treeListView.SelectedObject == null)
             {
                 pcPhraseMenu.Items[1].Visible = false;
+                pcPhraseMenu.Items[2].Visible = false;
+                pcPhraseMenu.Items[3].Visible = false;
                 e.MenuStrip = pcPhraseMenu;
             }
             else if (treeListView.SelectedObject is DialogNode)
@@ -632,6 +634,8 @@ namespace Dialog_Editor
             else if (treeListView.SelectedObject is DialogResponse)
             {
                 pcPhraseMenu.Items[1].Visible = true;
+                pcPhraseMenu.Items[2].Visible = true;
+                pcPhraseMenu.Items[3].Visible = true;
                 e.MenuStrip = pcPhraseMenu;
             }
         }
