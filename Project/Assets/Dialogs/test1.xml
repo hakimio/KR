@@ -1,0 +1,18 @@
+<conversation>
+  <npcName npcName="Jane" />
+  <resetConversation resetConversation="True" />
+  <dialog>
+    <dialogNode id="Hello._331" npcPhrase="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec nisi dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quis nibh quis nisl rhoncus posuere ut a libero. Phasellus eget massa nisl. Ut aliquet rutrum rhoncus. In id scelerisque elit. Duis fermentum porta ultricies. In auctor quam sed metus lacinia dignissim. Cras eget lacus id urna vestibulum tincidunt. Praesent ultricies augue eu tortor varius vitae faucibus turpis semper. Ut lobortis dictum sollicitudin. Ut at magna sit amet nunc facilisis porta a at ante. Integer accumsan sem sodales lectus suscipit at sagittis massa malesuada. Morbi mi nibh, sollicitudin non porta eget, interdum at dui. Cras accumsan dignissim tortor, in iaculis neque pharetra quis. Morbi quis massa quis felis scelerisque tempor at at massa. Vivamus tincidunt, tortor et auctor ultrices, orci enim faucibus mauris, eu condimentum felis nulla id diam. Proin aliquet molestie tristique. Proin libero ligula, fermentum nec placerat sit amet, vehicula in lorem. Phasellus egestas turpis sed velit tempus et sollicitudin felis consectetur." voiceFile="">
+      <response pcPhrase="Hi." link="How_are_you?_609" linkType="dialogNode" switchConversation="" onlyAllowOnce="False">
+        <dialogNode id="How_are_you?_609" npcPhrase="How are you?" voiceFile="">
+          <response pcPhrase="Fine. Thank you." link="End conversation" linkType="endConversation" switchConversation="" onlyAllowOnce="False" />
+          <response pcPhrase="Not too bad." link="End &amp; switch conversation" linkType="endAndChangeConversation" switchConversation="What's_up?_517" onlyAllowOnce="False" />
+        </dialogNode>
+      </response>
+      <response pcPhrase="Hey." link="What's_up?_517" linkType="dialogNode" switchConversation="" onlyAllowOnce="False" />
+    </dialogNode>
+    <dialogNode id="What's_up?_517" npcPhrase="What's up?" voiceFile="">
+      <response pcPhrase="Mmm... Just usual stuff." link="End conversation" linkType="endConversation" switchConversation="" onlyAllowOnce="False" />
+    </dialogNode>
+  </dialog>
+</conversation>

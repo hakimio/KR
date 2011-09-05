@@ -1,0 +1,31 @@
+<conversation>
+  <npcName npcName="robot" />
+  <resetConversation resetConversation="True" />
+  <dialog>
+    <dialogNode id="Hello._138" npcPhrase="Hello." voiceFile="">
+      <response pcPhrase="Hello. I have a question for you. Where were you last friday evening?" link="Wait,_I_need_som_837" linkType="dialogNode" switchConversation="" onlyAllowOnce="False">
+        <dialogNode id="Wait,_I_need_som_837" npcPhrase="Wait, I need some time to recollect..." voiceFile="">
+          <response pcPhrase="Unfortunately, I can not wait. Have a good day." link="End conversation" linkType="endConversation" switchConversation="" onlyAllowOnce="False" />
+          <response pcPhrase="Ok. I'll come a bit later." link="End &amp; switch conversation" linkType="endAndChangeConversation" switchConversation="Hi._927" onlyAllowOnce="False" />
+        </dialogNode>
+      </response>
+    </dialogNode>
+    <dialogNode id="Hi._927" npcPhrase="Hi." voiceFile="">
+      <response pcPhrase="Hi. Have you recollected?" link="Yes._I_watched_T_739" linkType="dialogNode" switchConversation="" onlyAllowOnce="False">
+        <dialogNode id="Yes._I_watched_T_739" npcPhrase="Yes. I watched TV at home." voiceFile="">
+          <response pcPhrase="Thanks. Good bye." link="End &amp; switch conversation" linkType="endAndChangeConversation" switchConversation="Hi._662" onlyAllowOnce="False" />
+        </dialogNode>
+      </response>
+    </dialogNode>
+    <dialogNode id="Hi._662" npcPhrase="Hi." voiceFile="">
+      <response pcPhrase="Hey. Wanna watch TV next firday?" link="Yeah._Sure._Why__716" linkType="dialogNode" switchConversation="" onlyAllowOnce="False">
+        <dialogNode id="Yeah._Sure._Why__716" npcPhrase="Yeah. Sure. Why not." voiceFile="">
+          <response pcPhrase="Ok, then. See ya." link="End &amp; switch conversation" linkType="endAndChangeConversation" switchConversation="Don't_forget_to__236" onlyAllowOnce="False" />
+        </dialogNode>
+      </response>
+    </dialogNode>
+    <dialogNode id="Don't_forget_to__236" npcPhrase="Don't forget to come to my place next friday." voiceFile="">
+      <response pcPhrase="I will come, don't worry." link="End &amp; switch conversation" linkType="endAndChangeConversation" switchConversation="Don't_forget_to__236" onlyAllowOnce="False" />
+    </dialogNode>
+  </dialog>
+</conversation>
