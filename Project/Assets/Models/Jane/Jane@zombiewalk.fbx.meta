@@ -1,0 +1,407 @@
+fileFormatVersion: 1
+guid: 0fcf1690adfdc114e88a31c72448a085
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    RightFootExtraFinger2:
+    - 100000
+    - 400000
+    LeftHandPinky3:
+    - 100002
+    - 400002
+    RightFootExtraFinger1:
+    - 100004
+    - 400004
+    LeftHandPinky0:
+    - 100006
+    - 400006
+    RightHandRing1:
+    - 100008
+    - 400008
+    LeftFootRing2:
+    - 100010
+    - 400010
+    LeftFootExtraFinger2:
+    - 100012
+    - 400012
+    Spine2VEnd:
+    - 100014
+    - 400014
+    Neck:
+    - 100016
+    - 400016
+    RightFingerBase:
+    - 100018
+    - 400018
+    LeftHandThumb1:
+    - 100020
+    - 400020
+    Spine3:
+    - 100022
+    - 400022
+    Spine1:
+    - 100024
+    - 400024
+    RightHandPinky1:
+    - 100026
+    - 400026
+    LeftArmRoll:
+    - 100028
+    - 400028
+    RightHandMiddle3:
+    - 100030
+    - 400030
+    RightEye:
+    - 100032
+    - 400032
+    LeftHandRing2:
+    - 100034
+    - 400034
+    LeftUpLegRoll:
+    - 100036
+    - 400036
+    LeftFootRing3:
+    - 100038
+    - 400038
+    RightHandThumb3:
+    - 100040
+    - 400040
+    Spine4Right:
+    - 100042
+    - 400042
+    LeftHandIndex4:
+    - 100044
+    - 400044
+    LeftHandThumb3:
+    - 100046
+    - 400046
+    RightHandRing2:
+    - 100048
+    - 400048
+    RightArm:
+    - 100050
+    - 400050
+    LeftFootExtraFinger3:
+    - 100052
+    - 400052
+    RightFootExtraFinger3:
+    - 100054
+    - 400054
+    RightFootMiddle3:
+    - 100056
+    - 400056
+    Spine1VEnd:
+    - 100058
+    - 400058
+    RightFootIndex1:
+    - 100060
+    - 400060
+    Spine4Left:
+    - 100062
+    - 400062
+    LeftForeArmRoll:
+    - 100064
+    - 400064
+    RightFootRing1:
+    - 100066
+    - 400066
+    Hips:
+    - 100068
+    - 400068
+    Null:
+    - 100070
+    - 400070
+    LeftFootPinky3:
+    - 100072
+    - 400072
+    LeftHandPinky2:
+    - 100074
+    - 400074
+    RightHandRing4:
+    - 100076
+    - 400076
+    LeftHandIndex2:
+    - 100078
+    - 400078
+    LeftFootPinky2:
+    - 100080
+    - 400080
+    RightForeArm:
+    - 100082
+    - 400082
+    reference:
+    - 100084
+    - 400084
+    LeftFootRing1:
+    - 100086
+    - 400086
+    Spine2V:
+    - 100088
+    - 400088
+    HeadEnd:
+    - 100090
+    - 400090
+    RightShoulder:
+    - 100092
+    - 400092
+    LeftHandIndex3:
+    - 100094
+    - 400094
+    //RootNode:
+    - 100096
+    - 400096
+    - 11100000
+    LeftHandRing1:
+    - 100098
+    - 400098
+    LeftFootMiddle3:
+    - 100100
+    - 400100
+    SpineV:
+    - 100102
+    - 400102
+    LeftLeg:
+    - 100104
+    - 400104
+    RightFootRing2:
+    - 100106
+    - 400106
+    LeftHandRing4:
+    - 100108
+    - 400108
+    LeftArm:
+    - 100110
+    - 400110
+    RightHandPinky3:
+    - 100112
+    - 400112
+    RightHandMiddle2:
+    - 100114
+    - 400114
+    Spine4LeftEnd:
+    - 100116
+    - 400116
+    RightForeArmRoll:
+    - 100118
+    - 400118
+    RightFootPinky1:
+    - 100120
+    - 400120
+    RightToeBase:
+    - 100122
+    - 400122
+    LeftHandPinky4:
+    - 100124
+    - 400124
+    RightHandMiddle4:
+    - 100126
+    - 400126
+    LeftFootIndex1:
+    - 100128
+    - 400128
+    LeftFoot:
+    - 100130
+    - 400130
+    RightFootRing3:
+    - 100132
+    - 400132
+    RightUpLegRoll:
+    - 100134
+    - 400134
+    RightFootMiddle1:
+    - 100136
+    - 400136
+    LeftFootExtraFinger1:
+    - 100138
+    - 400138
+    RightFootIndex2:
+    - 100140
+    - 400140
+    RightHandIndex1:
+    - 100142
+    - 400142
+    LeftFingerBase:
+    - 100144
+    - 400144
+    LeftHandMiddle1:
+    - 100146
+    - 400146
+    RightHandRing3:
+    - 100148
+    - 400148
+    LeftHand:
+    - 100150
+    - 400150
+    RightHandThumb1:
+    - 100152
+    - 400152
+    RightHandPinky2:
+    - 100154
+    - 400154
+    LeftHandIndex0:
+    - 100156
+    - 400156
+    LeftFootIndex2:
+    - 100158
+    - 400158
+    RightHandMiddle1:
+    - 100160
+    - 400160
+    RightHandThumb4:
+    - 100162
+    - 400162
+    LeftHandRing3:
+    - 100164
+    - 400164
+    LeftShoulder:
+    - 100166
+    - 400166
+    RightHandIndex2:
+    - 100168
+    - 400168
+    Head:
+    - 100170
+    - 400170
+    Spine2:
+    - 100172
+    - 400172
+    LeftHandMiddle4:
+    - 100174
+    - 400174
+    LeftToeBase:
+    - 100176
+    - 400176
+    LeftHandIndex1:
+    - 100178
+    - 400178
+    RightHandIndex4:
+    - 100180
+    - 400180
+    Neck1:
+    - 100182
+    - 400182
+    Spine1V:
+    - 100184
+    - 400184
+    RightArmRoll:
+    - 100186
+    - 400186
+    RightLegRoll:
+    - 100188
+    - 400188
+    RightLeg:
+    - 100190
+    - 400190
+    RightHand:
+    - 100192
+    - 400192
+    RightUpLeg:
+    - 100194
+    - 400194
+    LeftHandPinky1:
+    - 100196
+    - 400196
+    RightFootPinky3:
+    - 100198
+    - 400198
+    Spine4:
+    - 100200
+    - 400200
+    LeftFootMiddle2:
+    - 100202
+    - 400202
+    Spine:
+    - 100204
+    - 400204
+    RightFootPinky2:
+    - 100206
+    - 400206
+    RightHandThumb2:
+    - 100208
+    - 400208
+    RightFoot:
+    - 100210
+    - 400210
+    LeftForeArm:
+    - 100212
+    - 400212
+    RightFootIndex3:
+    - 100214
+    - 400214
+    LeftHandMiddle2:
+    - 100216
+    - 400216
+    LeftLegRoll:
+    - 100218
+    - 400218
+    RightHandIndex0:
+    - 100220
+    - 400220
+    LeftFootPinky1:
+    - 100222
+    - 400222
+    LeftHandThumb2:
+    - 100224
+    - 400224
+    LeftUpLeg:
+    - 100226
+    - 400226
+    RightFootMiddle2:
+    - 100228
+    - 400228
+    LeftHandMiddle3:
+    - 100230
+    - 400230
+    SpineVEnd:
+    - 100232
+    - 400232
+    LeftHandThumb4:
+    - 100234
+    - 400234
+    Spine4RightEnd:
+    - 100236
+    - 400236
+    master:
+    - 100238
+    - 400238
+    RightHandIndex3:
+    - 100240
+    - 400240
+    LeftFootMiddle1:
+    - 100242
+    - 400242
+    LeftFootIndex3:
+    - 100244
+    - 400244
+    RightHandPinky4:
+    - 100246
+    - 400246
+    RightHandPinky0:
+    - 100248
+    - 400248
+    LeftEye:
+    - 100250
+    - 400250
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    7400000: mixamo.com //// Jane@zombiewalk

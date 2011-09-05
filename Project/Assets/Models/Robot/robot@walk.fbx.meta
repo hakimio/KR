@@ -1,0 +1,250 @@
+fileFormatVersion: 1
+guid: 1bdc4f5f82b0e964c8e424dcbfa11f5d
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    lowarm_R:
+    - 100000
+    - 400000
+    L_IK_ArmikHandle1:
+    - 100002
+    - 400002
+    R_IK_FootnurbsCircle2:
+    - 100004
+    - 400004
+    hand_L:
+    - 100006
+    - 400006
+    shoulder_R:
+    - 100008
+    - 400008
+    L_IK_FoottoePivot:
+    - 100010
+    - 400010
+    thumb3e_L:
+    - 100012
+    - 400012
+    upleg_R:
+    - 100014
+    - 400014
+    L_IK_FootikBall:
+    - 100016
+    - 400016
+    headhandle:
+    - 100018
+    - 400018
+    - 3300000
+    - 2300000
+    finger1_L:
+    - 100020
+    - 400020
+    joint1:
+    - 100022
+    - 400022
+    spine2:
+    - 100024
+    - 400024
+    gun:
+    - 100026
+    - 400026
+    joint2 1:
+    - 100028
+    - 400028
+    elbow_L:
+    - 100030
+    - 400030
+    L_IK_FootikAnkle:
+    - 100032
+    - 400032
+    lowleg_L:
+    - 100034
+    - 400034
+    L_IK_FootikToe:
+    - 100036
+    - 400036
+    L_IK_FootheelPivot:
+    - 100038
+    - 400038
+    lowleg_R:
+    - 100040
+    - 400040
+    thumb3e_R:
+    - 100042
+    - 400042
+    L_IK_FootnurbsCircle1:
+    - 100044
+    - 400044
+    R_IK_FootikToe:
+    - 100046
+    - 400046
+    L_IK_ellbowhandle:
+    - 100048
+    - 400048
+    thumb2_L:
+    - 100050
+    - 400050
+    R_kneehandle:
+    - 100052
+    - 400052
+    upleg_L:
+    - 100054
+    - 400054
+    //RootNode:
+    - 100056
+    - 400056
+    - 11100000
+    chesthandle:
+    - 100058
+    - 400058
+    elbow_R:
+    - 100060
+    - 400060
+    robotskin1:
+    - 100062
+    - 400062
+    uparm_R:
+    - 100064
+    - 400064
+    finger1_R:
+    - 100066
+    - 400066
+    hand_R:
+    - 100068
+    - 400068
+    gun_model:
+    - 100070
+    - 400070
+    - 3300002
+    - 2300002
+    L_IK_Footankle:
+    - 100072
+    - 400072
+    ammo:
+    - 100074
+    - 400074
+    - 3300004
+    - 2300004
+    uparm_L:
+    - 100076
+    - 400076
+    R_IK_ellbowhandle:
+    - 100078
+    - 400078
+    thumb2_R:
+    - 100080
+    - 400080
+    finger3e_R:
+    - 100082
+    - 400082
+    head:
+    - 100084
+    - 400084
+    R_IK_FootikAnkle:
+    - 100086
+    - 400086
+    neck:
+    - 100088
+    - 400088
+    L_kneehandle:
+    - 100090
+    - 400090
+    R_IK_FoottoePivot:
+    - 100092
+    - 400092
+    R_IK_FootikBall:
+    - 100094
+    - 400094
+    R_IK_FootheelPivot:
+    - 100096
+    - 400096
+    R_IK_Footankle:
+    - 100098
+    - 400098
+    R_IK_ArmikHandle1:
+    - 100100
+    - 400100
+    heel_R:
+    - 100102
+    - 400102
+    finger3e_L:
+    - 100104
+    - 400104
+    joint2:
+    - 100106
+    - 400106
+    finger2_R:
+    - 100108
+    - 400108
+    L_IK_Foottoe:
+    - 100110
+    - 400110
+    spine1:
+    - 100112
+    - 400112
+    heade:
+    - 100114
+    - 400114
+    joint1 1:
+    - 100116
+    - 400116
+    lowarm_L:
+    - 100118
+    - 400118
+    shoulder_L:
+    - 100120
+    - 400120
+    R_IK_Foottoe:
+    - 100122
+    - 400122
+    heel_L:
+    - 100124
+    - 400124
+    thumb1_R:
+    - 100126
+    - 400126
+    L_IK_handhandle:
+    - 100128
+    - 400128
+    finger2_L:
+    - 100130
+    - 400130
+    spine4:
+    - 100132
+    - 400132
+    spine3:
+    - 100134
+    - 400134
+    thumb1_L:
+    - 100136
+    - 400136
+    roothandle:
+    - 100138
+    - 400138
+    - 13700000
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: robotskin1
+    4300002: ammo
+    4300004: gun_model
+    4300006: headhandle
+    7400000: Take 001 //// robot@walk

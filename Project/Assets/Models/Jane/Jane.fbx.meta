@@ -1,0 +1,464 @@
+fileFormatVersion: 1
+guid: 843ef469a0eda154ab3af2deeada531b
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    RightHandMiddle3:
+    - 100000
+    - 400000
+    RightHandMiddle2:
+    - 100002
+    - 400002
+    RightHandMiddle1:
+    - 100004
+    - 400004
+    RightForeArmRoll:
+    - 100006
+    - 400006
+    Spine2VEnd:
+    - 100008
+    - 400008
+    Spine2V:
+    - 100010
+    - 400010
+    Spine4LeftEnd:
+    - 100012
+    - 400012
+    LeftHandPinky0:
+    - 100014
+    - 400014
+    LeftHandRing4:
+    - 100016
+    - 400016
+    LeftHandRing3:
+    - 100018
+    - 400018
+    H_DDS_MidRes:
+    - 100020
+    - 400020
+    - 13700000
+    m_TeethUp:
+    - 100022
+    - 400022
+    - 13700002
+    m_TeethDown:
+    - 100024
+    - 400024
+    - 13700004
+    LeftFootPinky3:
+    - 100026
+    - 400026
+    RightHandRing4:
+    - 100028
+    - 400028
+    RightHandRing3:
+    - 100030
+    - 400030
+    RightHandRing2:
+    - 100032
+    - 400032
+    RightHandRing1:
+    - 100034
+    - 400034
+    m_rebuild_expressions:
+    - 100036
+    - 400036
+    LeftFootExtraFinger3:
+    - 100038
+    - 400038
+    LeftFootExtraFinger2:
+    - 100040
+    - 400040
+    LeftFootExtraFinger1:
+    - 100042
+    - 400042
+    RightFootMiddle3:
+    - 100044
+    - 400044
+    RightFootMiddle2:
+    - 100046
+    - 400046
+    RightFootMiddle1:
+    - 100048
+    - 400048
+    RightFootExtraFinger3:
+    - 100050
+    - 400050
+    RightFootExtraFinger2:
+    - 100052
+    - 400052
+    RightFootExtraFinger1:
+    - 100054
+    - 400054
+    RightHandMiddle4:
+    - 100056
+    - 400056
+    LeftShoulder:
+    - 100058
+    - 400058
+    RightHandPinky4:
+    - 100060
+    - 400060
+    RightHandPinky3:
+    - 100062
+    - 400062
+    RightHandPinky2:
+    - 100064
+    - 400064
+    RightHandPinky1:
+    - 100066
+    - 400066
+    RightHandPinky0:
+    - 100068
+    - 400068
+    LeftForeArmRoll:
+    - 100070
+    - 400070
+    LeftForeArm:
+    - 100072
+    - 400072
+    LeftArmRoll:
+    - 100074
+    - 400074
+    LeftArm:
+    - 100076
+    - 400076
+    h_wig:
+    - 100078
+    - 400078
+    - 13700006
+    m_rebuild_teeth:
+    - 100080
+    - 400080
+    Spine1VEnd:
+    - 100082
+    - 400082
+    Spine1V:
+    - 100084
+    - 400084
+    LeftFootMiddle1:
+    - 100086
+    - 400086
+    LeftFootIndex3:
+    - 100088
+    - 400088
+    Spine4Left:
+    - 100090
+    - 400090
+    Spine4RightEnd:
+    - 100092
+    - 400092
+    Spine4Right:
+    - 100094
+    - 400094
+    m_R_gland:
+    - 100096
+    - 400096
+    - 13700008
+    m_L_trans:
+    - 100098
+    - 400098
+    - 13700010
+    LeftHandThumb3:
+    - 100100
+    - 400100
+    LeftHandThumb2:
+    - 100102
+    - 400102
+    LeftHandThumb1:
+    - 100104
+    - 400104
+    LeftFingerBase:
+    - 100106
+    - 400106
+    LeftHand:
+    - 100108
+    - 400108
+    Neck1:
+    - 100110
+    - 400110
+    Neck:
+    - 100112
+    - 400112
+    Spine4:
+    - 100114
+    - 400114
+    Spine3:
+    - 100116
+    - 400116
+    Spine2:
+    - 100118
+    - 400118
+    Spine1:
+    - 100120
+    - 400120
+    Spine:
+    - 100122
+    - 400122
+    Hips:
+    - 100124
+    - 400124
+    reference:
+    - 100126
+    - 400126
+    m_L_eye:
+    - 100128
+    - 400128
+    - 13700012
+    m_L_gland:
+    - 100130
+    - 400130
+    - 13700014
+    RightFootIndex2:
+    - 100132
+    - 400132
+    RightFootIndex1:
+    - 100134
+    - 400134
+    RightLeg:
+    - 100136
+    - 400136
+    RightUpLegRoll:
+    - 100138
+    - 400138
+    LeftHandIndex2:
+    - 100140
+    - 400140
+    LeftHandIndex1:
+    - 100142
+    - 400142
+    LeftHandIndex0:
+    - 100144
+    - 400144
+    LeftHandThumb4:
+    - 100146
+    - 400146
+    master:
+    - 100148
+    - 400148
+    RightForeArm:
+    - 100150
+    - 400150
+    RightArmRoll:
+    - 100152
+    - 400152
+    RightArm:
+    - 100154
+    - 400154
+    RightShoulder:
+    - 100156
+    - 400156
+    LeftEye:
+    - 100158
+    - 400158
+    RightEye:
+    - 100160
+    - 400160
+    HeadEnd:
+    - 100162
+    - 400162
+    Head:
+    - 100164
+    - 400164
+    RightHandThumb4:
+    - 100166
+    - 400166
+    RightHandThumb3:
+    - 100168
+    - 400168
+    RightHandThumb2:
+    - 100170
+    - 400170
+    RightHandThumb1:
+    - 100172
+    - 400172
+    RightFingerBase:
+    - 100174
+    - 400174
+    RightHand:
+    - 100176
+    - 400176
+    RightFootIndex3:
+    - 100178
+    - 400178
+    m_R_trans:
+    - 100180
+    - 400180
+    - 13700016
+    m_R_eye:
+    - 100182
+    - 400182
+    - 13700018
+    LeftFootRing3:
+    - 100184
+    - 400184
+    LeftFootRing2:
+    - 100186
+    - 400186
+    LeftUpLegRoll:
+    - 100188
+    - 400188
+    LeftUpLeg:
+    - 100190
+    - 400190
+    LeftToeBase:
+    - 100192
+    - 400192
+    LeftFoot:
+    - 100194
+    - 400194
+    LeftFootPinky2:
+    - 100196
+    - 400196
+    LeftFootPinky1:
+    - 100198
+    - 400198
+    RightUpLeg:
+    - 100200
+    - 400200
+    SpineVEnd:
+    - 100202
+    - 400202
+    SpineV:
+    - 100204
+    - 400204
+    LeftHandPinky2:
+    - 100206
+    - 400206
+    LeftHandPinky1:
+    - 100208
+    - 400208
+    RightFootPinky3:
+    - 100210
+    - 400210
+    RightFootPinky2:
+    - 100212
+    - 400212
+    RightFootPinky1:
+    - 100214
+    - 400214
+    LeftFootRing1:
+    - 100216
+    - 400216
+    LeftFootMiddle3:
+    - 100218
+    - 400218
+    LeftFootMiddle2:
+    - 100220
+    - 400220
+    RightToeBase:
+    - 100222
+    - 400222
+    RightFoot:
+    - 100224
+    - 400224
+    RightLegRoll:
+    - 100226
+    - 400226
+    LeftFootIndex2:
+    - 100228
+    - 400228
+    LeftFootIndex1:
+    - 100230
+    - 400230
+    RightFootRing1:
+    - 100232
+    - 400232
+    RightFootRing3:
+    - 100234
+    - 400234
+    RightFootRing2:
+    - 100236
+    - 400236
+    LeftHandPinky4:
+    - 100238
+    - 400238
+    LeftHandPinky3:
+    - 100240
+    - 400240
+    RightHandIndex4:
+    - 100242
+    - 400242
+    RightHandIndex3:
+    - 100244
+    - 400244
+    RightHandIndex2:
+    - 100246
+    - 400246
+    RightHandIndex1:
+    - 100248
+    - 400248
+    RightHandIndex0:
+    - 100250
+    - 400250
+    LeftHandRing2:
+    - 100252
+    - 400252
+    LeftHandRing1:
+    - 100254
+    - 400254
+    LeftHandMiddle4:
+    - 100256
+    - 400256
+    LeftHandMiddle3:
+    - 100258
+    - 400258
+    LeftLegRoll:
+    - 100260
+    - 400260
+    LeftLeg:
+    - 100262
+    - 400262
+    LeftHandMiddle2:
+    - 100264
+    - 400264
+    LeftHandMiddle1:
+    - 100266
+    - 400266
+    LeftHandIndex4:
+    - 100268
+    - 400268
+    LeftHandIndex3:
+    - 100270
+    - 400270
+    //RootNode:
+    - 100272
+    - 400272
+    - 11100000
+    l_wig:
+    - 100274
+    - 400274
+    - 13700020
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: m_TeethDown
+    4300002: m_TeethUp
+    4300004: m_L_gland
+    4300006: m_L_eye
+    4300008: m_L_trans
+    4300010: m_R_gland
+    4300012: m_R_eye
+    4300014: m_R_trans
+    4300016: H_DDS_MidRes
+    4300018: h_wig
+    4300020: l_wig

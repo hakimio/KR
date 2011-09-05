@@ -1,0 +1,166 @@
+fileFormatVersion: 1
+guid: 3b0dfb640631ec54b8b36dc64c549da7
+ModelImporter:
+  importerVersion: 7
+  meshes:
+    scaleFactor: 0.01
+    useFileUnits: 1
+    meshCompression: 0
+    generateColliders: 0
+    swapUVs: 0
+  tangentSpace:
+    normalImportMode: 0
+    tangentImportMode: 1
+    smoothingAngle: 60
+    splitTangents: 1
+  materials:
+    generation: 1
+  animations:
+    generation: 3
+    bakeAnimations: 0
+    animationCompression: 1
+    animationWrapMode: 0
+    splitAnimations: 1
+  nodeInfo:
+    finger3e_R:
+    - 100000
+    - 400000
+    joint2 1:
+    - 100002
+    - 400002
+    thumb1_L:
+    - 100004
+    - 400004
+    upleg_R:
+    - 100006
+    - 400006
+    lowleg_R:
+    - 100008
+    - 400008
+    robotskin1:
+    - 100010
+    - 400010
+    gun_model:
+    - 100012
+    - 400012
+    - 3300000
+    - 2300000
+    //RootNode:
+    - 100014
+    - 400014
+    - 11100000
+    uparm_L:
+    - 100016
+    - 400016
+    shoulder_L:
+    - 100018
+    - 400018
+    finger2_L:
+    - 100020
+    - 400020
+    neck:
+    - 100022
+    - 400022
+    spine4:
+    - 100024
+    - 400024
+    lowarm_L:
+    - 100026
+    - 400026
+    elbow_L:
+    - 100028
+    - 400028
+    thumb3e_L:
+    - 100030
+    - 400030
+    finger2_R:
+    - 100032
+    - 400032
+    lowarm_R:
+    - 100034
+    - 400034
+    spine1:
+    - 100036
+    - 400036
+    elbow_R:
+    - 100038
+    - 400038
+    hand_R:
+    - 100040
+    - 400040
+    upleg_L:
+    - 100042
+    - 400042
+    spine3:
+    - 100044
+    - 400044
+    spine2:
+    - 100046
+    - 400046
+    joint1 1:
+    - 100048
+    - 400048
+    thumb3e_R:
+    - 100050
+    - 400050
+    heade:
+    - 100052
+    - 400052
+    head:
+    - 100054
+    - 400054
+    lowleg_L:
+    - 100056
+    - 400056
+    uparm_R:
+    - 100058
+    - 400058
+    joint2:
+    - 100060
+    - 400060
+    thumb2_L:
+    - 100062
+    - 400062
+    thumb2_R:
+    - 100064
+    - 400064
+    finger1_R:
+    - 100066
+    - 400066
+    gun:
+    - 100068
+    - 400068
+    joint1:
+    - 100070
+    - 400070
+    heel_L:
+    - 100072
+    - 400072
+    roothandle:
+    - 100074
+    - 400074
+    - 13700000
+    shoulder_R:
+    - 100076
+    - 400076
+    finger1_L:
+    - 100078
+    - 400078
+    hand_L:
+    - 100080
+    - 400080
+    thumb1_R:
+    - 100082
+    - 400082
+    heel_R:
+    - 100084
+    - 400084
+    finger3e_L:
+    - 100086
+    - 400086
+AssetImporter:
+  importerVersion: 1
+  fileIDToRecycleName:
+    4300000: robotskin1
+    4300002: gun_model
+    7400000: Take 001 //// robot
