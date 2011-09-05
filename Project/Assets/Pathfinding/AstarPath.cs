@@ -601,10 +601,10 @@ public class AstarPath : MonoBehaviour {
 		}
 		
 		if (calculateOnStartup) {
-			float startTime = Time.realtimeSinceStartup;
+			//float startTime = Time.realtimeSinceStartup;
 			Scan (true,0);
-			float elapsed = Time.realtimeSinceStartup-startTime;
-			Debug.Log ("Grid calculated. Generation took "+elapsed+" seconds to complete");
+			//float elapsed = Time.realtimeSinceStartup-startTime;
+			//Debug.Log ("Grid calculated. Generation took "+elapsed+" seconds to complete");
 			//Debug.Log ("calc");
 		} else {
 			if (astarData != null) {
@@ -1148,7 +1148,7 @@ public class AstarPath : MonoBehaviour {
 					t += Time.realtimeSinceStartup-startTime;
 					
 					//@Performance Debug calls cost performance
-					Debug.Log ("A* Pathfinding Completed Succesfully : End code 1\nTime: "+t+" Seconds\nFrames "+frames+"\nAverage Seconds/Frame "+(t/frames)+"\nPoints:"+path.Length+"\nSearched Nodes"+closedNodes+"\nPath Length (G score) Was "+end.g);
+					//Debug.Log ("A* Pathfinding Completed Succesfully : End code 1\nTime: "+t+" Seconds\nFrames "+frames+"\nAverage Seconds/Frame "+(t/frames)+"\nPoints:"+path.Length+"\nSearched Nodes"+closedNodes+"\nPath Length (G score) Was "+end.g);
 					
 				} else if (AstarPath.active.simplify == Simplify.Simple) {
 					if (active.gridGenerator != GridGenerator.Grid && active.gridGenerator != GridGenerator.Texture) {
@@ -1276,7 +1276,7 @@ public class AstarPath : MonoBehaviour {
 					t += Time.realtimeSinceStartup-startTime;
 					
 					//@Performance Debug calls cost performance
-					Debug.Log ("A* Pathfinding Completed Succesfully : End code 4\nTime: "+t+" Seconds\nFrames "+frames+"\nAverage Seconds/Frame "+(t/frames)+"\nPoints:"+path.Length+"\nSearched Nodes"+closedNodes+"\nPath Length (G score) Was "+end.g);
+					//Debug.Log ("A* Pathfinding Completed Succesfully : End code 4\nTime: "+t+" Seconds\nFrames "+frames+"\nAverage Seconds/Frame "+(t/frames)+"\nPoints:"+path.Length+"\nSearched Nodes"+closedNodes+"\nPath Length (G score) Was "+end.g);
 					
 					//We have now found the end and filled the "path" array
 					//The next frame the Seeker script will find that this is done and send a message with the path data
@@ -2079,7 +2079,7 @@ public class AstarPath : MonoBehaviour {
 		
 		areaColors = areaColorsArr.ToArray (typeof(Color)) as Color[];
 		
-		Debug.Log ("Grid contains "+(area)+" Area(s)");
+		//Debug.Log ("Grid contains "+(area)+" Area(s)");
 	}
 	
 	[ContextMenu ("Scan Map")]
