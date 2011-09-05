@@ -26,12 +26,26 @@ public class AIFollow : MonoBehaviour {
 		Stay,
 		Walk
 	}
-	
-	public IEnumerator Start () {
+
+    private Clicker clicker;
+    private Transform PC;
+    private GameObject[] NPCs;
+    private float speakingDistance = 10.0f;
+
+	public IEnumerator Start () 
+    {
+        if (controller == null)
+            controller = GameObject.Find("Player Character").
+                GetComponent<CharacterController>();
+        PC = GameObject.Find("Player Character").transform;
+        GameObject mainCamera = GameObject.Find("Main Camera");
+        clicker = mainCamera.GetComponent<Clicker>();
+        NPCs = GameObject.FindGameObjectsWithTag("NPC");
+
 		waypointPosition = transform.position;
 		command = Command.Stay;
-		controller = GetComponent (typeof(CharacterController)) as CharacterController;
-		controller.stepOffset = 5f;
+		//controller = GetComponent (typeof(CharacterController)) as CharacterController;
+		//controller.stepOffset = 5f;
 		Object anim = GetComponent (typeof(AIAnimation));
 		animator = anim != null ? anim as AIAnimation : null;
 		seeker = GetComponent (typeof(Seeker)) as Seeker;
@@ -74,8 +88,25 @@ public class AIFollow : MonoBehaviour {
 		}
 		
 	}
-	
+
+    private void checkForNPCs()
+    {
+        foreach (GameObject npcGO in NPCs)
+        {
+            Vector3 npcPos = npcGO.transform.position;
+            float distance = Vector3.Distance(npcPos, PC.position);
+            string npcName = npcGO.GetComponent<NPC>().npcName;
+            if (clicker.hitNPC && clicker.npcName.Equals(npcName)
+                && distance < speakingDistance)
+            {
+                Messenger<string>.Broadcast("dialog starting", npcName);
+                clicker.hitNPC = false;
+            }
+        }
+    }
+
 	public void PathComplete (Vector3[] newPoints) {
+
 		canSearchAgain = true;
 		points = newPoints;
 		FindPoint (0);
@@ -92,15 +123,18 @@ public class AIFollow : MonoBehaviour {
 	
 	public void FindPoint (int cpoint) {
 		curpoint = cpoint;
+        
 		if (points == null || points.Length == 0 || curpoint >= points.Length) {	
 			waypointPosition = transform.position;
 			Stop ();
+            checkForNPCs();
 			return;
 		}
-		
+
 		if (points.Length == 1) {
 			waypointPosition = points[0];
 			command = Command.Walk;
+            checkForNPCs();
 			return;
 		}
 		
