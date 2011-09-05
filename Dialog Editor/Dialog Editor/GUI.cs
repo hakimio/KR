@@ -399,10 +399,8 @@ namespace Dialog_Editor
             if (result == DialogResult.Cancel)
                 return;
 
-            this.Text = "Dialog Editor - " + conversation.npcName;
+            this.Text = "Dialog Editor - " + conversation.npcName + "*";
 
-            if (!changesMade)
-                this.Text = this.Text + "*";
             changesMade = true;
         }
         #endregion
@@ -434,6 +432,10 @@ namespace Dialog_Editor
                 DialogResponse r = (DialogResponse)treeListView.SelectedObject;
                 r.response = e.Label;
             }
+
+            if (!changesMade)
+                this.Text = this.Text + "*";
+            changesMade = true;
         }
 
         private void cellEditStarting(object sender, CellEditEventArgs e)
@@ -554,7 +556,7 @@ namespace Dialog_Editor
                 r.link = (String)((ComboBox)e.Control).SelectedItem;
                 if (r.link.Equals("End conversation"))
                     r.linkType = ResponseLinkType.endConversation;
-                else
+                else if (!r.link.Equals("End & switch conversation"))
                     r.linkType = ResponseLinkType.dialogNode;
 
                 treeListView.RefreshObject(r);
