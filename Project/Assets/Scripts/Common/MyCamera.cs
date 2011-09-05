@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class MyCamera : MonoBehaviour 
-{	
+{
+    public bool controllingEnabled = true;
 	public static MyCamera instance;
 	public Transform TargetLookAt = null;
 	public static bool DEBUG = false;
 	
 	public float Distance = 50f;
-	public float MinDistance = 24f;
+	public float MinDistance = 12f;
 	public float MaxDistance = 80f;
 	
 	public float DistanceSmooth = 0.05f;
@@ -35,7 +36,7 @@ public class MyCamera : MonoBehaviour
 	private float velZ = 0f;
 	private Vector3 position = Vector3.zero;
 	private HashSet<Renderer> hits;
-	
+
 	void Awake()
 	{
 		instance = this;
@@ -53,13 +54,12 @@ public class MyCamera : MonoBehaviour
 	{
 		if (TargetLookAt == null)
 			return;
-		
+        if (!controllingEnabled)
+            return;
 		handlePlayerInput();
 		calcDesiredPosition();
 		
-		//nuo čia
 		checkIfOccluded();
-		//iki čia
 		updatePosition();
 	}
 	
@@ -107,7 +107,7 @@ public class MyCamera : MonoBehaviour
 		
 		return targetPosition + rotation * direction;
 	}
-	//nuo cia
+
 	void checkIfOccluded()
 	{
 		List<Renderer> localHits = checkCameraPoints();
@@ -150,36 +150,44 @@ public class MyCamera : MonoBehaviour
 		}
 		direction = (TargetLookAt.position - transform.position).normalized;
 		distance = Vector3.Distance(transform.position, TargetLookAt.position);
-		
-		tempHits = Physics.RaycastAll(transform.position, direction, distance);
+        LayerMask mask = 1 << LayerMask.NameToLayer("NPC");
+        mask |= 1 << LayerMask.NameToLayer("Ignore Raycast");
+        mask = ~mask;
+
+		tempHits = Physics.RaycastAll(transform.position, direction, distance, 
+            mask);
 		foreach (RaycastHit hit in tempHits)
 			raycastHits.Add(hit);
 		
 		direction = (clipPlanePoints.UpperLeft - transform.position).normalized;
 		distance = Vector3.Distance(transform.position, clipPlanePoints.UpperLeft);
-		
-		tempHits = Physics.RaycastAll(transform.position, direction, distance);
+
+        tempHits = Physics.RaycastAll(transform.position, direction, distance,
+            mask);
 		foreach (RaycastHit hit in tempHits)
 			raycastHits.Add(hit);
 		
 		direction = (clipPlanePoints.UpperRight - transform.position).normalized;
 		distance = Vector3.Distance(transform.position, clipPlanePoints.UpperRight);
-		
-		tempHits = Physics.RaycastAll(transform.position, direction, distance);
+
+        tempHits = Physics.RaycastAll(transform.position, direction, distance,
+            mask);
 		foreach (RaycastHit hit in tempHits)
 			raycastHits.Add(hit);
 		
 		direction = (clipPlanePoints.LowerLeft - transform.position).normalized;
 		distance = Vector3.Distance(transform.position, clipPlanePoints.LowerLeft);
-		
-		tempHits = Physics.RaycastAll(transform.position, direction, distance);
+
+        tempHits = Physics.RaycastAll(transform.position, direction, distance,
+            mask);
 		foreach (RaycastHit hit in tempHits)
 			raycastHits.Add(hit);
 		
 		direction = (clipPlanePoints.LowerRight - transform.position).normalized;
 		distance = Vector3.Distance(transform.position, clipPlanePoints.LowerRight);
-		
-		tempHits = Physics.RaycastAll(transform.position, direction, distance);
+
+        tempHits = Physics.RaycastAll(transform.position, direction, distance,
+            mask);
 		foreach (RaycastHit hit in tempHits)
 			raycastHits.Add(hit);
 		
@@ -227,7 +235,6 @@ public class MyCamera : MonoBehaviour
 		}
 	}
 	
-	//iki cia
 	void updatePosition()
 	{
 		float posX = Mathf.SmoothDamp(position.x, 
@@ -237,7 +244,7 @@ public class MyCamera : MonoBehaviour
 		float posZ = Mathf.SmoothDamp(position.z, 
 		                              desiredPosition.z, ref velZ, smoothX);
 		position = new Vector3(posX, posY, posZ);
-		
+
 		transform.position = position;
 		Vector3 targetPosition = new Vector3(TargetLookAt.position.x,
 		                                     TargetLookAt.position.y + 4f,
@@ -267,7 +274,7 @@ public class MyCamera : MonoBehaviour
 		
 		return Mathf.Clamp(myAngle, min, max);
 	}
-	//toliau viskas nauja
+
 	struct ClipPlanePoints
 	{
 		public Vector3 UpperLeft;
