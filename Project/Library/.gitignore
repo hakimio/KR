@@ -15,3 +15,6 @@
 /expandedItems
 /guidmapper
 /EditorUserBuildSettings.asset
+/.gitignore
+/AssetVersioning.db
+/assetservercachev3
