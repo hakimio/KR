@@ -48,11 +48,10 @@ public static class Helper
                         curWidth = style.CalcSize(new GUIContent(line + 
                            " " + words[i+1])).x;
                     
-                    if (j + 1 == nrOfLines && i + 2 < words.Length)
+                    if (j + 1 == nrOfLines && i + 1 < words.Length)
                     {
                         float nextWidth = curWidth + style.
-                            CalcSize(new GUIContent(" " + words[i + 2] + 
-                                " »")).x;
+                            CalcSize(new GUIContent(" »")).x;
 
                         if (nextWidth > width)
                         {
