@@ -20,6 +20,6 @@ public class MainMenu : MonoBehaviour {
 		if (isExitButton)
 			Application.Quit();
 		else
-			Application.LoadLevel(1);
+			Application.LoadLevel("charSelector");
 	}
 }
