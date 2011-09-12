@@ -36,9 +36,9 @@ public class CharCreator : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		GameObject pc = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-		pc.name = "Player Character";
-		myChar = pc.GetComponent<BaseChar>();
+		//GameObject pc = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+		//pc.name = "Player Character";
+		myChar = new BaseChar();
 		
 		attrDescriptions = new string[Enum.GetValues(typeof(AttrNames)).Length];
 		attrDescriptions[(int)AttrNames.Strength] = "Raw physical strength. A high"+
@@ -47,17 +47,17 @@ public class CharCreator : MonoBehaviour
 		attrDescriptions[(int)AttrNames.Dexterity] = "Dexterity measures hand-eye"+
 			" coordination, agility, reflexes, and balance. This ability is "+
 			"important for characters who typically wear light or medium armor.";
-		attrDescriptions[(int)AttrNames.Constitution] = "Constitution represents "+
+		attrDescriptions[(int)AttrNames.Vitality] = "Constitution represents "+
 			"your character's health and stamina.";
 		attrDescriptions[(int)AttrNames.Technique] = "Technique determines resistance,"+
 			" mana and the amount of damage done by magical attacks.";
 		attr2Descriptions = new string[Enum.GetValues(typeof(SecondaryAttrNames)).Length];
-		attr2Descriptions[(int)SecondaryAttrNames.AC] = "Armor class modifies the chance"+
+		attr2Descriptions[(int)SecondaryAttrNames.Defense] = "Armor class modifies the chance"+
 			" to hit this character.";
-		attr2Descriptions[(int)SecondaryAttrNames.HP] = "Hit points determine how much "+
+		attr2Descriptions[(int)SecondaryAttrNames.Hit_Points] = "Hit points determine how much "+
 			"damage your character can take before dying. If you reach 0 HP or less, you"+
 			" are dead.";
-		attr2Descriptions[(int)SecondaryAttrNames.TP] = "Technique points determine how "+
+		attr2Descriptions[(int)SecondaryAttrNames.Technique_Points] = "Technique points determine how "+
 			"often character will be able to use his special techniques.";
 		
 		disciplineToggles = new bool[myChar.Archetype.getDisciplines().Length];
@@ -396,7 +396,7 @@ public class CharCreator : MonoBehaviour
 			
 			GameObject gs = GameObject.Find("Game Settings");
 			GameSettings gsClass = gs.GetComponent<GameSettings>();
-			gsClass.saveChar();
+			gsClass.saveChar(myChar);
 			Application.LoadLevel("Level1");
 		}
 		
