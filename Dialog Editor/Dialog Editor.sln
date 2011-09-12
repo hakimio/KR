@@ -2,8 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dialog Editor", "Dialog Editor\Dialog Editor.csproj", "{6DF7C8DB-68A7-420B-BA4E-8EDA7D061C40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18FEDA0C-D147-4286-B39A-01204808106A} = {18FEDA0C-D147-4286-B39A-01204808106A}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2010", "..\..\Dialog editor\ObjectListViewDemo\ObjectListView\ObjectListView2010.csproj", "{18FEDA0C-D147-4286-B39A-01204808106A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2010", "ObjectListView\ObjectListView2010.csproj", "{18FEDA0C-D147-4286-B39A-01204808106A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

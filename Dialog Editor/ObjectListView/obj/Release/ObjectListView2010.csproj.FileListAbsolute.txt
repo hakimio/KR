@@ -1,0 +1,9 @@
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\bin\Release\ObjectListView.dll
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\bin\Release\ObjectListView.pdb
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\ResolveAssemblyReference.cache
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\BrightIdeasSoftware.Properties.Resources.resources
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\BrightIdeasSoftware.ColumnSelectionForm.resources
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\GenerateResource-ResGen.read.1.tlog
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\GenerateResource-ResGen.write.1.tlog
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\ObjectListView.dll
+E:\Kalos Reclamation\Dialog Editor\ObjectListView\obj\Release\ObjectListView.pdb
