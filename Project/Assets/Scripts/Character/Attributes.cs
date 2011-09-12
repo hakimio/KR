@@ -3,6 +3,7 @@ public enum AttrNames
 {
 	Strength,
 	Dexterity,
-	Constitution,
-	Technique
+    Vitality,
+    Soulpower,
+    Technique
 }

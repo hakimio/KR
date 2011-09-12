@@ -1,6 +1,11 @@
 public enum SecondaryAttrNames
 {
-	AC, //armor class
-	HP, //hit points
-	TP  //technique points
+    Hit_Points,
+    Technique_Points,
+    Defense,
+    Melee_Attack,
+    Ranged_Attack,
+    Damage_Resistance,
+    Magic_Resistance,
+    Movement_speed
 }

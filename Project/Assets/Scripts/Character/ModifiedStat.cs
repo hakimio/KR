@@ -1,31 +1,22 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 //Antrinių atributų klasė
 public class ModifiedStat: BaseStat
 {
 	//Pirminių atributų sąrašėlis, nuo kurių priklauso šio atributo vertė
-	private BaseStat modifyingAttr;
-	//ar vertė priklauso nuo lygio
-	public bool changesAfterLevelUp;
-	private BaseChar myChar;
-	//added after leveling up
-	public int levelBonus;
+	private List<ModAttribute> modifyingAttributes;
+    private BaseChar myChar;
 	
-	public ModifiedStat(string name, BaseChar myChar): base(name)
-	{
-		changesAfterLevelUp = true;
-		this.myChar = myChar;
-	}
+	public ModifiedStat(string name, BaseChar character): base(name) 
+    {
+        myChar = character;
+        modifyingAttributes = new List<ModAttribute>();
+    }
 
 	public static int calcModValue(int attrValue)
 	{
-		/*double mod;
-		
-		if (attrValue%2 == 0)
-			attrValue++;
-		mod = ((attrValue - 13) / 2) + 1;*/
-				
 		return (int)Math.Floor((double)((attrValue - 10) / 2));
 	}
 	
@@ -33,19 +24,39 @@ public class ModifiedStat: BaseStat
 	{
 		get
 		{
-			int statValue = baseValue + gainedValue;
-			int mod = calcModValue(modifyingAttr.Value);
-			statValue += mod;
-			
-			if (changesAfterLevelUp)
-				statValue += (myChar.level - 1) * (levelBonus + mod);
-			return statValue;
+			float statValue = baseValue + gainedValue;
+
+            foreach (ModAttribute modAttr in modifyingAttributes)
+                statValue += myChar.getAttr((int)modAttr.attrName).Value * 
+                    modAttr.modifier;
+            
+            //if ((int)statValue%2 == 0)
+            //    statValue += 0.1f;
+
+            //statValue = (float)Math.Round(statValue);
+			return (int)statValue;
 		}
 	}
+
+    public void addModifyingAttributes(ModAttribute[] modAttributes)
+    {
+        modifyingAttributes.AddRange(modAttributes);
+    }
 	
-	//Metodas, kurio pagalba nurodom modifikuojantį atributą
-	public void setModifyingAttr(BaseStat attr)
+	public void addModifyingAttribute(ModAttribute modAttribute)
 	{
-		modifyingAttr = attr;
+        modifyingAttributes.Add(modAttribute);
 	}
+}
+
+public struct ModAttribute
+{
+    public AttrNames attrName;
+    public float modifier;
+
+    public ModAttribute(AttrNames attrName, float modifier)
+    {
+        this.attrName = attrName;
+        this.modifier = modifier;
+    }
 }

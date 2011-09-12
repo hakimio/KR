@@ -3,7 +3,7 @@ using System;
 //Šioje klasėje susidėsim mūsų archetipus
 public static class Archetypes
 {
-	public static Archetype Stormer = new Archetype("Stormer",		 "Relentless "+
+	public static Archetype Stormer = new Archetype("Stormer", "Relentless "+
 	"frontline breaker, who's shotgun blasts through clusters of enemy cannon"+
 	" fooder, and heavy hammer crushes head of any would-be hero, who dares to"+
 	" stand in his way.\nStormer is tough combatant, who's slow movement is "+
