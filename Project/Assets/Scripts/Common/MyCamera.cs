@@ -54,8 +54,6 @@ public class MyCamera : MonoBehaviour
 	{
 		if (TargetLookAt == null)
 			return;
-        if (!controllingEnabled)
-            return;
 		handlePlayerInput();
 		calcDesiredPosition();
 		
@@ -65,6 +63,8 @@ public class MyCamera : MonoBehaviour
 	
 	void handlePlayerInput()
 	{
+        if (!controllingEnabled)
+            return;
 		if (Input.GetKey(KeyCode.LeftControl))
 		{
 			mouseX += Input.GetAxis("Mouse X") * mouseSensitivityX;
