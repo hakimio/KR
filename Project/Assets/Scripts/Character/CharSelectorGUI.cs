@@ -17,7 +17,6 @@ public class CharSelectorGUI: MonoBehaviour
     public GUISkin mySkin;
     public GUIStyle descriptionstyle;
     public GUIStyle titleStyle;
-    public Texture[] charPics;
 
     void Start()
     {
@@ -47,8 +46,8 @@ public class CharSelectorGUI: MonoBehaviour
     void showPics()
     {
         GUI.DrawTexture(new Rect(Screen.width / 2 - 320 + OFFSET, Screen.height 
-            / 2 - 260 + 2 * OFFSET, 230, 250), charPics[selectedChar],
-            ScaleMode.ScaleToFit, true, 0.9f);
+            / 2 - 260 + 2 * OFFSET, 230, 250), characters[selectedChar].Image,
+            ScaleMode.ScaleToFit, true);
     }
 
     void showBasics()

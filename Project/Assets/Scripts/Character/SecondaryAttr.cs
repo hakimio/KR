@@ -7,5 +7,5 @@ public enum SecondaryAttrNames
     Ranged_Attack,
     Damage_Resistance,
     Magic_Resistance,
-    Movement_speed
+    Movement_Speed
 }

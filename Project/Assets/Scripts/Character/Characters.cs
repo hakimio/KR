@@ -3,7 +3,11 @@ using System;
 public static class Characters
 {
     public static BaseChar EricFrost = new BaseChar("Eric Frost", 1, 0, 
-        setupEricsStat(), Archetypes.Stormer);
+        setupEricsStat(), Archetypes.Stormer, 
+        Helper.getImage("character pics/stormer"), setupEricsItems());
+    public static BaseChar FrostEric = new BaseChar("Frost Eric", 1, 0,
+        setupEricsStat(), Archetypes.Stormer,
+        Helper.getImage("character pics/stormer"), setupEricsItems());
 
     private static BaseStat[] setupEricsStat()
     {
@@ -20,5 +24,15 @@ public static class Characters
         attr[(int)AttrNames.Technique].baseValue = 10;
 
         return attr;
+    }
+
+    private static Item[] setupEricsItems()
+    {
+        Item[] items = new Item[] {Items.MarineArmor, Items.RangerArmor,
+            Items.MedicKit, Items.Pistol1, Items.BladeStaff, 
+            Items.CombatKnife, Items.FlameThrower, Items.LaserCarbine,
+            Items.PlasmaRifle};
+
+        return items;
     }
 }

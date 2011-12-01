@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using System.Collections.Generic;
 
 //Base Character. Iš šios klasės pasidarysim savo standartinius veikėjus.
 public class BaseChar
@@ -11,6 +13,8 @@ public class BaseChar
         exp = 0;
         weight = 70;
         height = 180;
+        image = new Texture2D(0, 0);
+        Items = new Inventory(new Item[0]);
 
         attributes = new BaseStat[Enum.GetValues(typeof(AttrNames)).Length];
         secondaryAttr = new ModifiedStat[Enum.
@@ -24,13 +28,15 @@ public class BaseChar
         setupModifiers();
     }
 
-    public BaseChar(string charName, int level, int exp, Archetype archetype): 
+    public BaseChar(string charName, int level, int exp, Archetype archetype,
+        Texture2D image): 
         this()
     {
         this.charName = charName;
         this.level = level;
         this.exp = exp;
         this.archetype = archetype;
+        this.image = image;
 
         attributes = new BaseStat[Enum.GetValues(typeof(AttrNames)).Length];
         secondaryAttr = new ModifiedStat[Enum.
@@ -49,11 +55,19 @@ public class BaseChar
     }
 
     public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
-        Archetype archetype) : this(charName, level, exp, archetype)
+        Archetype archetype, Texture2D image)
+        : this(charName, level, exp, archetype, image)
     {
         this.attributes = attributes;
         setAttributeDescriptions();
         setSecondaryAttributeDescriptions();
+    }
+
+    public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
+        Archetype archetype, Texture2D image, Item[] items): this(charName, 
+        level, exp, attributes, archetype, image)
+    {
+        this.Items = new Inventory(items);
     }
 
 	//negalėjau naudot tiesiog name, nes MonoBehaviour klasėje name jau yra
@@ -62,12 +76,20 @@ public class BaseChar
 	private int exp;
 	public int weight;
 	public int height;
+    private Texture2D image;
 	//pirminiai atributai
 	private BaseStat[] attributes;
 	//HP, AC, TP
 	private ModifiedStat[] secondaryAttr;
 	private Archetype archetype;
-	
+    public Inventory Items;
+    private int lostHitPoints = 0;
+
+    public Texture2D Image
+    {
+        get { return image; }
+    }
+
 	public int Exp
 	{
 		get {return exp;}
@@ -84,7 +106,41 @@ public class BaseChar
 	{
 		//TODO
 	}
-		
+	
+    public int CurrentHP
+    {
+        get
+        {
+            return secondaryAttr[(int)SecondaryAttrNames.Hit_Points].Value 
+                - lostHitPoints;
+        }
+    }
+
+    public int LostHP
+    {
+        get
+        {
+            return lostHitPoints;
+        }
+        set
+        {
+            lostHitPoints += value;
+            if (lostHitPoints < 0)
+            {
+                lostHitPoints = 0;
+            }
+        }
+    }
+
+	public int nextLevelExp
+    {
+        get
+        {
+            //TODO: change to proper formula
+            return 220;
+        }
+    }
+
 	public Archetype Archetype
 	{
 		get {return archetype; }
@@ -122,6 +178,16 @@ public class BaseChar
 		return attributes[index];
 	}
 	
+    public BaseStat[] getAttributes()
+    {
+        return attributes;
+    }
+
+    public ModifiedStat[] getSecondaryAttributes()
+    {
+        return secondaryAttr;
+    }
+
 	public ModifiedStat getSecondaryAttr(int index)
 	{
 		return secondaryAttr[index];
@@ -172,9 +238,32 @@ public class BaseChar
         mod = new ModAttribute(AttrNames.Vitality, 0.5f);
         modStat.addModifyingAttribute(mod);
         //Movement speed = 4 + dexterity * 0.04;
-        modStat = getSecondaryAttr((int)SecondaryAttrNames.Movement_speed);
+        modStat = getSecondaryAttr((int)SecondaryAttrNames.Movement_Speed);
         modStat.baseValue = 4;
         mod = new ModAttribute(AttrNames.Dexterity, 0.04f);
         modStat.addModifyingAttribute(mod);
 	}
+}
+
+public struct Inventory
+{
+    public List<Item> Bag;
+    public Item Slot1, Slot2, Armor;
+
+    public Inventory(Item[] itemsInBag): this()
+    {
+        Bag = new List<Item>();
+        Slot1 = null;
+        Slot2 = null;
+        Armor = null;
+        Bag.AddRange(itemsInBag);
+    }
+
+    public Inventory(Item[] itemsInBag, Item slot1, Item slot2, Item armor)
+        : this(itemsInBag)
+    {
+        this.Slot1 = slot1;
+        this.Slot2 = slot2;
+        this.Armor = armor;
+    }
 }
