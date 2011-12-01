@@ -17,12 +17,15 @@ public class Clicker : MonoBehaviour {
 	
 	//Or use an array of units
 	public Seeker[] units;
+    public static Clicker instance = null;
 
     public bool hitNPC = false;
+    public bool hitBox = false;
     public string npcName = "";
+    public string boxName = "";
     public bool movementEnabled = true;
-	
-	RaycastHit hit;//, otherHits;
+    public GameObject hitGO = null;
+	RaycastHit hit;
 	
 	public LayerMask mask;
 	
@@ -31,6 +34,11 @@ public class Clicker : MonoBehaviour {
 	
 	//If true, the target will be moved every frame instead of on every click, paths will not be calculated on click
 	public bool continuous = false;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -58,31 +66,50 @@ public class Clicker : MonoBehaviour {
         if (!movementEnabled)
             return;
 
-		if (Input.GetKeyDown ("mouse 0") || continuous) {
+		if (Input.GetKeyDown ("mouse 0") || continuous) 
+        {
+            Rect HUDrect = new Rect(Screen.width / 2 - 62, 0, 253, 30);
+            if (HUDrect.Contains(Input.mousePosition))
+                return;
+
 			Ray ray = camera.ScreenPointToRay (Input.mousePosition);
 
             if (Physics.Raycast(ray, out hit,1000F, mask))
-            {	
+            {
 				target.position = hit.point;
 
-                if (hit.collider.tag.Equals("NPC"))
+                string tag = hit.collider.tag;
+                if (tag.Equals("NPC") || tag.Equals("Box"))
                 {
-                    hitNPC = true;
-                    GameObject npcGO = hit.collider.gameObject;
-                    NPC npc = npcGO.GetComponent<NPC>();
+                    hitGO = hit.collider.gameObject;
+
                     GameObject pcGO = GameObject.Find("Player Character");
                     Vector3 pcPosition = pcGO.transform.position;
-                    Vector3 npcPosition = npcGO.transform.position;
-                    npcName = npc.npcName;
-                    //Vector3 npcPosition = npcGO.transform.position;
-                    Transform npcTransform = npcGO.transform;
-                    if (Vector3.Distance(pcPosition, npcPosition) > 6.5f)
-                        target.position = npcPosition + npcTransform.forward * 3;
+                    Vector3 hitPosition = hitGO.transform.position;
+                    if (tag.Equals("NPC"))
+                    {
+                        hitNPC = true;
+                        NPC npc = hitGO.GetComponent<NPC>();
+                        npcName = npc.npcName;
+                    }
+                    else
+                    {
+                        hitBox = true;
+                        boxName = hitGO.name;
+                    }
+
+                    Transform hitTransform = hitGO.transform;
+                    if (Vector3.Distance(pcPosition, hitPosition) > 6.5f
+                        || tag.Equals("Box"))
+                        target.position = hitPosition + 3*hitTransform.forward;
                     else
                         return;
                 }
                 else
+                {
                     hitNPC = false;
+                    hitBox = false;
+                }
 
 				if (!continuous) {
 					//Start a path from the unit(s) to the target position
