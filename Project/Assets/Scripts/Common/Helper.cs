@@ -5,7 +5,7 @@ using System.Collections;
 
 public static class Helper
 {
-    public static string[] cutPhrase(float availableSpace, float width, 
+    public static string[] cutPhrase(float height, float width,
         string wholePhrase, GUIStyle style)
     {
         List<string> pieces = new List<string>();
@@ -14,9 +14,9 @@ public static class Helper
 
         float lineHeight = style.CalcSize(new GUIContent(words[0])).y;
         lineHeight -= 2 * style.padding.top;
-        int nrOfLines = (int)(availableSpace / lineHeight);
+        int nrOfLines = (int)(height / lineHeight);
         float curWidth;
-        String piece = ""; 
+        String piece = "";
         String line = "";
         int i = 0;
 
@@ -31,7 +31,7 @@ public static class Helper
                 curWidth = 0;
                 while (curWidth < width && i < words.Length)
                 {
-                    if (!line.Equals("") && line[line.Length-1] != '\n')
+                    if (!line.Equals("") && line[line.Length - 1] != '\n')
                         line += " " + words[i];
                     else
                         line += words[i];
@@ -45,9 +45,9 @@ public static class Helper
                     else if (words[i].IndexOf('\n') > -1)
                         j++;
                     if (i + 1 < words.Length)
-                        curWidth = style.CalcSize(new GUIContent(line + 
-                           " " + words[i+1])).x;
-                    
+                        curWidth = style.CalcSize(new GUIContent(line +
+                           " " + words[i + 1])).x;
+
                     if (j + 1 == nrOfLines && i + 1 < words.Length)
                     {
                         float nextWidth = curWidth + style.
@@ -83,7 +83,7 @@ public static class Helper
         return pieces.ToArray();
     }
 
-    public static IEnumerator transitionCamera(Transform target, 
+    public static IEnumerator transitionCamera(Transform target,
         bool cameraControlEnabled, string npcName)
     {
         float transitionDuration = 2.1f;
@@ -100,12 +100,18 @@ public static class Helper
             transform.rotation = Quaternion.Slerp(rotation, target.rotation, t);
             if (transform.position == target.position && cameraControlEnabled)
             {
-                MyCamera.instance.controllingEnabled = true;
+                MyCamera.instance.enabled = true;
+                HUD.instance.enabled = true;
                 Messenger<bool>.Broadcast("enable movement", true);
             }
             else if (transform.position == target.position)
                 Messenger<string>.Broadcast("show conversation", npcName);
             yield return 0;
         }
+    }
+
+    public static Texture2D getImage(string name)
+    {
+        return (Texture2D)Resources.Load(name, typeof(Texture2D));
     }
 }
