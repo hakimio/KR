@@ -75,8 +75,8 @@ public class DialogTemplate : MonoBehaviour
         Messenger<bool>.Broadcast("enable phrases", false);
         cameraPosition = MyCamera.instance.transform.position;
         cameraRotation = MyCamera.instance.transform.rotation;
-        MyCamera.instance.controllingEnabled = false;
-
+        MyCamera.instance.enabled = false;
+        HUD.instance.enabled = false;
         GameObject go = GameObject.Find(npcName + "'s Camera");
         StartCoroutine(Helper.transitionCamera(go.transform, false, npcName));
 
