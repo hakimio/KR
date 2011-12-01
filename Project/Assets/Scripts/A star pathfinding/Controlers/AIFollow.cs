@@ -91,13 +91,14 @@ public class AIFollow : MonoBehaviour {
 
     private void checkForNPCs()
     {
+        if (!clicker.hitNPC)
+            return;
         foreach (GameObject npcGO in NPCs)
         {
             Vector3 npcPos = npcGO.transform.position;
             float distance = Vector3.Distance(npcPos, PC.position);
             string npcName = npcGO.GetComponent<NPC>().npcName;
-            if (clicker.hitNPC && clicker.npcName.Equals(npcName)
-                && distance < speakingDistance)
+            if (clicker.npcName.Equals(npcName) && distance < speakingDistance)
             {
                 Messenger<string>.Broadcast("dialog starting", npcName);
                 clicker.hitNPC = false;
@@ -121,6 +122,16 @@ public class AIFollow : MonoBehaviour {
 		return curpoint >= points.Length;
 	}
 	
+    private void lookAtBox()
+    {
+        if (!clicker.hitBox)
+            return;
+        GameObject pcGO = GameObject.Find("Player Character");
+        Vector3 target = clicker.hitGO.transform.position;
+        target.y = pcGO.transform.position.y;
+        pcGO.transform.LookAt(target);
+        Messenger<string>.Broadcast("toggleBoxVisibility", clicker.boxName);
+    }
 	public void FindPoint (int cpoint) {
 		curpoint = cpoint;
         
@@ -128,6 +139,7 @@ public class AIFollow : MonoBehaviour {
 			waypointPosition = transform.position;
 			Stop ();
             checkForNPCs();
+            lookAtBox();
 			return;
 		}
 
@@ -135,6 +147,7 @@ public class AIFollow : MonoBehaviour {
 			waypointPosition = points[0];
 			command = Command.Walk;
             checkForNPCs();
+            lookAtBox();
 			return;
 		}
 		
