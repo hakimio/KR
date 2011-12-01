@@ -11,6 +11,8 @@ public class GameMaster : MonoBehaviour
     public List<Conversation> dialogs;
     public List<Message> messages;
     public static GameMaster instance;
+    public List<BaseChar> characters;
+    public int selectedChar = 0;
 
 	private GameObject pc;
 	//private BaseChar charClass;
@@ -22,6 +24,9 @@ public class GameMaster : MonoBehaviour
         loadMessages();
 		MyCamera.acquireCamera();
         instantiatePC();
+        characters = new List<BaseChar>();
+        characters.Add(Characters.EricFrost);
+        characters.Add(Characters.FrostEric);
         Messenger.AddListener("MessageBox Ready", showIntroMessage);
 	}
 
@@ -90,7 +95,7 @@ public class GameMaster : MonoBehaviour
 
 	void Start ()
 	{
-		loadChar();
+		//loadChar();
 	}
 	
 	// Update is called once per frame
