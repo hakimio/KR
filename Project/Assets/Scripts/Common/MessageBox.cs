@@ -47,6 +47,7 @@ public class MessageBox: MonoBehaviour
             {
                 messageEnabled = false;
                 Messenger<bool>.Broadcast("enable movement", true);
+                MyCamera.instance.controllingEnabled = true;
             }
         }
     }
@@ -56,6 +57,7 @@ public class MessageBox: MonoBehaviour
         cutMessage = Helper.cutPhrase(maxHeight, maxWidth, message, style);
         curPiece = 0;
         Messenger<bool>.Broadcast("enable movement", false);
+        MyCamera.instance.controllingEnabled = false;
         messageEnabled = true;
     }
 }
