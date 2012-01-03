@@ -32,29 +32,19 @@ public class GameSettings: MonoBehaviour
         PlayerPrefs.SetInt("Weight", bcClass.weight);
         PlayerPrefs.SetInt("Height", bcClass.height);
 
-        PlayerPrefs.SetString("Archetype", bcClass.Archetype.getName());
+        PlayerPrefs.SetString("Class", bcClass.CharClass.Name);
 
         for (int i = 0; i < Enum.GetValues(typeof(AttrNames)).Length; i++)
             PlayerPrefs.SetInt((AttrNames)i + " Base Value",
                                bcClass.getAttr(i).baseValue);
-        string disciplineNames = "";
+        string skills = "";
 
-        Archetype archetype = bcClass.Archetype;
-        for (int i = 0; i < archetype.getDisciplines().Length; i++)
-            if (archetype.getDiscipline(i).known)
-                disciplineNames += archetype.getDiscipline(i).getName() + "|";
+        Class charClass = bcClass.CharClass;
+        foreach (Skill skill in charClass.SkillTree.Skills.Values)
+            if (skill.Known)
+                skills += skill.Name + "|";
 
-        PlayerPrefs.SetString("Disciplines", disciplineNames);
-
-        Discipline[] disciplines = archetype.getDisciplines();
-        string featNames = "";
-
-        for (int i = 0; i < disciplines.Length; i++)
-            for (int j = 0; j < disciplines[i].getFeats().Length; j++)
-                if (disciplines[i].getFeat(j).known)
-                    featNames += disciplines[i].getFeat(j).getName() + "|";
-
-        PlayerPrefs.SetString("Feats", featNames);
+        PlayerPrefs.SetString("Skills", skills);
     }
     public BaseChar loadChar()
     {
@@ -71,27 +61,11 @@ public class GameSettings: MonoBehaviour
             bcClass.getAttr(i).baseValue = PlayerPrefs.
                 GetInt((AttrNames)i + " Base Value");
 
-        String[] disciplineNames = PlayerPrefs.GetString("Disciplines").Split('|');
-        String[] featNames = PlayerPrefs.GetString("Feats").Split('|');
-        Discipline[] disciplines = bcClass.Archetype.getDisciplines();
+        string[] skills = PlayerPrefs.GetString("Skills").Split('|');
+        SkillTree skillTree = bcClass.CharClass.SkillTree;
 
-        int j = 0;
-        int k = 0;
-        for (int i = 0; i < disciplines.Length; i++)
-            if (disciplines[i].getName().Equals(disciplineNames[j]))
-            {
-                disciplines[i].known = true;
-                for (int l = 0; l < disciplines[i].getFeats().Length; l++)
-                {
-                    Feat feat = disciplines[i].getFeat(l);
-                    if (feat.getName().Equals(featNames[k]))
-                    {
-                        feat.known = true;
-                        k++;
-                    }
-                }
-                j++;
-            }
+        foreach (string skill in skills)
+            skillTree.Skills[skill].Known = true;
 
         return bcClass;
     }

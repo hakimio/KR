@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class CharCreator : MonoBehaviour 
 {
-	private BaseChar myChar;
+	/*private BaseChar myChar;
 	
 	private const int POINTS = 25;
 	private const int MIN_ATTR_VALUE = 8;
@@ -416,5 +416,5 @@ public class CharCreator : MonoBehaviour
 		
 		return num;
 	}
-	
+	*/
 }

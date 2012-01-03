@@ -35,6 +35,8 @@ public class CharacterScreen: MonoBehaviour
 
         if (InventoryGUI.instance.Visible)
             Messenger.Broadcast("toggleInventoryVisibility");
+        if (SkillTreeGUI.instance.Visible)
+            Messenger.Broadcast("toggleSkillTreeVisibility");
 
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
@@ -83,7 +85,7 @@ public class CharacterScreen: MonoBehaviour
         skin.label.fontStyle = FontStyle.Bold;
         GUI.Label(new Rect(98, 19, 150, 20), selectedChar.charName);
         GUI.Label(new Rect(98, 39, 150, 20),
-            "Class: " + selectedChar.Archetype.getName());
+            "Class: " + selectedChar.CharClass.Name);
         GUI.Label(new Rect(98, 59, 150, 20), "Level: " + selectedChar.level);
         skin.label.fontStyle = FontStyle.Normal;
 

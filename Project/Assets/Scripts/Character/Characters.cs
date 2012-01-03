@@ -3,10 +3,10 @@ using System;
 public static class Characters
 {
     public static BaseChar EricFrost = new BaseChar("Eric Frost", 1, 0, 
-        setupEricsStat(), Archetypes.Stormer, 
+        setupEricsStat(), Classes.Stormer, 
         Helper.getImage("character pics/stormer"), setupEricsItems());
     public static BaseChar FrostEric = new BaseChar("Frost Eric", 1, 0,
-        setupEricsStat(), Archetypes.Stormer,
+        setupEricsStat(), Classes.Stormer,
         Helper.getImage("character pics/stormer"), setupEricsItems());
 
     private static BaseStat[] setupEricsStat()

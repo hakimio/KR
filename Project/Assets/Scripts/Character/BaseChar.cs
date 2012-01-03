@@ -8,7 +8,7 @@ public class BaseChar
     public BaseChar()
     {
         charName = "Joe Doe";
-        archetype = Archetypes.Stormer;
+        charClass = Classes.Stormer;
         level = 1;
         exp = 0;
         weight = 70;
@@ -28,14 +28,13 @@ public class BaseChar
         setupModifiers();
     }
 
-    public BaseChar(string charName, int level, int exp, Archetype archetype,
-        Texture2D image): 
-        this()
+    public BaseChar(string charName, int level, int exp, Class charClass, 
+        Texture2D image): this()
     {
         this.charName = charName;
         this.level = level;
         this.exp = exp;
-        this.archetype = archetype;
+        this.charClass = charClass;
         this.image = image;
 
         attributes = new BaseStat[Enum.GetValues(typeof(AttrNames)).Length];
@@ -55,8 +54,8 @@ public class BaseChar
     }
 
     public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
-        Archetype archetype, Texture2D image)
-        : this(charName, level, exp, archetype, image)
+        Class charClass, Texture2D image): this(charName, level, exp, 
+        charClass, image)
     {
         this.attributes = attributes;
         setAttributeDescriptions();
@@ -64,8 +63,8 @@ public class BaseChar
     }
 
     public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
-        Archetype archetype, Texture2D image, Item[] items): this(charName, 
-        level, exp, attributes, archetype, image)
+        Class charClass, Texture2D image, Item[] items): this(charName, level, 
+        exp, attributes, charClass, image)
     {
         this.Items = new Inventory(items);
     }
@@ -81,7 +80,7 @@ public class BaseChar
 	private BaseStat[] attributes;
 	//HP, AC, TP
 	private ModifiedStat[] secondaryAttr;
-	private Archetype archetype;
+    private Class charClass;
     public Inventory Items;
     private int lostHitPoints = 0;
 
@@ -141,11 +140,10 @@ public class BaseChar
         }
     }
 
-	public Archetype Archetype
-	{
-		get {return archetype; }
-		set {archetype = value; }
-	}
+	public Class CharClass
+    {
+        get { return charClass; }
+    }
 
     private void setAttributeDescriptions()
     {

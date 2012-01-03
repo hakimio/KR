@@ -57,8 +57,8 @@ public class CharSelectorGUI: MonoBehaviour
         GUI.Label(new Rect(OFFSET, 0, 150, LINE_HEIGHT),
             characters[selectedChar].charName);
         GUIContent content = new GUIContent("Class: " +
-            characters[selectedChar].Archetype.getName(), 
-            characters[selectedChar].Archetype.getDescription());
+            characters[selectedChar].CharClass.Name, 
+            characters[selectedChar].CharClass.Description);
         GUI.Label(new Rect(OFFSET, LINE_HEIGHT, 150, LINE_HEIGHT), content);
         GUI.EndGroup();
     }
