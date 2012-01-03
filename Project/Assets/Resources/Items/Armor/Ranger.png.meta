@@ -22,7 +22,7 @@ TextureImporter:
     bumpyness: 0.25
     filter: 0
   textureSettings:
-    filterMode: -1
-    anisoLevel: -1
+    filterMode: 0
+    anisoLevel: 1
     mipmapBias: -1
     wrapMode: 1
