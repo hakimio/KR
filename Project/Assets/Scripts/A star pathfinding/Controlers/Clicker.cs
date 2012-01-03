@@ -68,7 +68,7 @@ public class Clicker : MonoBehaviour {
 
 		if (Input.GetKeyDown ("mouse 0") || continuous) 
         {
-            Rect HUDrect = new Rect(Screen.width / 2 - 62, 0, 253, 30);
+            Rect HUDrect = new Rect(Screen.width / 2 - 191, 0, 382, 30);
             if (HUDrect.Contains(Input.mousePosition))
                 return;
 
