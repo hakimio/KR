@@ -67,6 +67,9 @@ public class InventoryGUI: MonoBehaviour
 
         if (CharacterScreen.instance.Visible)
             Messenger.Broadcast("toggleCharScreenVisibility");
+        if (SkillTreeGUI.instance.Visible)
+            Messenger.Broadcast("toggleSkillTreeVisibility");
+
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
         float x = (Screen.width / 2 - 151f) / Screen.width;
@@ -202,7 +205,7 @@ public class InventoryGUI: MonoBehaviour
         skin.label.fontStyle = FontStyle.Bold;
         GUI.Label(new Rect(648, 29, 150, 20), selectedChar.charName);
         GUI.Label(new Rect(648, 49, 150, 20), 
-            "Class: " + selectedChar.Archetype.getName());
+            "Class: " + selectedChar.CharClass.Name);
         GUI.Label(new Rect(648, 69, 150, 20), "Level: " + selectedChar.level);
         skin.label.fontStyle = FontStyle.Normal;
 
@@ -495,6 +498,7 @@ public class InventoryGUI: MonoBehaviour
         }
         if (GUI.Button(new Rect(665, 569, 125, 27), "Skills", "skills button"))
         {
+            Messenger.Broadcast("toggleSkillTreeVisibility");
         }
     }
 

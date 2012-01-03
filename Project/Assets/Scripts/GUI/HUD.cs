@@ -20,6 +20,10 @@ public class HUD: MonoBehaviour
 
     void showButtons()
     {
+        if (GUI.Button(new Rect(Screen.width / 2 - BUTTON_WIDTH * 1.5f 
+            - OFFSET, Screen.height - BUTTON_HEIGHT - OFFSET, BUTTON_WIDTH,
+            BUTTON_HEIGHT), "Skills"))
+            Messenger.Broadcast("toggleSkillTreeVisibility");
         if (GUI.Button(new Rect(Screen.width / 2 - BUTTON_WIDTH / 2,
             Screen.height - BUTTON_HEIGHT - OFFSET, BUTTON_WIDTH,
             BUTTON_HEIGHT), "Inventory"))
