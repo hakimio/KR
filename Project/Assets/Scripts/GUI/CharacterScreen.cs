@@ -6,7 +6,7 @@ public class CharacterScreen: MonoBehaviour
     private bool show = false;
     public GUISkin skin;
     private BaseChar selectedChar;
-    static public CharacterScreen instance = null;
+    public static CharacterScreen instance = null;
 
     void Awake()
     {
@@ -37,6 +37,8 @@ public class CharacterScreen: MonoBehaviour
             Messenger.Broadcast("toggleInventoryVisibility");
         if (SkillTreeGUI.instance.Visible)
             Messenger.Broadcast("toggleSkillTreeVisibility");
+        if (TradeScreen.instance.Visible)
+            Messenger.Broadcast("toggleTradeScreenVisibility");
 
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
@@ -52,8 +54,8 @@ public class CharacterScreen: MonoBehaviour
             Screen.height / 2 - 212, 244, 425));
         showBackground();
         showCharacterInfo();
-        //showButton();
         GUI.EndGroup();
+        showTooltip();
     }
 
     void showButton()
@@ -68,6 +70,33 @@ public class CharacterScreen: MonoBehaviour
         {
             return show;
         }
+    }
+
+    void showTooltip()
+    {
+        if (GUI.tooltip.Equals(""))
+            return;
+
+        float mouseX = Input.mousePosition.x;
+        float mouseY = Screen.height - Input.mousePosition.y;
+        GUIStyle style = skin.GetStyle("tooltip");
+        float height = style.CalcHeight(new GUIContent(GUI.tooltip), 190f);
+        float maxWidth = 0;
+        float minWidth = 0;
+        style.CalcMinMaxWidth(new GUIContent(GUI.tooltip), out minWidth,
+            out maxWidth);
+        if (maxWidth > 190)
+            maxWidth = 190;
+        float yOffset = 0;
+        float xOffset = 0;
+        if (mouseY + height > Screen.height)
+            yOffset = mouseY + height - Screen.height;
+        if (mouseX + 210 > Screen.width)
+            xOffset = 220;
+        GUI.Box(new Rect(mouseX + 11 - xOffset, mouseY - yOffset - 7,
+                maxWidth + 18, height + 14), "");
+        GUI.Label(new Rect(mouseX + 20 - xOffset, mouseY - yOffset,
+            190, height), GUI.tooltip, "tooltip");
     }
 
     void showBackground()
