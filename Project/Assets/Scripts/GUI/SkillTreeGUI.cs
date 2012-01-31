@@ -41,6 +41,8 @@ public class SkillTreeGUI: MonoBehaviour
             Messenger.Broadcast("toggleCharScreenVisibility");
         if (InventoryGUI.instance.Visible)
             Messenger.Broadcast("toggleInventoryVisibility");
+        if (TradeScreen.instance.Visible)
+            Messenger.Broadcast("toggleTradeScreenVisibility");
 
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
