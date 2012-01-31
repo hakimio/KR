@@ -69,6 +69,8 @@ public class InventoryGUI: MonoBehaviour
             Messenger.Broadcast("toggleCharScreenVisibility");
         if (SkillTreeGUI.instance.Visible)
             Messenger.Broadcast("toggleSkillTreeVisibility");
+        if (TradeScreen.instance.Visible)
+            Messenger.Broadcast("toggleTradeScreenVisibility");
 
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
@@ -90,12 +92,12 @@ public class InventoryGUI: MonoBehaviour
             armorSlotContent = new GUIContent(selectedChar.Items.Armor.Image,
                 GUIHelper.getInfo(selectedChar.Items.Armor));
         if (selectedChar.Items.Slot1 == null)
-            item1SlotContent = new GUIContent("Item1");
+            item1SlotContent = new GUIContent("Primary Item");
         else
             item1SlotContent = new GUIContent(selectedChar.Items.Slot1.Image,
                 GUIHelper.getInfo(selectedChar.Items.Slot1));
         if (selectedChar.Items.Slot2 == null)
-            item2SlotContent = new GUIContent("Item2");
+            item2SlotContent = new GUIContent("Secondary Item");
         else
             item2SlotContent = new GUIContent(selectedChar.Items.Slot2.Image,
                 GUIHelper.getInfo(selectedChar.Items.Slot2));
@@ -285,7 +287,7 @@ public class InventoryGUI: MonoBehaviour
                 selectedChar.Items.Slot1.State = ItemState.Floating;
                 floatingItem = selectedChar.Items.Slot1;
                 selectedChar.Items.Slot1 = null;
-                item1SlotContent = new GUIContent("Item1");
+                item1SlotContent = new GUIContent("Primary Item");
             }
         }
         if (GUI.RepeatButton(new Rect(593, 447, 190, 100), item2SlotContent))
@@ -295,7 +297,7 @@ public class InventoryGUI: MonoBehaviour
                 selectedChar.Items.Slot2.State = ItemState.Floating;
                 floatingItem = selectedChar.Items.Slot2;
                 selectedChar.Items.Slot2 = null;
-                item2SlotContent = new GUIContent("Item2");
+                item2SlotContent = new GUIContent("Secondary Item");
             }
         }
     }
@@ -484,7 +486,7 @@ public class InventoryGUI: MonoBehaviour
            selectedToggle == Toggle.MedicineAndArmor, content, 
            "medicine toggle"))
             selectedToggle = Toggle.MedicineAndArmor;
-        content = new GUIContent("", "Adventure items");
+        content = new GUIContent("", "Key Items");
         if (GUI.Toggle(new Rect(158, 20, 61, 38),
            selectedToggle == Toggle.Keys, content, "key toggle"))
             selectedToggle = Toggle.Keys;
@@ -492,13 +494,13 @@ public class InventoryGUI: MonoBehaviour
 
     void showBottomButtons()
     {
-        if (GUI.Button(new Rect(9, 569, 482, 27), "Close", "close button"))
-        {
-            toggleVisibility();
-        }
-        if (GUI.Button(new Rect(665, 569, 125, 27), "Skills", "skills button"))
+        if (GUI.Button(new Rect(9, 569, 482, 27), "Skills", "skills button"))
         {
             Messenger.Broadcast("toggleSkillTreeVisibility");
+        }
+        if (GUI.Button(new Rect(665, 569, 125, 27), "Close", "close button"))
+        {
+            toggleVisibility();
         }
     }
 
