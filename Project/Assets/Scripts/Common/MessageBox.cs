@@ -48,6 +48,7 @@ public class MessageBox: MonoBehaviour
                 messageEnabled = false;
                 Messenger<bool>.Broadcast("enable movement", true);
                 MyCamera.instance.controllingEnabled = true;
+                HUD.instance.clickable = true;
             }
         }
     }
@@ -58,6 +59,7 @@ public class MessageBox: MonoBehaviour
         curPiece = 0;
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
+        HUD.instance.clickable = false;
         messageEnabled = true;
     }
 }
