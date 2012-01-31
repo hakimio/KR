@@ -147,16 +147,22 @@ public class BaseChar
 
     private void setAttributeDescriptions()
     {
-        attributes[(int)AttrNames.Strength].description = "Raw physical strength. A high" +
-            " strength is important for physical characters, because it helps" +
-            " them prevail in combat.";
-        attributes[(int)AttrNames.Dexterity].description = "Dexterity measures hand-eye" +
-            " coordination, agility, reflexes, and balance. This ability is " +
-            "important for characters who typically wear light or medium armor.";
-        attributes[(int)AttrNames.Vitality].description = "Vitality represents " +
-            "your character's health and stamina.";
-        attributes[(int)AttrNames.Technique].description = "Technique determines resistance," +
-            " mana and the amount of damage done by magical attacks.";
+        attributes[(int)AttrNames.Strength].description = "Strength is " + 
+            "ability to strike hard and fast in melee. The higher Strength " +
+            "the easier is to hit the enemy and greater damage will be " + 
+            "inflicted.";
+        attributes[(int)AttrNames.Dexterity].description = "Dexterity " + 
+            "measures speed and reaction as well as ranged precision. " + 
+            "Improve this score for greater defense and marksmanship.";
+        attributes[(int)AttrNames.Vitality].description = "High Vitality " + 
+            "results in number of Hit Points and biological resistance to " +
+            "hostile enviroments and magic effects.";
+        attributes[(int)AttrNames.Soulpower].description = "Soulpower is " + 
+            "power to resist negative and amplify positive magic influences." +
+            " Crucial to any character who depends on spellcasting.";
+        attributes[(int)AttrNames.Technique].description = "Technique is " + 
+            "ability to efficiently use skills and spells. Determines how " +
+            "well and how often they can be used.";
     }
 
     private void setSecondaryAttributeDescriptions()
