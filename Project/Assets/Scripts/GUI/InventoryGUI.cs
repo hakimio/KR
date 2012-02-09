@@ -22,7 +22,6 @@ public class InventoryGUI: MonoBehaviour
         Keys
     }
     private Toggle selectedToggle = Toggle.Weapons;
-    private BaseChar selectedChar;
 
     void Awake()
     {
@@ -40,6 +39,7 @@ public class InventoryGUI: MonoBehaviour
     void Start()
     {
         Messenger.AddListener("toggleInventoryVisibility", toggleVisibility);
+        Messenger.AddListener("selectedCharChanged", selectedCharChanged);
     }
 
     private bool show = false;
@@ -60,10 +60,7 @@ public class InventoryGUI: MonoBehaviour
             return;
         }
 
-        int charIndex = GameMaster.instance.selectedChar;
-        selectedChar = GameMaster.instance.characters[charIndex];
-
-        setItemSlotContent();
+        setItemSlotContent(GameMaster.instance.selectedChar);
 
         if (CharacterScreen.instance.Visible)
             Messenger.Broadcast("toggleCharScreenVisibility");
@@ -84,7 +81,12 @@ public class InventoryGUI: MonoBehaviour
         Messenger<bool>.Broadcast("enable phrases", false);
     }
 
-    void setItemSlotContent()
+    void selectedCharChanged()
+    {
+        setItemSlotContent(GameMaster.instance.selectedChar);
+    }
+
+    void setItemSlotContent(BaseChar selectedChar)
     {
         if (selectedChar.Items.Armor == null)
             armorSlotContent = new GUIContent("Armor");
@@ -108,15 +110,16 @@ public class InventoryGUI: MonoBehaviour
         if (!show)
             return;
         GUI.skin = skin;
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400, 
             Screen.height / 2 - 300, 800, 600));
         showBackground();
         showItemToggles();
         showBottomButtons();
-        showItemSlots();
-        showCharacterInfo();
+        showItemSlots(selectedChar);
+        showCharacterInfo(selectedChar);
         showCharSelector();
-        showItems();
+        showItems(selectedChar);
         GUI.EndGroup();
         showTooltip();
         showDraggedItem();
@@ -124,8 +127,9 @@ public class InventoryGUI: MonoBehaviour
 
     void showCharSelector()
     {
-        int selectedCharIndex = GameMaster.instance.selectedChar;
-        BaseChar[] chars = GameMaster.instance.characters.ToArray();
+        GameMaster gm = GameMaster.instance;
+        int selectedCharIndex = gm.characters.IndexOf(gm.selectedChar);
+        BaseChar[] chars = gm.characters.ToArray();
         GUIContent content;
         int selectedIndex = selectedCharIndex;
         for (int i = 0; i < chars.Length; i++)
@@ -138,10 +142,10 @@ public class InventoryGUI: MonoBehaviour
 
         if (selectedCharIndex != selectedIndex)
         {
-            GameMaster.instance.selectedChar = selectedIndex;
-            selectedChar = GameMaster.instance.characters[selectedIndex];
-            selectedCharIndex = selectedIndex;
-            setItemSlotContent();
+            gm.selectedChar = gm.characters[selectedIndex];
+            setItemSlotContent(gm.selectedChar);
+            Messenger<ItemSlots>.Broadcast("ItemSlotChanged",
+                gm.selectedChar.Items.ActiveSlot);
         }
     }
 
@@ -198,7 +202,7 @@ public class InventoryGUI: MonoBehaviour
             
     }
 
-    void showCharacterInfo()
+    void showCharacterInfo(BaseChar selectedChar)
     {
         GUIContent content;
 
@@ -268,7 +272,7 @@ public class InventoryGUI: MonoBehaviour
         }
     }
 
-    void showItemSlots()
+    void showItemSlots(BaseChar selectedChar)
     {
         if (GUI.RepeatButton(new Rect(240, 447, 140, 100), armorSlotContent))
         {
@@ -288,6 +292,8 @@ public class InventoryGUI: MonoBehaviour
                 floatingItem = selectedChar.Items.Slot1;
                 selectedChar.Items.Slot1 = null;
                 item1SlotContent = new GUIContent("Primary Item");
+                Messenger<ItemSlots>.Broadcast("ItemSlotChanged", 
+                    ItemSlots.Slot1);
             }
         }
         if (GUI.RepeatButton(new Rect(593, 447, 190, 100), item2SlotContent))
@@ -298,6 +304,8 @@ public class InventoryGUI: MonoBehaviour
                 floatingItem = selectedChar.Items.Slot2;
                 selectedChar.Items.Slot2 = null;
                 item2SlotContent = new GUIContent("Secondary Item");
+                Messenger<ItemSlots>.Broadcast("ItemSlotChanged", 
+                    ItemSlots.Slot2);
             }
         }
     }
@@ -314,6 +322,7 @@ public class InventoryGUI: MonoBehaviour
         Rect charsPos = new Rect(Screen.width / 2 - 156,
             Screen.height / 2 - 282, chars * 51 + 10 * (chars - 1), 61);
 
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
         if (Input.GetKeyUp(KeyCode.Mouse0) && floatingItem != null)
         {
             if (charsPos.Contains(mousePos))
@@ -356,6 +365,8 @@ public class InventoryGUI: MonoBehaviour
                 selectedChar.Items.Bag.Remove(floatingItem);
                 floatingItem.State = ItemState.Positioned;
                 selectedChar.Items.Slot1 = floatingItem;
+                Messenger<ItemSlots>.Broadcast("ItemSlotChanged",
+                    ItemSlots.Slot1);
             }
             else if (slot2Pos.Contains(mousePos) &&
                 !(floatingItem is Armor))
@@ -368,6 +379,8 @@ public class InventoryGUI: MonoBehaviour
                 selectedChar.Items.Bag.Remove(floatingItem);
                 floatingItem.State = ItemState.Positioned;
                 selectedChar.Items.Slot2 = floatingItem;
+                Messenger<ItemSlots>.Broadcast("ItemSlotChanged",
+                    ItemSlots.Slot2);
             }
 
             int index = selectedChar.Items.Bag.IndexOf(floatingItem);
@@ -400,13 +413,12 @@ public class InventoryGUI: MonoBehaviour
 
     void putInBag(Item item)
     {
-        putInBag(item, selectedChar);
+        putInBag(item, GameMaster.instance.selectedChar);
     }
 
-    void showItems()
+    void showItems(BaseChar selectedChar)
     {
         GUIContent content;
-
         RectOffset btnOffset = skin.FindStyle("Button").padding;
         int padding = btnOffset.top + btnOffset.bottom;
         int totalHeight = 0;
