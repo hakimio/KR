@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 public static class Skills
-{//TODO: padaryt statinius kaip singletonai daromi - jei null'as, return new
+{
     #region Stormer skills
     private static Skill knifeTraining = null;
     public static Skill KnifeTraining
@@ -99,11 +99,11 @@ public static class Skills
         {
             if (hermesStyle != null)
             {
-                if (knifeMaster != null && knifeMaster.Known)
+                /*if (knifeMaster != null && knifeMaster.Known)
                 {
                     hermesStyle.Bonuses[BonusType.Attack] = -30;
                     hermesStyle.Bonuses[BonusType.nrOfHits] = 3;
-                }
+                }*/
                     
                 return hermesStyle;
             }
@@ -111,7 +111,7 @@ public static class Skills
             string[] gunNames = new string[] { "Combat Knife" };
             string[] dependencies = { "Knife Expert", "Deft Hands" };
             string[] replaces = { "Knife Expert", "Knife Master", 
-                                    "Deft hands" };
+                                    "Deft Hands" };
             Dictionary<BonusType, float> bonuses;
             bonuses = new Dictionary<BonusType, float>();
             bonuses.Add(BonusType.DamageMultiplier, 1);
