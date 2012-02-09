@@ -5,7 +5,6 @@ public class CharacterScreen: MonoBehaviour
 {
     private bool show = false;
     public GUISkin skin;
-    private BaseChar selectedChar;
     public static CharacterScreen instance = null;
 
     void Awake()
@@ -29,9 +28,6 @@ public class CharacterScreen: MonoBehaviour
             Messenger<bool>.Broadcast("enable phrases", true);
             return;
         }
-
-        int charIndex = GameMaster.instance.selectedChar;
-        selectedChar = GameMaster.instance.characters[charIndex];
 
         if (InventoryGUI.instance.Visible)
             Messenger.Broadcast("toggleInventoryVisibility");
@@ -108,6 +104,7 @@ public class CharacterScreen: MonoBehaviour
     void showCharacterInfo()
     {
         GUIContent content;
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
 
         GUI.DrawTexture(new Rect(17, 19, 76, 84), selectedChar.Image,
             ScaleMode.ScaleToFit, true);

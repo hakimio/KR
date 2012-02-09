@@ -8,7 +8,6 @@ public abstract class BoxGUITemplate: MonoBehaviour
     public static BoxGUITemplate instance = null;
     private bool show = false;
     public string boxName = "box1";
-    private BaseChar selectedChar;
     protected List<Item> storedItems;
     private bool[] toggles;
 
@@ -50,8 +49,6 @@ public abstract class BoxGUITemplate: MonoBehaviour
         }
 
         toggles = new bool[storedItems.Count];
-        int charIndex = GameMaster.instance.selectedChar;
-        selectedChar = GameMaster.instance.characters[charIndex];
 
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
@@ -125,6 +122,7 @@ public abstract class BoxGUITemplate: MonoBehaviour
 
     void addItemToBag(Item item)
     {
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
         bool found = false;
         foreach (Item storedItem in selectedChar.Items.Bag)
             if (item.Name.Equals(storedItem.Name))
