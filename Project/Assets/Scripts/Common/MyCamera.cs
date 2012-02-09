@@ -72,6 +72,14 @@ public class MyCamera : MonoBehaviour
 		}
 		
 		mouseY = clampAngle(mouseY, minLimitY, maxLimitY);
+
+        if (!HUD.instance.Minimized)
+        {
+            Rect HUDRect = new Rect(Screen.width / 2 - 392, 5, 194, 78);
+            if (HUDRect.Contains(Input.mousePosition))
+                return;
+        }
+
 		float wheelAxis = Input.GetAxis("Mouse ScrollWheel");
 		
 		if (wheelAxis < -0.01 || wheelAxis > 0.01)
@@ -294,11 +302,9 @@ public class MyCamera : MonoBehaviour
 		float width = bounds.size.x/2f - 0.3f;
 		
 		clipPlanePoints.LowerRight = position + cameraTransform.right * width;
-		//clipPlanePoints.LowerRight -= cameraTransform.up * height;
 		clipPlanePoints.LowerRight += cameraTransform.forward * distance;
 		
 		clipPlanePoints.LowerLeft = position - cameraTransform.right * width;
-		//clipPlanePoints.LowerLeft -= cameraTransform.up * height;
 		clipPlanePoints.LowerLeft += cameraTransform.forward * distance;
 		
 		clipPlanePoints.UpperRight = position + cameraTransform.right * width;
