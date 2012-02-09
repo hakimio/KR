@@ -80,6 +80,10 @@ public class Skill
         {
             return bonuses;
         }
+        set
+        {
+            bonuses = value;
+        }
     }
 
     public int MaxRank
