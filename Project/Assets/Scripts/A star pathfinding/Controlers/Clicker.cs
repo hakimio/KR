@@ -68,8 +68,18 @@ public class Clicker : MonoBehaviour {
 
 		if (Input.GetKeyDown ("mouse 0") || continuous) 
         {
-            Rect HUDrect = new Rect(Screen.width / 2 - 257, 0, 511, 30);
-            if (HUDrect.Contains(Input.mousePosition))
+            Rect HUDrect;
+            if (HUD.instance.Minimized)
+                HUDrect = new Rect(Screen.width / 2 - 208, 0, 445, 34);
+            else
+                HUDrect = new Rect(Screen.width / 2 - 400, 0, 800, 90);
+
+            int charCount = GameMaster.instance.characters.Count;
+            float bottom = (Screen.height - charCount * 90) / 2;
+            Rect charSelectorRect = new Rect(0, bottom, 67, charCount * 90);
+
+            if (HUDrect.Contains(Input.mousePosition) 
+                || charSelectorRect.Contains(Input.mousePosition))
                 return;
 
 			Ray ray = camera.ScreenPointToRay (Input.mousePosition);
