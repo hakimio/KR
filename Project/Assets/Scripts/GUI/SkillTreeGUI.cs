@@ -9,7 +9,6 @@ public class SkillTreeGUI: MonoBehaviour
 
     private bool show = false;
     private bool tooltipEnabled = false;
-    private BaseChar selectedChar;
 
     public bool Visible
     {
@@ -47,9 +46,6 @@ public class SkillTreeGUI: MonoBehaviour
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
         Messenger<bool>.Broadcast("enable phrases", false);
-        
-        int charIndex = GameMaster.instance.selectedChar;
-        selectedChar = GameMaster.instance.characters[charIndex];
     }
 
     void OnGUI()
@@ -57,18 +53,20 @@ public class SkillTreeGUI: MonoBehaviour
         if (!show)
             return;
         GUI.skin = skin;
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400,
             Screen.height / 2 - 300, 800, 600));
         GUI.DrawTexture(new Rect(0, 0, 800, 600),
             selectedChar.CharClass.SkillTree.Background);
-        showHeader();
-        showSkills();
+        showHeader(selectedChar);
+        showSkills(selectedChar);
         showCloseButton();
         GUI.EndGroup();
         showTooltip();
     }
 
-    void showHeader()
+    void showHeader(BaseChar selectedChar)
     {
         GUI.Label(new Rect(360, 5, 100, 20), "Skill Tree", "Title");
         int skillPoints = selectedChar.CharClass.SkillTree.SkillPoints;
@@ -82,7 +80,7 @@ public class SkillTreeGUI: MonoBehaviour
         GUI.Label(new Rect(369, 75, 150, 20), "Level: " + selectedChar.level);
     }
 
-    void showSkills()
+    void showSkills(BaseChar selectedChar)
     {
         SkillTree skillTree = selectedChar.CharClass.SkillTree;
         int width = SkillTrees.btnWidth;
@@ -121,6 +119,23 @@ public class SkillTreeGUI: MonoBehaviour
                 skill.Known = true;
                 skill.Rank++;
                 skillTree.SkillPoints--;
+                if (skill.Name.Equals("Hermes Style") && selectedChar.
+                    CharClass.SkillTree.Skills["Knife Master"].Known)
+                {
+                    skill.Bonuses[BonusType.Attack] = -30;
+                    skill.Bonuses[BonusType.nrOfHits] = 3;
+                }
+                else if (skill.Name.Equals("Knife Master") && selectedChar.
+                    CharClass.SkillTree.Skills["Hermes Style"].Known)
+                {
+                    Skill hermesStyle = selectedChar.
+                        CharClass.SkillTree.Skills["Hermes Style"];
+                    hermesStyle.Bonuses[BonusType.Attack] = -30;
+                    hermesStyle.Bonuses[BonusType.nrOfHits] = 3;
+                }
+
+                Messenger<ItemSlots>.Broadcast("ItemSlotChanged",
+                    selectedChar.Items.ActiveSlot);
             }
             x = x + width - tick.width - 2;
             y = y + height - tick.height - 2;
