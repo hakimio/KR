@@ -99,6 +99,11 @@ static public class Messenger {
         MessengerInternal.OnListenerRemoved(eventType);
     }
 
+    static public void RemoveAllListeners()
+    {
+        eventTable.Clear();
+    }
+
     static public void Broadcast(string eventType) {
         Broadcast(eventType, MessengerInternal.DEFAULT_MODE);
     }
