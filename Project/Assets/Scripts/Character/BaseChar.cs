@@ -253,6 +253,7 @@ public struct Inventory
 {
     public List<Item> Bag;
     public Item Slot1, Slot2, Armor;
+    public ItemSlots ActiveSlot;
 
     public Inventory(Item[] itemsInBag): this()
     {
@@ -260,6 +261,7 @@ public struct Inventory
         Slot1 = null;
         Slot2 = null;
         Armor = null;
+        ActiveSlot = ItemSlots.Slot1;
         Bag.AddRange(itemsInBag);
     }
 
@@ -270,4 +272,10 @@ public struct Inventory
         this.Slot2 = slot2;
         this.Armor = armor;
     }
+}
+
+public enum ItemSlots
+{
+    Slot1,
+    Slot2
 }
