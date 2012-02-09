@@ -18,7 +18,7 @@ public class Phrases: MonoBehaviour
     void Start()
     {
         myCamera = MyCamera.instance.camera;
-        StartCoroutine(changeText());
+        StartCoroutine("changeText");
         Messenger<bool>.AddListener("enable phrases", showPhrases);
     }
 
@@ -57,21 +57,19 @@ public class Phrases: MonoBehaviour
         else
         {
             text = phrases[index % phrases.Count];
-            //style.normal.background = getRectangle(style, text, Color.black);
-            //style.normal.textColor = new Color(0.75f, 0.75f, 0.75f);
             index++;
             showEmpty = true;
             yield return new WaitForSeconds(3);
         }
         if (phrasesShown)
-            StartCoroutine(changeText());
+            StartCoroutine("changeText");
     }
 
     public void showPhrases(bool show)
     {
         if (show && !phrasesShown)
         {
-            StartCoroutine(changeText());
+            StartCoroutine("changeText");
             phrasesShown = true;
         }
         else if (!show && phrasesShown)
