@@ -12,10 +12,10 @@ public class GameMaster : MonoBehaviour
     public List<Message> messages;
     public static GameMaster instance;
     public List<BaseChar> characters;
-    public int selectedChar = 0;
+    public BaseChar selectedChar;
 
 	private GameObject pc;
-	//private BaseChar charClass;
+    bool loaded = false;
 	
 	void Awake()
 	{
@@ -27,6 +27,7 @@ public class GameMaster : MonoBehaviour
         characters = new List<BaseChar>();
         characters.Add(Characters.EricFrost);
         characters.Add(Characters.FrostEric);
+        selectedChar = characters[0];
         Messenger.AddListener("MessageBox Ready", showIntroMessage);
 	}
 
@@ -90,15 +91,14 @@ public class GameMaster : MonoBehaviour
         }
         MyCamera.instance.TargetLookAt = pc.transform;
         GameObject.Destroy(spawnPoint);
-        //charClass = pc.GetComponent<BaseChar>();
     }
 
 	void Start ()
 	{
+        Messenger<ItemSlots>.Broadcast("ItemSlotChanged", ItemSlots.Slot1);
 		//loadChar();
 	}
 	
-	// Update is called once per frame
 	private void loadChar ()
 	{
 		GameObject gs = GameObject.Find("Game Settings");
@@ -115,7 +115,13 @@ public class GameMaster : MonoBehaviour
 	
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape))
-			Application.LoadLevel("MainMenu");
+        if (Input.GetKeyUp(KeyCode.Escape))
+            InGameMenu.instance.toggleVisibility();
+        if (!loaded && Application.GetStreamProgressForLevel("Level1") == 1)
+        {
+            HUD.instance.addMessage("Game loaded " + 
+                DateTime.Now.ToString("HH:mm"));
+            loaded = true;
+        }
 	}
 }
