@@ -23,6 +23,7 @@ public class GameMaster : MonoBehaviour
         loadDialogs();
         loadMessages();
 		MyCamera.acquireCamera();
+        MyCamera.instance.MouseYRot = 30;
         instantiatePC();
         characters = new List<BaseChar>();
         characters.Add(Characters.EricFrost);
@@ -48,7 +49,7 @@ public class GameMaster : MonoBehaviour
             "/Assets/Dialogs");
         foreach (String file in Directory.GetFiles(uri.LocalPath))
         {
-            if (Path.GetExtension(file).Equals(".meta"))
+            if (System.IO.Path.GetExtension(file).Equals(".meta"))
                 continue;
             Conversation conv = XmlReader.read(file);
             dialogs.Add(conv);
@@ -62,9 +63,9 @@ public class GameMaster : MonoBehaviour
             "/Assets/Messages");
         foreach (String file in Directory.GetFiles(uri.LocalPath))
         {
-            if (Path.GetExtension(file).Equals(".meta"))
+            if (System.IO.Path.GetExtension(file).Equals(".meta"))
                 continue;
-            string name = Path.GetFileNameWithoutExtension(file);
+            string name = System.IO.Path.GetFileNameWithoutExtension(file);
             string content = TxtReader.read(file);
             messages.Add(new Message(name, content));
         }
