@@ -25,8 +25,8 @@ public class MyCamera : MonoBehaviour
 	public float smoothX = 0.1f;
 	public float smoothY = 0.1f;
 	
-	private float mouseX = 0f;
-	private float mouseY = 0f;
+	public float MouseXRot = 0f;
+	public float MouseYRot = 0f;
 	private float startDistance = 0f;
 	private float desiredDistance = 0f;
 	private float velDistance = 0f;
@@ -46,8 +46,11 @@ public class MyCamera : MonoBehaviour
 	void Start () 
 	{
 		Distance = Mathf.Clamp(Distance, MinDistance, MaxDistance);
-		startDistance = Distance;
-		reset();
+		startDistance = Vector3.Distance(this.transform.position, 
+            TargetLookAt.position);
+        desiredPosition = transform.position;
+        position = transform.position;
+        reset();
 	}
 	
 	void LateUpdate () 
@@ -56,24 +59,47 @@ public class MyCamera : MonoBehaviour
 			return;
 		handlePlayerInput();
 		calcDesiredPosition();
-		
-		checkIfOccluded();
+        if (TargetLookAt.collider != null)
+            checkIfOccluded();
 		updatePosition();
 	}
-	
+
+    float timeToRotate = 0;
+
 	void handlePlayerInput()
 	{
         if (!controllingEnabled)
             return;
 		if (Input.GetKey(KeyCode.LeftControl))
 		{
-			mouseX += Input.GetAxis("Mouse X") * mouseSensitivityX;
-			mouseY -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
+			MouseXRot += Input.GetAxis("Mouse X") * mouseSensitivityX;
+			MouseYRot -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
 		}
-		
-		mouseY = clampAngle(mouseY, minLimitY, maxLimitY);
 
-        if (!HUD.instance.Minimized)
+        if (Input.GetKey(KeyCode.UpArrow) && Time.time > timeToRotate)
+        {
+            MouseYRot -= 1.25f;
+            timeToRotate = Time.time + 0.125f;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow) && Time.time > timeToRotate)
+        {
+            MouseYRot += 1.25f;
+            timeToRotate = Time.time + 0.125f;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow) && Time.time > timeToRotate)
+        {
+            MouseXRot -= 2.5f;
+            timeToRotate = Time.time + 0.125f;
+        }
+        if (Input.GetKey(KeyCode.RightArrow) && Time.time > timeToRotate)
+        {
+            MouseXRot += 2.5f;
+            timeToRotate = Time.time + 0.125f;
+        }
+		MouseYRot = clampAngle(MouseYRot, minLimitY, maxLimitY);
+
+        if (HUD.instance != null && !HUD.instance.Minimized)
         {
             Rect HUDRect = new Rect(Screen.width / 2 - 392, 5, 194, 78);
             if (HUDRect.Contains(Input.mousePosition))
@@ -91,18 +117,17 @@ public class MyCamera : MonoBehaviour
 	
 	public void reset()
 	{
-		mouseX = 0;
-		mouseY = 30;
 		Distance = startDistance;
 		desiredDistance = Distance;
 	}
 	
 	void calcDesiredPosition()
 	{
-		resetTransparency();
+        if (TargetLookAt.collider != null)
+		    resetTransparency();
 		Distance = Mathf.SmoothDamp(Distance, desiredDistance, 
 		                            ref velDistance, DistanceSmooth);
-		desiredPosition = calcPosition(mouseY, mouseX, Distance);
+		desiredPosition = calcPosition(MouseYRot, MouseXRot, Distance);
 	}
 	
 	Vector3 calcPosition(float rotationX, float rotationY, float distance)
@@ -110,7 +135,7 @@ public class MyCamera : MonoBehaviour
 		Vector3 direction = new Vector3(0, 0, -distance);
 		Quaternion rotation = Quaternion.Euler(rotationX, rotationY, 0);
 		Vector3 targetPosition = new Vector3(TargetLookAt.position.x,
-		                                     TargetLookAt.position.y + 5f,
+		                                     TargetLookAt.position.y,
 		                                     TargetLookAt.position.z);
 		
 		return targetPosition + rotation * direction;
