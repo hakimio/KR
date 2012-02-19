@@ -132,7 +132,8 @@ public class AIFollow : MonoBehaviour {
         pcGO.transform.LookAt(target);
         Messenger<string>.Broadcast("toggleBoxVisibility", clicker.boxName);
     }
-	public void FindPoint (int cpoint) {
+
+    public void FindPoint (int cpoint) {
 		curpoint = cpoint;
         
 		if (points == null || points.Length == 0 || curpoint >= points.Length) {	
@@ -222,7 +223,6 @@ public class AIFollow : MonoBehaviour {
 		
 		// Rotate towards the target
 		transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
-		transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
 	
 		// Modify speed so we slow down when we are not facing the target
 		Vector3 forward = transform.TransformDirection(Vector3.forward);
