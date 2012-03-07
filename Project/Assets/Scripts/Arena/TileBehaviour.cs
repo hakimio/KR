@@ -14,8 +14,7 @@ public class TileBehaviour: MonoBehaviour
         if (tile.Passable && this != GridManager.instance.destTileTB
             && this != GridManager.instance.originTileTB)
         {
-            this.renderer.material = OpaqueMaterial;
-            this.renderer.material.color = orange;
+            changeColor(orange);
         }
     }
 
@@ -30,12 +29,10 @@ public class TileBehaviour: MonoBehaviour
                 this == GridManager.instance.originTileTB)
                 return;
             tile.Passable = !tile.Passable;
-            Color gray = Color.gray;
-            gray.a = 158f / 255f;
             if (!tile.Passable)
-                this.renderer.material.color = gray;
+                changeColor(Color.gray);
             else
-                this.renderer.material.color = orange;
+                changeColor(orange);
 
             GridManager.instance.generateAndShowPath();
         }
@@ -53,6 +50,14 @@ public class TileBehaviour: MonoBehaviour
         }
     }
 
+    void changeColor(Color color)
+    {
+        if (color.a == 1)
+            color.a = 130f / 255f;
+        renderer.material = OpaqueMaterial;
+        renderer.material.color = color;
+    }
+
     void originTileChanged()
     {
         var originTileTB = GridManager.instance.originTileTB;
@@ -63,9 +68,7 @@ public class TileBehaviour: MonoBehaviour
             return;
         }
         GridManager.instance.originTileTB = this;
-        Color red = Color.red;
-        red.a = 158f / 255f;
-        renderer.material.color = red;
+        changeColor(Color.red);
     }
 
     void destTileChanged()
@@ -80,9 +83,7 @@ public class TileBehaviour: MonoBehaviour
         if (destTile != null)
             destTile.renderer.material = defaultMaterial;
         GridManager.instance.destTileTB = this;
-        Color blue = Color.blue;
-        blue.a = 158f / 255f;
-        renderer.material.color = blue;
+        changeColor(Color.blue);
     }
 
     void OnMouseExit()
@@ -93,6 +94,15 @@ public class TileBehaviour: MonoBehaviour
         {
             this.renderer.material = defaultMaterial;
             this.renderer.material.color = Color.white;
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag.Equals("Obstacle"))
+        {
+            tile.Passable = false;
+            changeColor(Color.gray);
         }
     }
 }
