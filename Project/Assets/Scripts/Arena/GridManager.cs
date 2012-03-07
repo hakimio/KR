@@ -10,6 +10,7 @@ public class GridManager: MonoBehaviour
     public GameObject Hex;
     public GameObject Line;
     public GameObject PlayerChar;
+    public GameObject Monster;
 
     public Tile selectedTile = null;
     public TileBehaviour originTileTB = null;
@@ -111,18 +112,34 @@ public class GridManager: MonoBehaviour
                 tb.tile = new Tile((int)x - (int)(y / 2), (int)y);
                 board.Add(tb.tile.Location, tb.tile);
                 if (x == 0 && y == 0)
-                {
-                    tb.renderer.material = tb.OpaqueMaterial;
-                    Color red = Color.red;
-                    red.a = 158f / 255f;
-                    tb.renderer.material.color = red;
-                    originTileTB = tb;
-                }
+                    setAsOrigin(tb);
+                if (y == (int)gridSize.y / 2 && x == (int)sizeX / 2)
+                    initializeMonster(hex.transform.position);
             }
         }
-        bool equalLineLengths = !((gridSize.x + 0.5) * hexSizeX > groundSizeX);
-        board.Values.ToList().ForEach(o => o.FindNeighbours(board, gridSize,
-            equalLineLengths));
+        bool equalLineLengths = (gridSize.x + 0.5) * hexSizeX <= groundSizeX;
+        foreach(Tile tile in board.Values)
+            tile.FindNeighbours(board, gridSize, equalLineLengths);
+    }
+
+    void initializeMonster(Vector3 pos)
+    {
+        GameObject monster = (GameObject)Instantiate(Monster);
+        monster.transform.position = pos;
+        float height = monster.collider.bounds.size.y * monster.transform.localScale.y;
+        CharacterController CC = monster.GetComponent<CharacterController>();
+        float offsetZ = monster.transform.localScale.y * CC.center.y;
+        monster.transform.position += new Vector3(0, height / 2, -offsetZ);
+        monster.animation.wrapMode = WrapMode.Loop;
+    }
+
+    void setAsOrigin(TileBehaviour TB)
+    {
+        TB.renderer.material = TB.OpaqueMaterial;
+        Color red = Color.red;
+        red.a = 158f / 255f;
+        TB.renderer.material.color = red;
+        originTileTB = TB;
     }
 
     private void DrawPath(IEnumerable<Tile> path)
@@ -171,20 +188,6 @@ public class GridManager: MonoBehaviour
         float dz = Mathf.Abs(z2 - z1);
 
         return Mathf.Max(dx, dy, dz);
-    }
-
-    public int calcDistance()
-    {
-        if (destTileTB == null || selectedTile == null)
-            return 0;
-        Tile originTile = destTileTB.tile;
-        float dx = Mathf.Abs(selectedTile.X - originTile.X);
-        float dy = Mathf.Abs(selectedTile.Y - originTile.Y);
-        int z1 = -(originTile.X + originTile.Y);
-        int z2 = -(selectedTile.X + selectedTile.Y);
-        float dz = Mathf.Abs(z2 - z1);
-
-        return (int)Mathf.Max(dx, dy, dz);
     }
 
     public void setGroundSize(float width, float height)
