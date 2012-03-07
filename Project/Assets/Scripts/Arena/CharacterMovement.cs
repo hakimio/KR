@@ -28,7 +28,12 @@ public class CharacterMovement: MonoBehaviour
     {
         controller = this.GetComponent<CharacterController>();
 
+        animation["idle"].layer = -1;
+        animation["walk"].layer = -1;
+        animation["run"].layer = -1;
+        animation["shoot"].layer = -1;
         animation.wrapMode = WrapMode.Loop;
+
         myTransform = transform;
     }
 
