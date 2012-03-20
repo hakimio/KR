@@ -5,7 +5,10 @@ public static class Characters
     public static BaseChar EricFrost = new BaseChar("Eric Frost", 1, 0, 
         setupEricsStat(), Classes.Stormer, 
         Helper.getImage("character pics/stormer"), setupEricsItems());
-    public static BaseChar FrostEric = new BaseChar("Frost Eric", 1, 0,
+    public static BaseChar Lerpz = new BaseChar("Lerpz", 1, 0,
+        setupEricsStat(), Classes.Stormer,
+        Helper.getImage("character pics/stormer"), setupEricsItems());
+    public static BaseChar TheRobot = new BaseChar("The Robot", 1, 0,
         setupEricsStat(), Classes.Stormer,
         Helper.getImage("character pics/stormer"), setupEricsItems());
 
