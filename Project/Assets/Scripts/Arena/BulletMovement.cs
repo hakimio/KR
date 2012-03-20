@@ -46,5 +46,24 @@ public class BulletMovement: MonoBehaviour
         if (transform.childCount > 0)
             Destroy(transform.GetChild(0).gameObject);
         startDestruction = true;
+        if (collision.gameObject.tag.Equals("Monster"))
+        {
+            Monster monsterCl = collision.gameObject.GetComponent<Monster>();
+            int hp = 15 + Random.Range(0, 6);
+            HUD.instance.addMessage(monsterCl.monsterName + " lost " + hp +
+                " hit points.");
+            if (monsterCl.HP - hp > 0)
+            {
+                monsterCl.HP -= hp;
+                OSD.instance.updateTooltip(monsterCl);
+            }
+            else
+            {
+                AI.instance.removeMonster(collision.gameObject);
+                HUD.instance.addMessage(monsterCl.monsterName + " died.");
+            }
+        }
+        else
+            HUD.instance.addMessage("Robot missed.");
     }
 }
