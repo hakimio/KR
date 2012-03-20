@@ -69,16 +69,14 @@ public class BaseChar
         this.Items = new Inventory(items);
     }
 
-	//negalėjau naudot tiesiog name, nes MonoBehaviour klasėje name jau yra
+    public GameObject gameObject;
 	public string charName;
 	public int level;
 	private int exp;
 	public int weight;
 	public int height;
     private Texture2D image;
-	//pirminiai atributai
 	private BaseStat[] attributes;
-	//HP, AC, TP
 	private ModifiedStat[] secondaryAttr;
     private Class charClass;
     public Inventory Items;
@@ -123,7 +121,7 @@ public class BaseChar
         }
         set
         {
-            lostHitPoints += value;
+            lostHitPoints = value;
             if (lostHitPoints < 0)
             {
                 lostHitPoints = 0;
