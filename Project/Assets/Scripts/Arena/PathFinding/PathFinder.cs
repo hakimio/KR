@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public static class PathFinder
 {
-    public static Path<Node> FindPath<Node>(
-        Node start,
-        Node destination,
-        Func<Node, Node, double> distance,
-        Func<Node, double> estimate)
-        where Node: IHasNeighbours<Node>
+    public static Path<Tile> FindPath(
+        Tile start,
+        Tile destination)
     {
-        var closed = new HashSet<Node>();
-        var queue = new PriorityQueue<double, Path<Node>>();
-        queue.Enqueue(0, new Path<Node>(start));
+        var closed = new HashSet<Tile>();
+        var queue = new PriorityQueue<double, Path<Tile>>();
+        queue.Enqueue(0, new Path<Tile>(start));
 
         while (!queue.IsEmpty)
         {
@@ -26,14 +24,31 @@ public static class PathFinder
 
             closed.Add(path.LastStep);
 
-            foreach (Node n in path.LastStep.Neighbours)
+            foreach (Tile n in path.LastStep.Neighbours)
             {
                 double d = distance(path.LastStep, n);
                 var newPath = path.AddStep(n, d);
-                queue.Enqueue(newPath.TotalCost + estimate(n), newPath);
+                queue.Enqueue(newPath.TotalCost + estimate(n, destination), 
+                    newPath);
             }
         }
 
         return null;
+    }
+
+    static double distance(Tile tile1, Tile tile2)
+    {
+        return 1;
+    }
+
+    static double estimate(Tile tile, Tile destTile)
+    {
+        float dx = Mathf.Abs(destTile.X - tile.X);
+        float dy = Mathf.Abs(destTile.Y - tile.Y);
+        int z1 = -(tile.X + tile.Y);
+        int z2 = -(destTile.X + destTile.Y);
+        float dz = Mathf.Abs(z2 - z1);
+
+        return Mathf.Max(dx, dy, dz);
     }
 }
