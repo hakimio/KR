@@ -16,6 +16,14 @@ public class DebugInfoDisplay: MonoBehaviour
 
     void OnGUI()
     {
+        Tile selTile = GridManager.instance.selectedTile;
+        if (selTile == null)
+            return;
+        GUI.Box(new Rect(Screen.width - 70, 5, 65, 25), selTile.ToString());
+    }
+
+    void gridSizeGUI()
+    {
         string widthStrToTest, heightStrToTest;
         GUI.BeginGroup(new Rect(5, 5, 100, 94));
         GUI.Box(new Rect(0, 0, 100, 94), "");
@@ -29,8 +37,12 @@ public class DebugInfoDisplay: MonoBehaviour
         if (Regex.IsMatch(heightStrToTest, @"^[0-9]*\.?[0-9]*$"))
             heightStr = heightStrToTest;
 
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        CharacterMovement cm = selectedChar.gameObject.
+            GetComponent<CharacterMovement>();
+
         if (GUI.Button(new Rect(20, 61, 60, 25), "Update") &&
-            !CharacterMovement.instance.IsMoving)
+            !cm.IsMoving)
         {
             try
             {
@@ -38,13 +50,8 @@ public class DebugInfoDisplay: MonoBehaviour
                 float height = float.Parse(heightStr);
                 GridManager.instance.setGroundSize(width, height);
             }
-            catch (FormatException) {}
+            catch (FormatException) { }
         }
         GUI.EndGroup();
-
-        Tile selTile = GridManager.instance.selectedTile;
-        if (selTile == null)
-            return;
-        GUI.Box(new Rect(Screen.width - 70, 5, 65, 25), selTile.ToString());
     }
 }
