@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class HUD: MonoBehaviour
 {
@@ -46,8 +47,17 @@ public class HUD: MonoBehaviour
         if (instance == null)
             instance = this;
     }
+
+    void Start()
+    {
+        addMessage(Application.loadedLevelName + " loaded " + 
+            DateTime.Now.ToString("HH:mm"));
+        activeItemChanged(GameMaster.instance.selectedChar.Items.ActiveSlot);
+    }
+
     void OnGUI()
     {
+        GUI.depth = 1;
         GUI.enabled = clickable;
         Color color = GUI.color;
         if (!clickable)
@@ -79,13 +89,23 @@ public class HUD: MonoBehaviour
         BaseChar selectedChar = GameMaster.instance.selectedChar;
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400, Screen.height - 90,
             800, 90));
-        Texture2D panel = Helper.getImage("Panel/Panel");
+        Texture2D panel;
+        if (GameMaster.instance.inCombat)
+            panel = Helper.getImage("Panel/combat panel");
+        else
+            panel = Helper.getImage("Panel/Panel");
         GUI.DrawTexture(new Rect(0, 0, 800, 90), panel);
         showMessages();
         showMaxPanelBtns();
         showItems(selectedChar);
         showBigButtons(selectedChar);
         showModes();
+        if (GameMaster.instance.inCombat)
+        {
+            string stepsLeft = CombatManager.instance.stepsLeft.ToString();
+            GUI.Label(new Rect(641, 31, 50, 51), stepsLeft, "stepsLeft");
+        }
+
         GUI.EndGroup();
     }
 
@@ -114,15 +134,24 @@ public class HUD: MonoBehaviour
     void showMaxPanelBtns()
     {
         if (GUI.Button(new Rect(212, 29, 99, 25), "Inventory", "leftButtons"))
-            Messenger.Broadcast("toggleInventoryVisibility");
+            InventoryGUI.instance.enabled = !InventoryGUI.instance.enabled;
         if (GUI.Button(new Rect(212, 60, 99, 25), "Trade", "leftButtons"))
-            Messenger.Broadcast("toggleTradeScreenVisibility");
+            TradeScreen.instance.enabled = !TradeScreen.instance.enabled;
         if (GUI.Button(new Rect(531, 29, 98, 25), "Skill Tree", "rightButtons"))
-            Messenger.Broadcast("toggleSkillTreeVisibility");
+            SkillTreeGUI.instance.enabled = !SkillTreeGUI.instance.enabled;
         if (GUI.Button(new Rect(531, 60, 98, 25), "Character", "rightButtons"))
-            Messenger.Broadcast("toggleCharScreenVisibility");
-        if (GUI.Button(new Rect(771, 9, 26, 17), "", "minButton"))
-            minimized = true;
+            CharacterScreen.instance.enabled = !CharacterScreen.instance.enabled;
+
+        if (!GameMaster.instance.inCombat)
+        {
+            if (GUI.Button(new Rect(771, 9, 26, 17), "", "minButton"))
+                minimized = true;
+        }
+        else
+        {
+            if (GUI.Button(new Rect(700, 29, 44, 56), "", "endTurnBtn"))
+                CombatManager.instance.StartAIMove();
+        }
     }
 
     void showTooltip()
@@ -214,7 +243,7 @@ public class HUD: MonoBehaviour
         if (selectedChar.Items.ActiveSlot == ItemSlots.Slot1)
             activeItem = selectedChar.Items.Slot1;
         else
-	        activeItem = selectedChar.Items.Slot2;
+            activeItem = selectedChar.Items.Slot2;
         if (activeItem == null || !(activeItem is Weapon))
             return;
 
@@ -239,13 +268,13 @@ public class HUD: MonoBehaviour
             Skill skill = selectedChar.CharClass.SkillTree.Skills[skillName];
             string mode = activeItem.Name;
 
-            if ((skill.Mode == Mode.MultiHit 
-                || skill.Mode == Mode.MultiGunAndHit) 
+            if ((skill.Mode == Mode.MultiHit
+                || skill.Mode == Mode.MultiGunAndHit)
                 && skill.Bonuses.ContainsKey(BonusType.nrOfHits))
             {
                 mode += " " + (int)skill.Bonuses[BonusType.nrOfHits] + "Hits";
             }
-            if (skill.Mode == Mode.MultiGun 
+            if (skill.Mode == Mode.MultiGun
                 || skill.Mode == Mode.MultiGunAndHit)
             {
                 mode += " 2Guns";
@@ -282,7 +311,7 @@ public class HUD: MonoBehaviour
                 GUI.DrawTexture(new Rect(8, y + 7 + 90 * i, 52, 63), selector);
             }
             int totalHP = chars[i].LostHP + chars[i].CurrentHP;
-            GUI.DrawTexture(new Rect(8, y + 71 + 90 * i, 
+            GUI.DrawTexture(new Rect(8, y + 71 + 90 * i,
                 52 * chars[i].CurrentHP / totalHP, 11), hpBar);
             GUI.Label(new Rect(8, y + 71 + 90 * i, 52, 11),
                 chars[i].CurrentHP + "/" + totalHP, "charSelector");
@@ -300,13 +329,13 @@ public class HUD: MonoBehaviour
     void showMinPanelBtns()
     {
         if (GUI.Button(new Rect(4, 4, 99, 25), "Trade", "leftButtons"))
-            Messenger.Broadcast("toggleTradeScreenVisibility");
+            TradeScreen.instance.enabled = !TradeScreen.instance.enabled;
         if (GUI.Button(new Rect(107, 4, 99, 25), "Inventory", "leftButtons"))
-            Messenger.Broadcast("toggleInventoryVisibility");
+            InventoryGUI.instance.enabled = !InventoryGUI.instance.enabled;
         if (GUI.Button(new Rect(210, 4, 99, 25), "Skill Tree", "leftButtons"))
-            Messenger.Broadcast("toggleSkillTreeVisibility");
+            SkillTreeGUI.instance.enabled = !SkillTreeGUI.instance.enabled;
         if (GUI.Button(new Rect(313, 4, 99, 25), "Character", "leftButtons"))
-            Messenger.Broadcast("toggleCharScreenVisibility");
+            CharacterScreen.instance.enabled = !CharacterScreen.instance.enabled;
         if (GUI.Button(new Rect(415, 4, 25, 25), "", "maxButton"))
             minimized = false;
     }
