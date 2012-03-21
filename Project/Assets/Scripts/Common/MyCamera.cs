@@ -36,6 +36,7 @@ public class MyCamera : MonoBehaviour
 	private float velZ = 0f;
 	private Vector3 position = Vector3.zero;
 	private HashSet<Renderer> hits;
+    private Transform myTransform;
 
 	void Awake()
 	{
@@ -45,14 +46,23 @@ public class MyCamera : MonoBehaviour
 	
 	void Start () 
 	{
-		Distance = Mathf.Clamp(Distance, MinDistance, MaxDistance);
-		startDistance = Vector3.Distance(this.transform.position, 
-            TargetLookAt.position);
-        desiredPosition = transform.position;
-        position = transform.position;
-        reset();
+        myTransform = transform;
+        if (TargetLookAt != null)
+            calcCameraPosition();
+        else
+            Debug.LogError("TargetLookAt was not assigned!");
 	}
 	
+    void calcCameraPosition()
+    {
+        Distance = Mathf.Clamp(Distance, MinDistance, MaxDistance);
+        startDistance = Vector3.Distance(myTransform.position,
+            TargetLookAt.position);
+        desiredPosition = myTransform.position;
+        position = myTransform.position;
+        reset();
+    }
+
 	void LateUpdate () 
 	{
 		if (TargetLookAt == null)
@@ -75,28 +85,12 @@ public class MyCamera : MonoBehaviour
 			MouseXRot += Input.GetAxis("Mouse X") * mouseSensitivityX;
 			MouseYRot -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
 		}
+        
+        changeVarOnKeyPress(KeyCode.UpArrow, ref MouseYRot, -1.25f);
+        changeVarOnKeyPress(KeyCode.DownArrow, ref MouseYRot, 1.25f);
+        changeVarOnKeyPress(KeyCode.LeftArrow, ref MouseXRot, -2.5f);
+        changeVarOnKeyPress(KeyCode.RightArrow, ref MouseXRot, 2.5f);
 
-        if (Input.GetKey(KeyCode.UpArrow) && Time.time > timeToRotate)
-        {
-            MouseYRot -= 1.25f;
-            timeToRotate = Time.time + 0.125f;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) && Time.time > timeToRotate)
-        {
-            MouseYRot += 1.25f;
-            timeToRotate = Time.time + 0.125f;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && Time.time > timeToRotate)
-        {
-            MouseXRot -= 2.5f;
-            timeToRotate = Time.time + 0.125f;
-        }
-        if (Input.GetKey(KeyCode.RightArrow) && Time.time > timeToRotate)
-        {
-            MouseXRot += 2.5f;
-            timeToRotate = Time.time + 0.125f;
-        }
 		MouseYRot = clampAngle(MouseYRot, minLimitY, maxLimitY);
 
         if (HUD.instance != null && !HUD.instance.Minimized)
@@ -114,6 +108,15 @@ public class MyCamera : MonoBehaviour
 				mouseWheelSensitivity, MinDistance, MaxDistance);
 		}
 	}
+
+    void changeVarOnKeyPress(KeyCode key, ref float varToChange, float amount)
+    {
+        if (Input.GetKey(key) && Time.time > timeToRotate)
+        {
+            varToChange += amount;
+            timeToRotate = Time.time + 0.125f;
+        }
+    }
 	
 	public void reset()
 	{
@@ -143,7 +146,7 @@ public class MyCamera : MonoBehaviour
 
 	void checkIfOccluded()
 	{
-		List<Renderer> localHits = checkCameraPoints();
+		HashSet<Renderer> localHits = checkCameraPoints();
 		
 		foreach (Renderer hit in localHits)
 		{
@@ -158,84 +161,61 @@ public class MyCamera : MonoBehaviour
 		}
 	}
 	
-	List<Renderer> checkCameraPoints ()
+	HashSet<Renderer> checkCameraPoints ()
 	{
-		HashSet<RaycastHit> raycastHits = new HashSet<RaycastHit>();
 		RaycastHit[] tempHits;
-		Vector3 direction;
-		float distance;
-		List<Renderer> returnedHits = new List<Renderer>();
-		ClipPlanePoints clipPlanePoints = ClipPlaneAtNear(TargetLookAt.position);
+		HashSet<Renderer> returnedHits = new HashSet<Renderer>();
+        Vector3 targetPos = TargetLookAt.position;
+		ClipPlanePoints clipPlanePoints = ClipPlaneAtNear(targetPos);
 		
 		if (DEBUG)
 		{
-			Debug.DrawLine (transform.position, TargetLookAt.position, 
+			Debug.DrawLine (myTransform.position, TargetLookAt.position, 
 			                Color.red);
-			Debug.DrawLine(transform.position, clipPlanePoints.LowerLeft);
-			Debug.DrawLine(transform.position, clipPlanePoints.LowerRight);
-			Debug.DrawLine(transform.position, clipPlanePoints.UpperLeft);
-			Debug.DrawLine(transform.position, clipPlanePoints.UpperRight);
+			Debug.DrawLine(myTransform.position, clipPlanePoints.LowerLeft);
+			Debug.DrawLine(myTransform.position, clipPlanePoints.LowerRight);
+			Debug.DrawLine(myTransform.position, clipPlanePoints.UpperLeft);
+			Debug.DrawLine(myTransform.position, clipPlanePoints.UpperRight);
 			
 			Debug.DrawLine(clipPlanePoints.UpperLeft, clipPlanePoints.UpperRight);
 			Debug.DrawLine(clipPlanePoints.LowerLeft, clipPlanePoints.LowerRight);
 			Debug.DrawLine(clipPlanePoints.UpperLeft, clipPlanePoints.LowerLeft);
 			Debug.DrawLine(clipPlanePoints.UpperRight, clipPlanePoints.LowerRight);
 		}
-		direction = (TargetLookAt.position - transform.position).normalized;
-		distance = Vector3.Distance(transform.position, TargetLookAt.position);
+
         LayerMask mask = 1 << LayerMask.NameToLayer("NPC");
         mask |= 1 << LayerMask.NameToLayer("Ignore Raycast");
         mask = ~mask;
-
-		tempHits = Physics.RaycastAll(transform.position, direction, distance, 
-            mask);
-		foreach (RaycastHit hit in tempHits)
-			raycastHits.Add(hit);
-		
-		direction = (clipPlanePoints.UpperLeft - transform.position).normalized;
-		distance = Vector3.Distance(transform.position, clipPlanePoints.UpperLeft);
-
-        tempHits = Physics.RaycastAll(transform.position, direction, distance,
-            mask);
-		foreach (RaycastHit hit in tempHits)
-			raycastHits.Add(hit);
-		
-		direction = (clipPlanePoints.UpperRight - transform.position).normalized;
-		distance = Vector3.Distance(transform.position, clipPlanePoints.UpperRight);
-
-        tempHits = Physics.RaycastAll(transform.position, direction, distance,
-            mask);
-		foreach (RaycastHit hit in tempHits)
-			raycastHits.Add(hit);
-		
-		direction = (clipPlanePoints.LowerLeft - transform.position).normalized;
-		distance = Vector3.Distance(transform.position, clipPlanePoints.LowerLeft);
-
-        tempHits = Physics.RaycastAll(transform.position, direction, distance,
-            mask);
-		foreach (RaycastHit hit in tempHits)
-			raycastHits.Add(hit);
-		
-		direction = (clipPlanePoints.LowerRight - transform.position).normalized;
-		distance = Vector3.Distance(transform.position, clipPlanePoints.LowerRight);
-
-        tempHits = Physics.RaycastAll(transform.position, direction, distance,
-            mask);
-		foreach (RaycastHit hit in tempHits)
-			raycastHits.Add(hit);
-		
-		foreach (RaycastHit raycastHit in raycastHits)
-		{
-			Renderer renderer = raycastHit.collider.renderer;
-			returnedHits.Add(renderer);
-		}
+        
+        getHits(TargetLookAt.position, mask, ref returnedHits);
+        getHits(clipPlanePoints.UpperLeft, mask, ref returnedHits);
+        getHits(clipPlanePoints.UpperRight, mask, ref returnedHits);
+        getHits(clipPlanePoints.LowerLeft, mask, ref returnedHits);
+        getHits(clipPlanePoints.LowerRight, mask, ref returnedHits);
 		
 		return returnedHits;
 	}
+
+    void getHits(Vector3 target, LayerMask mask, ref HashSet<Renderer> hits)
+    {
+        Vector3 direction = (target - myTransform.position).normalized;
+        float distance = Vector3.Distance(myTransform.position, target);
+
+        RaycastHit[] tempHits = Physics.RaycastAll(myTransform.position, 
+            direction, distance, mask);
+        foreach (RaycastHit hit in tempHits)
+        {
+            Renderer renderer = hit.collider.renderer;
+            hits.Add(renderer);
+        }
+    }
 	
 	void resetTransparency()
 	{
-		List<Renderer> curHits = checkCameraPoints();
+        if (hits.Count == 0)
+            return;
+
+		HashSet<Renderer> curHits = checkCameraPoints();
 		HashSet<Renderer> toRemove = new HashSet<Renderer>();
 		
 		if (curHits.Count == 0)
@@ -278,11 +258,11 @@ public class MyCamera : MonoBehaviour
 		                              desiredPosition.z, ref velZ, smoothX);
 		position = new Vector3(posX, posY, posZ);
 
-		transform.position = position;
+		myTransform.position = position;
 		Vector3 targetPosition = new Vector3(TargetLookAt.position.x,
 		                                     TargetLookAt.position.y + 4f,
 		                                     TargetLookAt.position.z);
-		transform.LookAt(targetPosition);
+		myTransform.LookAt(targetPosition);
 	}
 	
 	public static void acquireCamera()
@@ -319,7 +299,7 @@ public class MyCamera : MonoBehaviour
 	private ClipPlanePoints ClipPlaneAtNear(Vector3 position)
 	{
 		ClipPlanePoints clipPlanePoints = new ClipPlanePoints();
-		Transform cameraTransform = Camera.mainCamera.transform;
+        Transform cameraTransform = myTransform;
 		
 		float distance = Camera.mainCamera.nearClipPlane;
 		Bounds bounds = TargetLookAt.GetComponent<Collider>().bounds;
