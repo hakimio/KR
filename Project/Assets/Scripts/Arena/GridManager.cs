@@ -9,12 +9,12 @@ public class GridManager: MonoBehaviour
     public GameObject Ground;
     public GameObject Hex;
     public GameObject Line;
-    public GameObject PlayerChar;
     public GameObject Monster;
 
     public Tile selectedTile = null;
     public TileBehaviour originTileTB = null;
     public TileBehaviour destTileTB = null;
+    public Dictionary<Point, TileBehaviour> Board;
 
     float hexSizeX, hexSizeY, hexSizeZ, groundSizeX, groundSizeY, groundSizeZ;
     public static GridManager instance = null;
@@ -26,26 +26,10 @@ public class GridManager: MonoBehaviour
     {
         instance = this;
         MyCamera.instance.TargetLookAt = CameraTarget.transform;
-    }
-    void Start()
-    {
         setSizes();
         createGrid();
-        instantiateCharacters();
         generateAndShowPath();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
-            Application.Quit();
-    }
-
-    void instantiateCharacters()
-    {
-        GameObject PC = (GameObject)Instantiate(PlayerChar);
-        PC.transform.position = originTileTB.transform.position;
-        PC.transform.position += new Vector3(0, 0.26f, 0);
+        Messenger.AddListener("characterMoved", switchOriginAndDestTiles);
     }
 
     void setSizes()
@@ -91,11 +75,23 @@ public class GridManager: MonoBehaviour
         return new Vector3(x, y, z);
     }
 
+    public Vector2 calcGridPos(Vector3 coord)
+    {
+        Vector3 initPos = calcInitPos();
+        Vector2 gridPos = new Vector2();
+        float offset = 0;
+        gridPos.y = Mathf.RoundToInt((initPos.z - coord.z) / (hexSizeZ * 0.75f));
+        if (gridPos.y % 2 != 0)
+            offset = hexSizeX / 2;
+        gridPos.x = Mathf.RoundToInt((coord.x - initPos.x - offset) / hexSizeX);
+        return gridPos;
+    }
+
     void createGrid()
     {
         Vector2 gridSize = calcGridSize();
         GameObject hexGridGO = new GameObject("HexGrid");
-        Dictionary<Point, Tile> board = new Dictionary<Point, Tile>();
+        Board = new Dictionary<Point, TileBehaviour>();
 
         for (float y = 0; y < gridSize.y; y++)
         {
@@ -110,36 +106,12 @@ public class GridManager: MonoBehaviour
                 hex.transform.parent = hexGridGO.transform;
                 var tb = (TileBehaviour)hex.GetComponent("TileBehaviour");
                 tb.tile = new Tile((int)x - (int)(y / 2), (int)y);
-                board.Add(tb.tile.Location, tb.tile);
-                if (x == 0 && y == 0)
-                    setAsOrigin(tb);
-                if (y == (int)gridSize.y / 2 && x == (int)sizeX / 2)
-                    initializeMonster(hex.transform.position);
+                Board.Add(tb.tile.Location, tb);
             }
         }
         bool equalLineLengths = (gridSize.x + 0.5) * hexSizeX <= groundSizeX;
-        foreach(Tile tile in board.Values)
-            tile.FindNeighbours(board, gridSize, equalLineLengths);
-    }
-
-    void initializeMonster(Vector3 pos)
-    {
-        GameObject monster = (GameObject)Instantiate(Monster);
-        monster.transform.position = pos;
-        float height = monster.collider.bounds.size.y * monster.transform.localScale.y;
-        CharacterController CC = monster.GetComponent<CharacterController>();
-        float offsetZ = monster.transform.localScale.y * CC.center.y;
-        monster.transform.position += new Vector3(0, height / 2, -offsetZ);
-        monster.animation.wrapMode = WrapMode.Loop;
-    }
-
-    void setAsOrigin(TileBehaviour TB)
-    {
-        TB.renderer.material = TB.OpaqueMaterial;
-        Color red = Color.red;
-        red.a = 158f / 255f;
-        TB.renderer.material.color = red;
-        originTileTB = TB;
+        foreach(TileBehaviour tb in Board.Values)
+            tb.tile.FindNeighbours(Board, gridSize, equalLineLengths);
     }
 
     private void DrawPath(IEnumerable<Tile> path)
@@ -170,17 +142,19 @@ public class GridManager: MonoBehaviour
             DrawPath(new List<Tile>());
             return;
         }
-        Func<Tile, Tile, double> distance = (node1, node2) => 1;
 
-        var path = PathFinder.FindPath(originTileTB.tile, destTileTB.tile, 
-            distance, calcDistance);
+        var path = PathFinder.FindPath(originTileTB.tile, destTileTB.tile);
         DrawPath(path);
-        CharacterMovement.instance.StartMoving(path.ToList());
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        CharacterMovement cm = selectedChar.gameObject.
+            GetComponent<CharacterMovement>();
+        CombatManager.instance.stepsLeft -= path.ToList().Count - 1;
+        HUD.instance.clickable = false;
+        cm.StartMoving(path.ToList());
     }
 
-    double calcDistance(Tile tile)
+    public static float calcDistance(Tile tile, Tile destTile)
     {
-        Tile destTile = destTileTB.tile;
         float dx = Mathf.Abs(destTile.X - tile.X);
         float dy = Mathf.Abs(destTile.Y - tile.Y);
         int z1 = -(tile.X + tile.Y);
@@ -190,11 +164,25 @@ public class GridManager: MonoBehaviour
         return Mathf.Max(dx, dy, dz);
     }
 
+    void switchOriginAndDestTiles()
+    {
+        if (!CombatManager.instance.playersTurn)
+            return;
+        HUD.instance.clickable = true;
+        Material originMaterial = originTileTB.renderer.material;
+        originTileTB.renderer.material = destTileTB.defaultMaterial;
+        originTileTB.tile.Passable = true;
+        originTileTB = destTileTB;
+        originTileTB.renderer.material = originMaterial;
+        destTileTB = null;
+        generateAndShowPath();
+        CombatManager.instance.charMoved();
+    }
+
     public void setGroundSize(float width, float height)
     {
         destTileTB = null;
         originTileTB = null;
-        Destroy(CharacterMovement.instance.gameObject);
         Destroy(GameObject.Find("Lines"));
         Destroy(GameObject.Find("HexGrid"));
         Vector3 groundScale = Ground.transform.localScale;
@@ -204,6 +192,5 @@ public class GridManager: MonoBehaviour
         Ground.renderer.material.mainTextureScale = textureTiling;
         setSizes();
         createGrid();
-        instantiateCharacters();
     }
 }
