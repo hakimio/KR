@@ -6,7 +6,6 @@ public abstract class BoxGUITemplate: MonoBehaviour
 {
     public GUISkin skin;
     public static BoxGUITemplate instance = null;
-    private bool show = false;
     public string boxName = "box1";
     protected List<Item> storedItems;
     private bool[] toggles;
@@ -14,40 +13,13 @@ public abstract class BoxGUITemplate: MonoBehaviour
     void Awake()
     {
         instance = this;
-    }
-
-    void Start()
-    {
         Messenger<string>.AddListener("toggleBoxVisibility", toggleVisibility);
         storedItems = new List<Item>();
         addItems();
     }
 
-    void toggleVisibility(string name)
+    void OnEnable()
     {
-        if (!this.boxName.Equals(name))
-            return;
-
-        Clicker.instance.hitBox = false;
-
-        show = !show;
-
-        if (!show)
-        {
-            Messenger<bool>.Broadcast("enable movement", true);
-            MyCamera.instance.controllingEnabled = true;
-            Messenger<bool>.Broadcast("enable phrases", true);
-            HUD.instance.enabled = true;
-            return;
-        }
-
-        if (storedItems.Count == 0)
-        {
-            MessageBox.instance.showMessage("The box is empty.");
-            show = false;
-            return;
-        }
-
         toggles = new bool[storedItems.Count];
 
         Messenger<bool>.Broadcast("enable movement", false);
@@ -56,12 +28,31 @@ public abstract class BoxGUITemplate: MonoBehaviour
         HUD.instance.enabled = false;
     }
 
+    void OnDisable()
+    {
+        Messenger<bool>.Broadcast("enable movement", true);
+        MyCamera.instance.controllingEnabled = true;
+        Messenger<bool>.Broadcast("enable phrases", true);
+        HUD.instance.enabled = true;
+    }
+
+    void toggleVisibility(string name)
+    {
+        if (!this.boxName.Equals(name))
+            return;
+        Clicker.instance.hitBox = false;
+        if (!enabled && storedItems.Count == 0)
+        {
+            MessageBox.instance.showMessage("The box is empty.");
+            return;
+        }
+        enabled = !enabled;
+    }
+
     protected abstract void addItems();
 
     void OnGUI()
     {
-        if (!show)
-            return;
         GUI.skin = skin;
 
         float itemsHeight = storedItems.Count * 120 + 37 * 3;
@@ -95,7 +86,7 @@ public abstract class BoxGUITemplate: MonoBehaviour
             foreach (Item item in storedItems)
                 addItemToBag(item);
             storedItems.Clear();
-            toggleVisibility(this.boxName);
+            enabled = false;
         }
 
         if (GUI.Button(new Rect(0, framesHeight + 37, 210, 37), 
@@ -111,12 +102,12 @@ public abstract class BoxGUITemplate: MonoBehaviour
             foreach (Item item in itemsToRemove)
                 storedItems.Remove(item);
 
-            toggleVisibility(this.boxName);
+            enabled = false;
         }
 
         if  (GUI.Button(new Rect(0, framesHeight + 74, 210, 37), "Cancel"))
         {
-            toggleVisibility(this.boxName);
+            enabled = false;
         }
     }
 

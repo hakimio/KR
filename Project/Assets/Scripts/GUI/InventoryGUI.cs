@@ -26,64 +26,86 @@ public class InventoryGUI: MonoBehaviour
     void Awake()
     {
         instance = this;
-    }
-
-    public bool Visible
-    {
-        get
-        {
-            return show;
-        }
-    }
-
-    void Start()
-    {
-        Messenger.AddListener("toggleInventoryVisibility", toggleVisibility);
         Messenger.AddListener("selectedCharChanged", selectedCharChanged);
     }
 
-    private bool show = false;
+    private Camera currentCamera;
 
-    void toggleVisibility()
+    void OnEnable()
     {
-        show = !show;
-
-        GameObject IC = GameObject.Find("InventoryCamera");
-        Camera cam = IC.GetComponent<Camera>();
-
-        if (!show)
-        {
-            Messenger<bool>.Broadcast("enable movement", true);
-            MyCamera.instance.controllingEnabled = true;
-            cam.enabled = false;
-            Messenger<bool>.Broadcast("enable phrases", true);
-            return;
-        }
-
+        getCamera();
         setItemSlotContent(GameMaster.instance.selectedChar);
 
-        if (CharacterScreen.instance.Visible)
-            Messenger.Broadcast("toggleCharScreenVisibility");
-        if (SkillTreeGUI.instance.Visible)
-            Messenger.Broadcast("toggleSkillTreeVisibility");
-        if (TradeScreen.instance.Visible)
-            Messenger.Broadcast("toggleTradeScreenVisibility");
+        if (CharacterScreen.instance.enabled)
+            CharacterScreen.instance.enabled = false;
+        if (SkillTreeGUI.instance.enabled)
+            SkillTreeGUI.instance.enabled = false;
+        if (TradeScreen.instance.enabled)
+            TradeScreen.instance.enabled = false;
 
-        Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
         float x = (Screen.width / 2 - 151f) / Screen.width;
         float y = (Screen.height / 2 - 114f) / Screen.height;
         float width = 278f / Screen.width;
         float height = 308f / Screen.height;
         Rect rect = new Rect(x, y, width, height);
-        cam.rect = rect;
-        cam.enabled = true;
+        currentCamera.rect = rect;
+        currentCamera.enabled = true;
+        Messenger<bool>.Broadcast("enable movement", false);
+        if (GameMaster.instance.inCombat)
+            return;
         Messenger<bool>.Broadcast("enable phrases", false);
     }
 
-    void selectedCharChanged()
+    void OnDisable()
     {
-        setItemSlotContent(GameMaster.instance.selectedChar);
+        getCamera();
+        MyCamera.instance.controllingEnabled = true;
+        currentCamera.enabled = false;
+        Messenger<bool>.Broadcast("enable movement", true);
+        if (GameMaster.instance.inCombat)
+            return;
+        Messenger<bool>.Broadcast("enable phrases", true);
+        return;
+    }
+
+    void getCamera()
+    {
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        GameObject selectedCharGO = selectedChar.gameObject;
+        if (selectedCharGO != null)
+            currentCamera = selectedCharGO.GetComponentInChildren<Camera>();
+        else
+        {
+            GameObject cameraGO = GameObject.Find("InventoryCamera");
+            currentCamera = cameraGO.GetComponent<Camera>();
+        }
+    }
+
+    void selectedCharChanged()
+    {       
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        if (enabled)
+        {
+            currentCamera.enabled = false;
+            GameObject selectedCharGO = selectedChar.gameObject;
+            if (selectedCharGO != null)
+                currentCamera = selectedCharGO.GetComponentInChildren<Camera>();
+            else
+            {
+                GameObject cameraGO = GameObject.Find("InventoryCamera");
+                currentCamera = cameraGO.GetComponent<Camera>();
+            }
+            float x = (Screen.width / 2 - 151f) / Screen.width;
+            float y = (Screen.height / 2 - 114f) / Screen.height;
+            float width = 278f / Screen.width;
+            float height = 308f / Screen.height;
+            Rect rect = new Rect(x, y, width, height);
+            currentCamera.rect = rect;
+            currentCamera.enabled = true;
+        }
+
+        setItemSlotContent(selectedChar);
     }
 
     void setItemSlotContent(BaseChar selectedChar)
@@ -107,8 +129,7 @@ public class InventoryGUI: MonoBehaviour
 
     void OnGUI()
     {
-        if (!show)
-            return;
+        GUI.depth = 0;
         GUI.skin = skin;
         BaseChar selectedChar = GameMaster.instance.selectedChar;
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400, 
@@ -143,7 +164,7 @@ public class InventoryGUI: MonoBehaviour
         if (selectedCharIndex != selectedIndex)
         {
             gm.selectedChar = gm.characters[selectedIndex];
-            setItemSlotContent(gm.selectedChar);
+            Messenger.Broadcast("selectedCharChanged");
             Messenger<ItemSlots>.Broadcast("ItemSlotChanged",
                 gm.selectedChar.Items.ActiveSlot);
         }
@@ -238,7 +259,11 @@ public class InventoryGUI: MonoBehaviour
                     selectedChar.CurrentHP.ToString() + "/" + 
                     secAttr.Value.ToString());
                 offset += 21;
+                int totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 GUI.DrawTexture(new Rect(571, offset + i * 17, 204, 10),
+                    Helper.getImage("Inventory/ProgressBarEmpty"));
+                GUI.DrawTexture(new Rect(571, offset + i * 17, 
+                    204 * selectedChar.CurrentHP / totalHP, 10),
                     Helper.getImage("Inventory/ProgressBarFull"));
                 offset += 12;
                 GUI.Label(new Rect(571, offset + i * 17, 150, 23),
@@ -508,11 +533,11 @@ public class InventoryGUI: MonoBehaviour
     {
         if (GUI.Button(new Rect(9, 569, 482, 27), "Skills", "skills button"))
         {
-            Messenger.Broadcast("toggleSkillTreeVisibility");
+            SkillTreeGUI.instance.enabled = true;
         }
         if (GUI.Button(new Rect(665, 569, 125, 27), "Close", "close button"))
         {
-            toggleVisibility();
+            enabled = false;
         }
     }
 

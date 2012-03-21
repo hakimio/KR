@@ -12,7 +12,6 @@ public class Phrases: MonoBehaviour
     private GUIStyle style;
     private bool styleInitialized = false;
     private Vector2 size;
-    private bool phrasesShown = true;
 
     // Use this for initialization
     void Start()
@@ -50,33 +49,36 @@ public class Phrases: MonoBehaviour
     {
         if (showEmpty)
         {
+            if (styleInitialized)
+                enabled = false;
             text = "";
             showEmpty = false;
             yield return new WaitForSeconds(5);
         }
         else
         {
+            if (styleInitialized)
+                enabled = true;
             text = phrases[index % phrases.Count];
             index++;
             showEmpty = true;
             yield return new WaitForSeconds(3);
         }
-        if (phrasesShown)
-            StartCoroutine("changeText");
+        StartCoroutine("changeText");
     }
 
     public void showPhrases(bool show)
     {
-        if (show && !phrasesShown)
+        if (show && !enabled)
         {
             StartCoroutine("changeText");
-            phrasesShown = true;
+            enabled = true;
         }
-        else if (!show && phrasesShown)
+        else if (!show && enabled)
         {
             text = "";
             showEmpty = true;
-            phrasesShown = false;
+            enabled = false;
             StopCoroutine("changeText");
         }
     }

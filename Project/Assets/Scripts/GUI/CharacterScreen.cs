@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CharacterScreen: MonoBehaviour
 {
-    private bool show = false;
     public GUISkin skin;
     public static CharacterScreen instance = null;
 
@@ -12,39 +11,34 @@ public class CharacterScreen: MonoBehaviour
         instance = this;
     }
 
-    void Start()
+    void OnEnable()
     {
-        Messenger.AddListener("toggleCharScreenVisibility", toggleVisibility);
+        if (InventoryGUI.instance.enabled)
+            InventoryGUI.instance.enabled = false;
+        if (SkillTreeGUI.instance.enabled)
+            SkillTreeGUI.instance.enabled = false;
+        if (TradeScreen.instance.enabled)
+            TradeScreen.instance.enabled = false;
+        MyCamera.instance.controllingEnabled = false;
+        Messenger<bool>.Broadcast("enable movement", false);
+        if (GameMaster.instance.inCombat)
+            return;
+        Messenger<bool>.Broadcast("enable phrases", false);
     }
 
-    private void toggleVisibility()
+    void OnDisable()
     {
-        show = !show;
-
-        if (!show)
-        {
-            Messenger<bool>.Broadcast("enable movement", true);
-            MyCamera.instance.controllingEnabled = true;
-            Messenger<bool>.Broadcast("enable phrases", true);
+        MyCamera.instance.controllingEnabled = true;
+        Messenger<bool>.Broadcast("enable movement", true);
+        if (GameMaster.instance.inCombat)
             return;
-        }
-
-        if (InventoryGUI.instance.Visible)
-            Messenger.Broadcast("toggleInventoryVisibility");
-        if (SkillTreeGUI.instance.Visible)
-            Messenger.Broadcast("toggleSkillTreeVisibility");
-        if (TradeScreen.instance.Visible)
-            Messenger.Broadcast("toggleTradeScreenVisibility");
-
-        Messenger<bool>.Broadcast("enable movement", false);
-        MyCamera.instance.controllingEnabled = false;
-        Messenger<bool>.Broadcast("enable phrases", false);
+        Messenger<bool>.Broadcast("enable phrases", true);
+        return;
     }
 
     void OnGUI()
     {
-        if (!show)
-            return;
+        GUI.depth = 0;
         GUI.skin = skin;
         GUI.BeginGroup(new Rect(Screen.width / 2 - 122, 
             Screen.height / 2 - 212, 244, 425));
@@ -52,20 +46,6 @@ public class CharacterScreen: MonoBehaviour
         showCharacterInfo();
         GUI.EndGroup();
         showTooltip();
-    }
-
-    void showButton()
-    {
-        if (GUI.Button(new Rect(6, 424, 233, 45), "Close"))
-            toggleVisibility();
-    }
-
-    public bool Visible
-    {
-        get
-        {
-            return show;
-        }
     }
 
     void showTooltip()
@@ -138,7 +118,11 @@ public class CharacterScreen: MonoBehaviour
                     selectedChar.CurrentHP.ToString() + "/" +
                     secAttr.Value.ToString());
                 offset += 21;
+                int totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 GUI.DrawTexture(new Rect(21, offset + i * 17, 204, 10),
+                    Helper.getImage("Inventory/ProgressBarEmpty"));
+                GUI.DrawTexture(new Rect(21, offset + i * 17, 
+                    204 * selectedChar.CurrentHP / totalHP, 10),
                     Helper.getImage("Inventory/ProgressBarFull"));
                 offset += 12;
                 GUI.Label(new Rect(21, offset + i * 17, 150, 23),

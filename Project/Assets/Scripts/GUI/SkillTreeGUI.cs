@@ -7,51 +7,41 @@ public class SkillTreeGUI: MonoBehaviour
     public static SkillTreeGUI instance = null;
     public Texture2D tick;
 
-    private bool show = false;
     private bool tooltipEnabled = false;
-
-    public bool Visible
-    {
-        get { return show; }
-    }
 
     void Awake()
     {
         instance = this;
     }
 
-    void Start()
+    void OnEnable()
     {
-        Messenger.AddListener("toggleSkillTreeVisibility", toggleVisibility);
+        if (CharacterScreen.instance.enabled)
+            CharacterScreen.instance.enabled = false;
+        if (InventoryGUI.instance.enabled)
+            InventoryGUI.instance.enabled = false;
+        if (TradeScreen.instance.enabled)
+            TradeScreen.instance.enabled = false;
+        MyCamera.instance.controllingEnabled = false;
+        Messenger<bool>.Broadcast("enable movement", false);
+        if (GameMaster.instance.inCombat)
+            return;
+        Messenger<bool>.Broadcast("enable phrases", false);
     }
 
-    void toggleVisibility()
+    void OnDisable()
     {
-        show = !show;
-        if (!show)
-        {
-            Messenger<bool>.Broadcast("enable movement", true);
-            MyCamera.instance.controllingEnabled = true;
-            Messenger<bool>.Broadcast("enable phrases", true);
+        MyCamera.instance.controllingEnabled = true;
+        Messenger<bool>.Broadcast("enable movement", true);
+        if (GameMaster.instance.inCombat)
             return;
-        }
-        
-        if (CharacterScreen.instance.Visible)
-            Messenger.Broadcast("toggleCharScreenVisibility");
-        if (InventoryGUI.instance.Visible)
-            Messenger.Broadcast("toggleInventoryVisibility");
-        if (TradeScreen.instance.Visible)
-            Messenger.Broadcast("toggleTradeScreenVisibility");
-
-        Messenger<bool>.Broadcast("enable movement", false);
-        MyCamera.instance.controllingEnabled = false;
-        Messenger<bool>.Broadcast("enable phrases", false);
+        Messenger<bool>.Broadcast("enable phrases", true);
+        return;
     }
 
     void OnGUI()
     {
-        if (!show)
-            return;
+        GUI.depth = 0;
         GUI.skin = skin;
         BaseChar selectedChar = GameMaster.instance.selectedChar;
 
@@ -214,6 +204,6 @@ public class SkillTreeGUI: MonoBehaviour
     void showCloseButton()
     {
         if (GUI.Button(new Rect(675, 569, 105, 23), "Close"))
-            toggleVisibility();
+            enabled = false;
     }
 }

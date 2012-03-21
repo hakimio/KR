@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MessageBox: MonoBehaviour
 {
-    private bool messageEnabled = false;
     private const int OFFSET = 5;
     private string[] cutMessage = new string[0];
     private int curPiece = 0;
@@ -11,11 +10,12 @@ public class MessageBox: MonoBehaviour
     private const float maxWidth = 390f;
     private bool initialized = false;
     private GUIStyle style;
-    public static MessageBox instance;
+    public static MessageBox instance = null;
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
     }
 
     void OnGUI()
@@ -25,10 +25,11 @@ public class MessageBox: MonoBehaviour
             style = new GUIStyle("label");
             style.wordWrap = true;
             initialized = true;
+            enabled = false;
             Messenger.Broadcast("MessageBox Ready");
+            return;
         }
-        if (messageEnabled)
-            drawMessage();
+        drawMessage();
     }
 
     void drawMessage()
@@ -45,10 +46,10 @@ public class MessageBox: MonoBehaviour
             curPiece++;
             if (curPiece == cutMessage.Length)
             {
-                messageEnabled = false;
                 Messenger<bool>.Broadcast("enable movement", true);
                 MyCamera.instance.controllingEnabled = true;
                 HUD.instance.clickable = true;
+                enabled = false;
             }
         }
     }
@@ -60,6 +61,6 @@ public class MessageBox: MonoBehaviour
         Messenger<bool>.Broadcast("enable movement", false);
         MyCamera.instance.controllingEnabled = false;
         HUD.instance.clickable = false;
-        messageEnabled = true;
+        enabled = true;
     }
 }

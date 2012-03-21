@@ -6,7 +6,6 @@ public class TradeScreen: MonoBehaviour
     public GUISkin skin;
     public static TradeScreen instance = null;
 
-    private bool show = false;
     private Texture2D bottomPanel;
     private Texture2D background;
     private Item floatingItem = null;
@@ -22,35 +21,15 @@ public class TradeScreen: MonoBehaviour
     }
     private Toggle[] selectedToggles;
 
-    public bool Visible
-    {
-        get { return show; }
-    }
-
     void Awake()
     {
         instance = this;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        Messenger.AddListener("toggleTradeScreenVisibility", toggleVisibility);
         bottomPanel = Helper.getImage("Trade Screen/bottom line");
         background = Helper.getImage("Trade Screen/char items");
     }
 
-    void toggleVisibility()
+    void OnEnable()
     {
-        show = !show;
-        if (!show)
-        {
-            Messenger<bool>.Broadcast("enable movement", true);
-            MyCamera.instance.controllingEnabled = true;
-            Messenger<bool>.Broadcast("enable phrases", true);
-            return;
-        }
-
         selectedToggles = new Toggle[GameMaster.instance.characters.Count];
         scrollPos = new Vector2[selectedToggles.Length];
         for (int i = 0; i < selectedToggles.Length; i++)
@@ -59,16 +38,26 @@ public class TradeScreen: MonoBehaviour
             scrollPos[i] = new Vector2();
         }
 
-        if (CharacterScreen.instance.Visible)
-            Messenger.Broadcast("toggleCharScreenVisibility");
-        if (InventoryGUI.instance.Visible)
-            Messenger.Broadcast("toggleInventoryVisibility");
-        if (SkillTreeGUI.instance.Visible)
-            Messenger.Broadcast("toggleSkillTreeVisibility");
-
-        Messenger<bool>.Broadcast("enable movement", false);
+        if (CharacterScreen.instance.enabled)
+            CharacterScreen.instance.enabled = false;
+        if (InventoryGUI.instance.enabled)
+            InventoryGUI.instance.enabled = false;
+        if (SkillTreeGUI.instance.enabled)
+            SkillTreeGUI.instance.enabled = false;
         MyCamera.instance.controllingEnabled = false;
+        Messenger<bool>.Broadcast("enable movement", false);
+        if (GameMaster.instance.inCombat)
+            return;
         Messenger<bool>.Broadcast("enable phrases", false);
+    }
+
+    void OnDisable()
+    {
+        MyCamera.instance.controllingEnabled = true;
+        Messenger<bool>.Broadcast("enable movement", true);
+        if (GameMaster.instance.inCombat)
+            return;
+        Messenger<bool>.Broadcast("enable phrases", true);
     }
 
     BaseChar character;
@@ -76,8 +65,7 @@ public class TradeScreen: MonoBehaviour
 
     void OnGUI()
     {
-        if (!show)
-            return;
+        GUI.depth = 0;
         GUI.skin = skin;
 
         float width = 221 * GameMaster.instance.characters.Count;
@@ -287,7 +275,7 @@ public class TradeScreen: MonoBehaviour
         float left = GameMaster.instance.characters.Count * 221 - 135;
         if (GUI.Button(new Rect(left, 569, 125, 27), "Close", "close button"))
         {
-            toggleVisibility();
+            enabled = false;
         }
     }
 

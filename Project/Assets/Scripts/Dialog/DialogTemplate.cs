@@ -4,7 +4,6 @@ using System;
 
 public class DialogTemplate : MonoBehaviour 
 {
-	private bool dialogEnabled = false;
 	public Conversation conversation = null;
 	private float dialogHeight = 120f;
 	private float dialogSpacer = 5f;
@@ -44,22 +43,23 @@ public class DialogTemplate : MonoBehaviour
 
         PC = GameObject.Find("Player Character").transform;
 
-        GameObject go = GameObject.Find("  Game Master");
-        GameMaster gm = go.GetComponent<GameMaster>();
-        npcName = transform.gameObject.GetComponent<NPC>().npcName;
+        GameObject cameraGO = GameObject.Find("Main Camera");
+        Level1Start level1Start = cameraGO.GetComponent<Level1Start>();
+        npcName = GetComponent<NPC>().npcName;
 
-        foreach(Conversation conv in gm.dialogs)
+        foreach(Conversation conv in level1Start.dialogs)
             if (npcName.Equals(conv.npcName))
             {
                 conversation = conv;
                 break;
             }
+        enabled = false;
     }
 
     void showConversation(string npcName)
     {
         if (this.npcName.Equals(npcName))
-            dialogEnabled = true;
+            enabled = true;
     }
 
     void startDialog(string name)
@@ -88,13 +88,11 @@ public class DialogTemplate : MonoBehaviour
         Vector3 npcTarget = PC.position;
         npcTarget.y = transform.position.y;
         transform.LookAt(npcTarget);
-        //dialogEnabled = true;
     }
 	
 	void OnGUI()
 	{
-		if (dialogEnabled)
-			drawDialog();
+	    drawDialog();
 	}
 
 	void drawDialog()
@@ -213,7 +211,7 @@ public class DialogTemplate : MonoBehaviour
 	
 	void endDialog(bool switched)
 	{
-		dialogEnabled = false;
+		enabled = false;
 		if (conversation.resetConversationOnEnd && !switched)
 			conversation.curNode = conversation.startNode;
         Messenger<bool>.Broadcast("enable phrases", true);
@@ -229,7 +227,7 @@ public class DialogTemplate : MonoBehaviour
 	
 	public void beginDialog()
 	{
-		dialogEnabled = true;
+		enabled = true;
 	}
 	
 	public void terminateDialog()
