@@ -11,7 +11,6 @@ public class Shooter: MonoBehaviour
     Quaternion rotation, centerRotation, maxRotation, minRotation;
     bool isRotating = false;
     bool shoot = false;
-    public static Shooter instance = null;
 
     Transform gunTr;
 
@@ -19,7 +18,6 @@ public class Shooter: MonoBehaviour
     {
         shotgunEnd = ((GameObject)GameObject.Find("shotgunEnd")).transform;
         gunTr = ((GameObject)GameObject.Find("gun")).transform;
-        instance = this;
     }
 
     public bool shootAt(GameObject target, bool miss)
@@ -28,6 +26,8 @@ public class Shooter: MonoBehaviour
         calcRotations();
         if (isTargetBlocked())
             return false;
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        CombatManager.instance.characterAttacked(selectedChar);
         rotation = getRandomRotation(miss);
         isRotating = true;
         return true;
@@ -123,7 +123,7 @@ public class Shooter: MonoBehaviour
         if (miss)
         {
             int missRightOrLeft = Random.Range(0, 2);
-            Debug.Log("Miss: " + missRightOrLeft);
+            //Debug.Log("Miss: " + missRightOrLeft);
             if (missRightOrLeft == 0)
                 return minRotation * Quaternion.AngleAxis(randAngle,
                     Vector3.up);
