@@ -8,18 +8,19 @@ public class CharacterMovement: MonoBehaviour
     public float rotationSpeed = 0.004F;
 
     private CharacterController controller;
-    public static CharacterMovement instance = null;
-    public static float MinNextTileDist = 0.07f;
+    public float MinNextTileDist = 0.07f;
+    public bool monster = false;
 
     Vector3 curTilePos;
     Tile curTile;
     List<Tile> path;
     public bool IsMoving { get; private set; }
     Transform myTransform;
+    int nrOfSteps;
+    bool rotateAndStop = false;
 
     void Awake()
     {
-        instance = this;
         IsMoving = false;
     }
 
@@ -27,13 +28,26 @@ public class CharacterMovement: MonoBehaviour
     void Start()
     {
         controller = this.GetComponent<CharacterController>();
-
-        animation["idle"].layer = -1;
-        animation["walk"].layer = -1;
-        animation["run"].layer = -1;
-        animation["shoot"].layer = -1;
         animation.wrapMode = WrapMode.Loop;
-
+        if (monster)
+        {
+            animation["IdleFeM"].layer = -1;
+            animation["CreepFem"].layer = -1;
+            animation["ChewFem"].layer = -1;
+            animation["ChewFem"].wrapMode = WrapMode.Once;
+            animation["ChewFem"].speed = 0.5f;
+            animation["PoisionFem"].layer = -1;
+            animation["PoisionFem"].wrapMode = WrapMode.Once;
+        }
+        else
+        {
+            animation["idle"].layer = -1;
+            animation["walk"].layer = -1;
+            animation["run"].layer = -1;
+            if (animation["shoot"] != null)
+                animation["shoot"].layer = -1;
+        }
+        
         myTransform = transform;
     }
 
@@ -42,14 +56,27 @@ public class CharacterMovement: MonoBehaviour
         if (!IsMoving)
             return;
 
-        if ((curTilePos - myTransform.position).magnitude < MinNextTileDist)
+        Vector3 myPos;
+        if (monster)
         {
-            if (path.IndexOf(curTile) == 0)
+            CharacterController CC = GetComponent<CharacterController>();
+            myPos = CC.collider.bounds.center;
+        }
+        else
+            myPos = myTransform.position;
+
+        if ((curTilePos - myPos).magnitude < MinNextTileDist)
+        {
+            if (path.Count - 1 - path.IndexOf(curTile) == nrOfSteps || 
+                path.IndexOf(curTile) == 0)
             {
-                IsMoving = false;
-                animation.CrossFade("idle");
-                switchOriginAndDestinationTiles();
-                return;
+                if (path.IndexOf(curTile) - 1 == 0)
+                    rotateAndStop = true;
+                else
+                {
+                    endMovement();
+                    return;
+                }
             }
             curTile = path[path.IndexOf(curTile) - 1];
             curTilePos = calcTilePos(curTile);
@@ -58,15 +85,14 @@ public class CharacterMovement: MonoBehaviour
         MoveTowards(curTilePos);
     }
 
-    void switchOriginAndDestinationTiles()
+    void endMovement()
     {
-        GridManager GM = GridManager.instance;
-        Material originMaterial = GM.originTileTB.renderer.material;
-        GM.originTileTB.renderer.material = GM.destTileTB.defaultMaterial;
-        GM.originTileTB = GM.destTileTB;
-        GM.originTileTB.renderer.material = originMaterial;
-        GM.destTileTB = null;
-        GM.generateAndShowPath();
+        IsMoving = false;
+        if (monster)
+            animation.CrossFade("IdleFeM");
+        else
+            animation.CrossFade("idle");
+        Messenger.Broadcast("characterMoved");
     }
 
     public void StartMoving(List<Tile> path)
@@ -77,19 +103,44 @@ public class CharacterMovement: MonoBehaviour
         curTilePos = calcTilePos(curTile);
         IsMoving = true;
         this.path = path;
+        nrOfSteps = int.MaxValue;
+    }
+
+    public void StartMoving(List<Tile> path, int nrOfSteps)
+    {
+        StartMoving(path);
+        this.nrOfSteps = nrOfSteps;
+        rotateAndStop = false;
+        if (nrOfSteps == 0)
+            rotateAndStop = true;
     }
 
     Vector3 calcTilePos(Tile tile)
     {
         Vector2 tileGridPos = new Vector2(tile.X + tile.Y / 2, tile.Y);
         Vector3 tilePos = GridManager.instance.calcWorldCoord(tileGridPos);
-        tilePos.y = myTransform.position.y;
+        if (monster)
+        {
+            CharacterController CC = GetComponent<CharacterController>();
+            Vector3 myPos = CC.collider.bounds.center;
+            tilePos.y = myPos.y;
+        }
+        else
+            tilePos.y = myTransform.position.y;
         return tilePos;
     }
     
     void MoveTowards(Vector3 position)
     {
-        Vector3 dir = position - myTransform.position;
+        Vector3 dir;
+        if (monster)
+        {
+            CharacterController CC = GetComponent<CharacterController>();
+            Vector3 myPos = CC.collider.bounds.center;
+            dir = position - myPos;
+        }
+        else
+            dir = position - myTransform.position;
 
         // Rotate towards the target
         myTransform.rotation = Quaternion.Slerp(myTransform.rotation,
@@ -101,13 +152,27 @@ public class CharacterMovement: MonoBehaviour
         forwardDir = forwardDir * speed;
         float speedModifier = Vector3.Dot(dir.normalized, myTransform.forward);
         forwardDir *= Mathf.Clamp01(speedModifier);
-        if (speedModifier > 0.95f)
+        float speedModMin = 0.97f;
+        if (monster)
+            speedModMin = 0.99f;
+
+        if (speedModifier > speedModMin)
         {
+            if (rotateAndStop)
+            {
+                endMovement();
+                return;
+            }
+
             controller.SimpleMove(forwardDir);
-            if (!animation["walk"].enabled)
+            if (!monster && !animation["walk"].enabled)
                 animation.CrossFade("walk");
+            else if (monster && !animation["CreepFem"].enabled)
+                animation.CrossFade("CreepFem");
         }
-        else if (!animation["idle"].enabled)
+        else if (!monster && !animation["idle"].enabled)
             animation.CrossFade("idle");
+        else if (monster && !animation["IdleFeM"].enabled)
+            animation.CrossFade("IdleFeM");
     }
 }
