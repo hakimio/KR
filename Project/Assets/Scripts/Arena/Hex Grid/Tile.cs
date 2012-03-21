@@ -19,7 +19,7 @@ public class Tile: GridObject, IHasNeighbours<Tile>
         get { return AllNeighbours.Where(o => o.Passable); }
     }
 
-    public void FindNeighbours(Dictionary<Point, Tile> Board,
+    public void FindNeighbours(Dictionary<Point, TileBehaviour> Board,
         Vector2 BoardSize, bool EqualLineLengths)
     {
         List<Tile> neighbours = new List<Tile>();
@@ -37,7 +37,7 @@ public class Tile: GridObject, IHasNeighbours<Tile>
             if (neighbourX >= 0 - xOffset &&
                 neighbourX < (int)BoardSize.x - xOffset &&
                 neighbourY >= 0 && neighbourY < (int)BoardSize.y)
-                neighbours.Add(Board[new Point(neighbourX, neighbourY)]);
+                neighbours.Add(Board[new Point(neighbourX, neighbourY)].tile);
         }
 
         AllNeighbours = neighbours;
