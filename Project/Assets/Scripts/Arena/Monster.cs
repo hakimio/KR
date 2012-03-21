@@ -3,16 +3,59 @@ using System.Collections;
 
 public class Monster: MonoBehaviour
 {
+    public string monsterName;
+    public int totalHP;
+    public int HP;
+    public int nrOfSteps = 3;
+    public int minDamage = 10;
+
+    void Start()
+    {
+        HP = totalHP;
+    }
+
+    void OnMouseEnter()
+    {
+        OSD.instance.showTooltip(this);
+        AI.instance.findMonstersMovementArea(this);
+    }
+
+    void OnMouseExit()
+    {
+        OSD.instance.hideTooltip(gameObject);
+        AI.instance.clearMonstersMovementArea();
+    }
+
     void OnMouseUp()
     {
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        if (CombatManager.instance.didCharacterAttack(selectedChar))
+        {
+            HUD.instance.addMessage("Character already attacked this turn.");
+            return;
+        }
+
+        GameObject selectedCharGO = selectedChar.gameObject;
+        Shooter shooter = selectedCharGO.GetComponent<Shooter>();
+        MeleeAttack meleeAttack = selectedCharGO.GetComponent<MeleeAttack>();
+
         bool success;
-        int luck = Random.Range(0, 10);
-        Debug.Log("Luck: " + luck);
-        if (luck > 4)
-            success = Shooter.instance.shootAt(gameObject, false);
+
+        if (shooter != null)
+        {
+            int luck = Random.Range(0, 10);
+            if (luck > 1)
+                success = shooter.shootAt(gameObject, false);
+            else
+                success = shooter.shootAt(gameObject, true);
+            if (!success)
+                HUD.instance.addMessage("Target blocked.");
+        }
         else
-            success = Shooter.instance.shootAt(gameObject, true);
-        if (!success)
-            Debug.Log("Target blocked.");
+        {
+            success = meleeAttack.attack(gameObject);
+            if (!success)
+                HUD.instance.addMessage("Target too far.");
+        }
     }
 }
