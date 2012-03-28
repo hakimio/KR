@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-//Antrinių atributų klasė
 public class ModifiedStat: BaseStat
 {
-	//Pirminių atributų sąrašėlis, nuo kurių priklauso šio atributo vertė
 	private List<ModAttribute> modifyingAttributes;
     private BaseChar myChar;
+    private int value = -1;
 	
 	public ModifiedStat(string name, BaseChar character): base(name) 
     {
@@ -24,19 +23,19 @@ public class ModifiedStat: BaseStat
 	{
 		get
 		{
-			float statValue = baseValue + gainedValue;
-
-            foreach (ModAttribute modAttr in modifyingAttributes)
-                statValue += myChar.getAttr((int)modAttr.attrName).Value * 
-                    modAttr.modifier;
-            
-            //if ((int)statValue%2 == 0)
-            //    statValue += 0.1f;
-
-            //statValue = (float)Math.Round(statValue);
-			return (int)statValue;
+            return value;
 		}
 	}
+
+    public void calcValue()
+    {
+        float statValue = baseValue + gainedValue;
+
+        foreach (ModAttribute modAttr in modifyingAttributes)
+            statValue += myChar.getAttr((int)modAttr.attrName).Value *
+                modAttr.modifier;
+        value = (int)statValue;
+    }
 
     public void addModifyingAttributes(ModAttribute[] modAttributes)
     {

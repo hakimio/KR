@@ -26,6 +26,7 @@ public class BaseChar
             secondaryAttr[i] = new ModifiedStat(((SecondaryAttrNames)i).ToString(), 
                 this);
         setupModifiers();
+        CalcSecondaryAttr();
     }
 
     public BaseChar(string charName, int level, int exp, Class charClass, 
@@ -51,6 +52,7 @@ public class BaseChar
         setSecondaryAttributeDescriptions();
 
         setupModifiers();
+        CalcSecondaryAttr();
     }
 
     public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
@@ -60,6 +62,7 @@ public class BaseChar
         this.attributes = attributes;
         setAttributeDescriptions();
         setSecondaryAttributeDescriptions();
+        CalcSecondaryAttr();
     }
 
     public BaseChar(string charName, int level, int exp, BaseStat[] attributes,
@@ -194,6 +197,12 @@ public class BaseChar
 	{
 		return secondaryAttr[index];
 	}
+
+    public void CalcSecondaryAttr()
+    {
+        foreach (ModifiedStat attr in secondaryAttr)
+            attr.calcValue();
+    }
 	
 	//Čia nurodysim, kaip bus skaičiuojami mūsų Antriniai atributai
 	private void setupModifiers()
