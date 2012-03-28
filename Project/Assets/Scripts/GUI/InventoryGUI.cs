@@ -259,12 +259,15 @@ public class InventoryGUI: MonoBehaviour
                     selectedChar.CurrentHP.ToString() + "/" + 
                     secAttr.Value.ToString());
                 offset += 21;
+                Texture2D PBEmpty, PBFull;
+                PBEmpty = Helper.getImage("Inventory/ProgressBarEmpty");
+                PBFull = Helper.getImage("Inventory/ProgressBarFull");
                 int totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 GUI.DrawTexture(new Rect(571, offset + i * 17, 204, 10),
-                    Helper.getImage("Inventory/ProgressBarEmpty"));
+                    PBEmpty, ScaleMode.ScaleAndCrop);
                 GUI.DrawTexture(new Rect(571, offset + i * 17, 
                     204 * selectedChar.CurrentHP / totalHP, 10),
-                    Helper.getImage("Inventory/ProgressBarFull"));
+                    PBFull, ScaleMode.ScaleAndCrop);
                 offset += 12;
                 GUI.Label(new Rect(571, offset + i * 17, 150, 23),
                     "Experience");
@@ -273,7 +276,7 @@ public class InventoryGUI: MonoBehaviour
                     selectedChar.nextLevelExp.ToString());
                 offset += 21;
                 GUI.DrawTexture(new Rect(571, offset + i * 17, 204, 10),
-                    Helper.getImage("Inventory/ProgressBarEmpty"));
+                    PBEmpty, ScaleMode.ScaleAndCrop);
                 offset += 2;
             }
             else
