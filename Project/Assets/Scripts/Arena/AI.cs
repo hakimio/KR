@@ -43,6 +43,7 @@ public class AI: MonoBehaviour
         CombatManager.instance.findClosestPlayerChar(monstersTile,
             out charToAttack, out tileOfTheCharToAttack);
         var path = PathFinder.FindPath(monstersTile, tileOfTheCharToAttack);
+        tileOfTheCharToAttack.Passable = false;
         int nrOfSteps = curMonster.GetComponent<Monster>().nrOfSteps;
         if (path.ToList().Count - 2 < nrOfSteps)
             nrOfSteps = path.ToList().Count - 2;
