@@ -62,6 +62,8 @@ public class CombatManager: MonoBehaviour
         nrOfObstaclesPositioned++;
         if (nrOfObstacles != nrOfObstaclesPositioned)
             return;
+        foreach (TileBehaviour tb in GridManager.instance.Board.Values)
+            tb.GetComponent<BoxCollider>().enabled = false;
         findWalkable();
     }
 
@@ -166,6 +168,8 @@ public class CombatManager: MonoBehaviour
         if (!playersTurn)
             return;
         walkableTiles.Clear();
+        AI.instance.monsterTiles.Clear();
+        OSD.instance.hideTooltip();
         Messenger.Broadcast("walkableTilesChanged");
         HUD.instance.clickable = false;
         playersTurn = false;
