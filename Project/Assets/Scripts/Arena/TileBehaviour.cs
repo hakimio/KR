@@ -156,10 +156,7 @@ public class TileBehaviour: MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag.Equals("Obstacle"))
-        {
-            tile.Passable = false;
-            changeColor(Color.gray);
-        }
+            setAsImpassable();
     }
 
     public void setAsOrigin()
@@ -167,6 +164,7 @@ public class TileBehaviour: MonoBehaviour
         Color blue = Color.blue;
         blue.a = 158f / 255f;
         changeColor(blue);
+        tile.Passable = false;
         GridManager.instance.originTileTB = this;
     }
 
