@@ -12,7 +12,7 @@ public class Level1Master: GameMaster
                 spawnPoint.transform.position, Quaternion.identity);
         pc.name = "Player Character";
         pc.transform.localScale = new Vector3(3f, 3f, 3f);
-        MyCamera.instance.TargetLookAt = pc.transform;
+        MyCamera.instance.Target = pc.transform.Find("CameraTarget");
         characters[1].gameObject = pc;
         GameObject.Destroy(spawnPoint);
     }
