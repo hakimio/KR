@@ -118,6 +118,11 @@ public class OSD: MonoBehaviour
         }
     }
 
+    public void hideTooltip()
+    {
+        hideTooltip(charGO);
+    }
+
     public void showGameLostScreen()
     {
         enabled = true;
