@@ -16,18 +16,25 @@ public class Monster: MonoBehaviour
 
     void OnMouseEnter()
     {
+        if (!CombatManager.instance.playersTurn)
+            return;
         OSD.instance.showTooltip(this);
         AI.instance.findMonstersMovementArea(this);
     }
 
     void OnMouseExit()
     {
+        if (!CombatManager.instance.playersTurn)
+            return;
         OSD.instance.hideTooltip(gameObject);
         AI.instance.clearMonstersMovementArea();
     }
 
     void OnMouseUp()
     {
+        if (!CombatManager.instance.playersTurn)
+            return;
+
         BaseChar selectedChar = GameMaster.instance.selectedChar;
         if (CombatManager.instance.didCharacterAttack(selectedChar))
         {
