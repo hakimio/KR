@@ -18,14 +18,12 @@ public class GridManager: MonoBehaviour
 
     float hexSizeX, hexSizeY, hexSizeZ, groundSizeX, groundSizeY, groundSizeZ;
     public static GridManager instance = null;
-    public GameObject CameraTarget;
 
     List<GameObject> path;
 
     void Awake()
     {
         instance = this;
-        MyCamera.instance.TargetLookAt = CameraTarget.transform;
         setSizes();
         createGrid();
         generateAndShowPath();
@@ -174,6 +172,7 @@ public class GridManager: MonoBehaviour
         originTileTB.tile.Passable = true;
         originTileTB = destTileTB;
         originTileTB.renderer.material = originMaterial;
+        originTileTB.tile.Passable = false;
         destTileTB = null;
         generateAndShowPath();
         CombatManager.instance.charMoved();
