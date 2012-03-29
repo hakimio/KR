@@ -21,3 +21,5 @@
 /Assembly-CSharp.pidb
 /Assembly-UnityScript-firstpass.pidb
 /*.unityproj
+/*.suo
+/*.userprefs
