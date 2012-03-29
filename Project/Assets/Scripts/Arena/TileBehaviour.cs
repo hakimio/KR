@@ -19,7 +19,8 @@ public class TileBehaviour: MonoBehaviour
 
     void walkableTilesChanged()
     {
-        if (!tile.Passable || this == GridManager.instance.originTileTB)
+        if (!tile.Passable || this == GridManager.instance.originTileTB
+			|| this == GridManager.instance.destTileTB)
             return;
 
         List<Tile> charTiles = CombatManager.instance.walkableTiles;
