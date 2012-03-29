@@ -99,7 +99,7 @@ public class Shooter: MonoBehaviour
 
         //Debug.DrawRay(maxRotPoint, toTarget.normalized * distance, Color.red, 30);
         Physics.Raycast(maxRotPoint, toTarget, out hitInfo, distance);
-        if (hitInfo.collider.gameObject != target)
+        if (hitInfo.collider != null && hitInfo.collider.gameObject != target)
             return true;
 
         toTarget = targetLeft - minRotPoint;
@@ -107,7 +107,7 @@ public class Shooter: MonoBehaviour
 
         //Debug.DrawRay(minRotPoint, toTarget.normalized * distance, Color.black, 30);
         Physics.Raycast(minRotPoint, toTarget, out hitInfo, distance);
-        if (hitInfo.collider.gameObject != target)
+        if (hitInfo.collider != null && hitInfo.collider.gameObject != target)
             return true;
 
         return false;
@@ -132,7 +132,8 @@ public class Shooter: MonoBehaviour
                     Vector3.up);
         }
 
-        return minRotation * Quaternion.AngleAxis(-randAngle, Vector3.up);
+        //return minRotation * Quaternion.AngleAxis(-randAngle, Vector3.up);
+		return centerRotation;
     }
     
     void calcRaycastPoints(out Vector3 minRotPoint, 
