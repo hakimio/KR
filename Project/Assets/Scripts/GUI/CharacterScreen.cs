@@ -118,15 +118,15 @@ public class CharacterScreen: MonoBehaviour
                     selectedChar.CurrentHP.ToString() + "/" +
                     secAttr.Value.ToString());
                 offset += 21;
-                int totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
+                float totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 Texture2D PBEmpty, PBFull;
                 PBEmpty = Helper.getImage("Inventory/ProgressBarEmpty");
                 PBFull = Helper.getImage("Inventory/ProgressBarFull");
                 GUI.DrawTexture(new Rect(21, offset + i * 17, 204, 10),
                     PBEmpty, ScaleMode.ScaleAndCrop);
-                GUI.DrawTexture(new Rect(21, offset + i * 17, 
-                    204 * selectedChar.CurrentHP / totalHP, 10),
-                    PBFull, ScaleMode.ScaleAndCrop);
+                GUI.DrawTextureWithTexCoords(new Rect(21, offset + i * 17,
+                    204 * selectedChar.CurrentHP / totalHP, 10), PBFull, 
+                    new Rect(0, 0, selectedChar.CurrentHP / totalHP, 1));
                 offset += 12;
                 GUI.Label(new Rect(21, offset + i * 17, 150, 23),
                     "Experience");

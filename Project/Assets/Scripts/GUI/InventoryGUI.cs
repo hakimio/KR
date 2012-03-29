@@ -262,12 +262,12 @@ public class InventoryGUI: MonoBehaviour
                 Texture2D PBEmpty, PBFull;
                 PBEmpty = Helper.getImage("Inventory/ProgressBarEmpty");
                 PBFull = Helper.getImage("Inventory/ProgressBarFull");
-                int totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
+                float totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 GUI.DrawTexture(new Rect(571, offset + i * 17, 204, 10),
                     PBEmpty, ScaleMode.ScaleAndCrop);
-                GUI.DrawTexture(new Rect(571, offset + i * 17, 
-                    204 * selectedChar.CurrentHP / totalHP, 10),
-                    PBFull, ScaleMode.ScaleAndCrop);
+                GUI.DrawTextureWithTexCoords(new Rect(571, offset + i * 17,
+                    204 * selectedChar.CurrentHP / totalHP, 10), PBFull,
+                    new Rect(0, 0, selectedChar.CurrentHP / totalHP, 1));
                 offset += 12;
                 GUI.Label(new Rect(571, offset + i * 17, 150, 23),
                     "Experience");
