@@ -81,9 +81,8 @@ public class TradeScreen: MonoBehaviour
             showCharItems();
             showItemToggles();
         }
-        if (Event.current.type.Equals(EventType.Repaint))
-            Graphics.DrawTexture(new Rect(0, 562, width, 38), bottomPanel,
-                new Rect((1024 - width)/1024, 0, width / 1024, 1), 0, 0, 0, 0);
+        GUI.DrawTextureWithTexCoords(new Rect(0, 562, width, 38), bottomPanel,
+                new Rect((1024 - width) / 1024, 0, width / 1024, 1));
         showCloseBtn();
         GUI.EndGroup();
         showDraggedItem();
