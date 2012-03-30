@@ -7,7 +7,7 @@ public class MyCamera: MonoBehaviour
     public bool controllingEnabled = true;
     public static MyCamera instance;
     public Transform Target = null;
-    public static bool DEBUG = false;
+    public bool DEBUG = false;
 
     private float Distance = 0f;
     public float MinDistance = 12f;
@@ -402,8 +402,8 @@ public class MyCamera: MonoBehaviour
 
         float distance = Camera.mainCamera.nearClipPlane;
         Bounds bounds = targetsParent.GetComponent<Collider>().bounds;
-        float height = bounds.size.x / 2f - 0.2f;
-        float width = bounds.size.x / 2f - 0.3f;
+        float height = bounds.size.x;
+        float width = bounds.size.x / 2;
 
         clipPlanePoints.LowerRight = position + cameraTransform.right * width;
         clipPlanePoints.LowerRight += cameraTransform.forward * distance;
