@@ -7,16 +7,13 @@ using AstarProcess;
 using AstarClasses;
 using AstarMath;
 
-public class Clicker : MonoBehaviour {
-	
-	//An object which will be used as a marker of where the pathfinding target is currently
-	public Transform target;
-	
-	//The Seeker to start pathfinding from when clicking
-	public Seeker controler = null;
-	
-	//Or use an array of units
-	public Seeker[] units;
+public class Clicker : MonoBehaviour
+{
+
+    //An object which will be used as a marker of where the pathfinding target is currently
+    public Transform target;
+
+    //Or use an array of units
     public static Clicker instance = null;
 
     public bool hitNPC = false;
@@ -25,15 +22,9 @@ public class Clicker : MonoBehaviour {
     public string boxName = "";
     public bool movementEnabled = true;
     public GameObject hitGO = null;
-	RaycastHit hit;
-	
-	public LayerMask mask;
-	
-	//The object to use when placing stuff on the ground
-	public GameObject building;
-	
-	//If true, the target will be moved every frame instead of on every click, paths will not be calculated on click
-	public bool continuous = false;
+    RaycastHit hit;
+
+    public LayerMask mask;
 
     void Awake()
     {
@@ -58,106 +49,80 @@ public class Clicker : MonoBehaviour {
         movementEnabled = enable;
     }
 
-	// Update is called once per frame
-	void Update () {
-		if (controler == null)
-			controler = GameObject.Find("Player Character").GetComponent<Seeker>();
-        
+    // Update is called once per frame
+    void Update()
+    {
+
         if (!movementEnabled)
             return;
 
-		if (Input.GetKeyDown ("mouse 0") || continuous) 
+        if (Input.GetKeyDown("mouse 0"))
         {
-            Rect HUDrect;
-            if (HUD.instance.Minimized)
-                HUDrect = new Rect(Screen.width / 2 - 208, 0, 445, 34);
-            else
-                HUDrect = new Rect(Screen.width / 2 - 400, 0, 800, 90);
-
-            int charCount = GameMaster.instance.characters.Count;
-            float bottom = (Screen.height - charCount * 90) / 2;
-            Rect charSelectorRect = new Rect(0, bottom, 67, charCount * 90);
-
-            if (HUDrect.Contains(Input.mousePosition) 
-                || charSelectorRect.Contains(Input.mousePosition))
+            if (mouseOnGUI())
                 return;
 
-			Ray ray = camera.ScreenPointToRay (Input.mousePosition);
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit,1000F, mask))
+            if (Physics.Raycast(ray, out hit, 1000F, mask))
             {
-				target.position = hit.point;
+                target.position = hit.point;
+                correctTargetPos(hit.collider);
+            }
+            if (!Application.loadedLevelName.Equals("Arena"))
+                Messenger.Broadcast("targetPosChanged");
+        }
+    }
 
-                string tag = hit.collider.tag;
-                if (tag.Equals("NPC") || tag.Equals("Box"))
-                {
-                    hitGO = hit.collider.gameObject;
+    bool mouseOnGUI()
+    {
+        Rect HUDrect;
+        if (HUD.instance.Minimized)
+            HUDrect = new Rect(Screen.width / 2 - 208, 0, 445, 34);
+        else
+            HUDrect = new Rect(Screen.width / 2 - 400, 0, 800, 90);
 
-                    GameObject pcGO = GameObject.Find("Player Character");
-                    Vector3 pcPosition = pcGO.transform.position;
-                    Vector3 hitPosition = hitGO.transform.position;
-                    if (tag.Equals("NPC"))
-                    {
-                        hitNPC = true;
-                        NPC npc = hitGO.GetComponent<NPC>();
-                        npcName = npc.npcName;
-                    }
-                    else
-                    {
-                        hitBox = true;
-                        boxName = hitGO.name;
-                    }
+        int charCount = GameMaster.instance.characters.Count;
+        float bottom = (Screen.height - charCount * 90) / 2;
+        Rect charSelectorRect = new Rect(0, bottom, 67, charCount * 90);
 
-                    Transform hitTransform = hitGO.transform;
-                    if (Vector3.Distance(pcPosition, hitPosition) > 6.5f
-                        || tag.Equals("Box"))
-                        target.position = hitPosition + 3*hitTransform.forward;
-                    else
-                        return;
-                }
-                else
-                {
-                    hitNPC = false;
-                    hitBox = false;
-                }
+        if (HUDrect.Contains(Input.mousePosition)
+            || charSelectorRect.Contains(Input.mousePosition))
+            return true;
+        else
+            return false;
+    }
 
-				if (!continuous) {
-					//Start a path from the unit(s) to the target position
-					
-					if (units.Length > 0) {
-						for (int i=0;i<units.Length;i++) {
-							//Call the seeker script to start a path to the target
-							units[i].StartPath (units[i].transform.position,target.position);
-						}
-					} else {
-						controler.StartPath (controler.transform.position,target.position);
-					}
-				}
-			}
-		}
-		
-		if (Input.GetKeyDown ("t") && building != null) {
-			Ray ray = camera.ScreenPointToRay (Input.mousePosition);
-			
-			if (Physics.Raycast (ray,out hit,1000F,mask)) {
-				target.position = hit.point;
-				GameObject go = Instantiate (building,hit.point,Quaternion.identity) as GameObject;
-				AstarPath.active.SetNodes (false,go.collider.bounds,true);
-			}
-		}
-		
-		if (Input.GetKeyDown ("r")) {
-			Ray ray = camera.ScreenPointToRay (Input.mousePosition);
-			
-			if (Physics.Raycast (ray,out hit,1000F,mask)) {
-				if (hit.transform.tag == "DynamicObstacle") {
-					//Add a small delay (0.1 seconds) so the object has time to be destroyed first (it doesn't get destroyed until next frame
-					StartCoroutine (AstarPath.active.SetNodes (true,hit.collider.bounds,true,0.1F));
-					Destroy (hit.transform.gameObject);
-				} else {
-					Debug.Log (hit.transform.gameObject.tag);
-				}
-			}
-		}
-	}
+    void correctTargetPos(Collider collider)
+    {
+        string tag = collider.tag;
+        if (tag.Equals("NPC") || tag.Equals("Box"))
+        {
+            hitGO = collider.gameObject;
+
+            GameObject pcGO = GameObject.Find("Player Character");
+            Vector3 pcPosition = pcGO.transform.position;
+            Vector3 hitPosition = hitGO.transform.position;
+            if (tag.Equals("NPC"))
+            {
+                hitNPC = true;
+                NPC npc = hitGO.GetComponent<NPC>();
+                npcName = npc.npcName;
+            }
+            else
+            {
+                hitBox = true;
+                boxName = hitGO.name;
+            }
+
+            Transform hitTransform = hitGO.transform;
+            if (Vector3.Distance(pcPosition, hitPosition) > 6.5f
+                || tag.Equals("Box"))
+                target.position = hitPosition + 3 * hitTransform.forward;
+        }
+        else
+        {
+            hitNPC = false;
+            hitBox = false;
+        }
+    }
 }
