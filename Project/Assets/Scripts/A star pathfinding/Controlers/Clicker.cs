@@ -1,19 +1,10 @@
-//A* Pathfinding - Example Script
-//This is an example script for starting paths from a unit to a position
-
 using UnityEngine;
 using System.Collections;
-using AstarProcess;
-using AstarClasses;
-using AstarMath;
 
 public class Clicker : MonoBehaviour
 {
-
     //An object which will be used as a marker of where the pathfinding target is currently
     public Transform target;
-
-    //Or use an array of units
     public static Clicker instance = null;
 
     public bool hitNPC = false;
@@ -66,10 +57,19 @@ public class Clicker : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 1000F, mask))
             {
                 target.position = hit.point;
-                correctTargetPos(hit.collider);
+
+                GameObject pcGO;
+                pcGO = GameMaster.instance.selectedChar.gameObject;
+                Vector3 pcPos = pcGO.transform.position;
+                pcPos.y = -0.6284826f;
+                if (!correctTargetPos(hit.collider))
+                    target.position = pcPos;
+
+                if (Vector3.Distance(pcPos, target.position) > 3)
+                    Messenger<bool>.Broadcast("targetPosChanged", true);
+                else
+                    Messenger<bool>.Broadcast("targetPosChanged", false);
             }
-            if (!Application.loadedLevelName.Equals("Arena"))
-                Messenger.Broadcast("targetPosChanged");
         }
     }
 
@@ -92,14 +92,14 @@ public class Clicker : MonoBehaviour
             return false;
     }
 
-    void correctTargetPos(Collider collider)
+    bool correctTargetPos(Collider collider)
     {
         string tag = collider.tag;
         if (tag.Equals("NPC") || tag.Equals("Box"))
         {
             hitGO = collider.gameObject;
 
-            GameObject pcGO = GameObject.Find("Player Character");
+            GameObject pcGO = GameMaster.instance.selectedChar.gameObject;
             Vector3 pcPosition = pcGO.transform.position;
             Vector3 hitPosition = hitGO.transform.position;
             if (tag.Equals("NPC"))
@@ -115,14 +115,20 @@ public class Clicker : MonoBehaviour
             }
 
             Transform hitTransform = hitGO.transform;
+            Vector3 targetPos = target.position;
+            targetPos.y = -0.6284826f;
+            target.position = targetPos;
             if (Vector3.Distance(pcPosition, hitPosition) > 6.5f
                 || tag.Equals("Box"))
-                target.position = hitPosition + 3 * hitTransform.forward;
+                target.position += 3 * hitTransform.forward;
+            else
+                return false;
         }
         else
         {
             hitNPC = false;
             hitBox = false;
         }
+        return true;
     }
 }
