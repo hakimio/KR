@@ -88,12 +88,11 @@ public class CharacterScreen: MonoBehaviour
 
         GUI.DrawTexture(new Rect(17, 19, 76, 84), selectedChar.Image,
             ScaleMode.ScaleToFit, true);
-        skin.label.fontStyle = FontStyle.Bold;
-        GUI.Label(new Rect(98, 19, 150, 20), selectedChar.charName);
+        GUI.Label(new Rect(98, 19, 150, 20), selectedChar.charName, "title");
         GUI.Label(new Rect(98, 39, 150, 20),
-            "Class: " + selectedChar.CharClass.Name);
-        GUI.Label(new Rect(98, 59, 150, 20), "Level: " + selectedChar.level);
-        skin.label.fontStyle = FontStyle.Normal;
+            "Class: " + selectedChar.CharClass.Name, "title");
+        GUI.Label(new Rect(98, 59, 150, 20), "Level: " + selectedChar.level, 
+            "title");
 
         for (int i = 0; i < selectedChar.getAttributes().Length; i++)
         {
@@ -111,36 +110,36 @@ public class CharacterScreen: MonoBehaviour
             ModifiedStat secAttr = selectedChar.getSecondaryAttr(i);
             string attrName = secAttr.Name.Replace('_', ' ');
             content = new GUIContent(attrName, secAttr.description);
-            GUI.Label(new Rect(21, offset + i * 17, 150, 23), content);
+            GUI.Label(new Rect(21, offset + i * 18, 150, 23), content);
             if (i == (int)SecondaryAttrNames.Hit_Points)
             {
-                GUI.Label(new Rect(171, offset + i * 17, 60, 23),
+                GUI.Label(new Rect(171, offset + i * 18, 53, 23),
                     selectedChar.CurrentHP.ToString() + "/" +
-                    secAttr.Value.ToString());
-                offset += 21;
+                    secAttr.Value.ToString(), "AttrValues");
+                offset += 23;
                 float totalHP = selectedChar.LostHP + selectedChar.CurrentHP;
                 Texture2D PBEmpty, PBFull;
                 PBEmpty = Helper.getImage("Inventory/ProgressBarEmpty");
                 PBFull = Helper.getImage("Inventory/ProgressBarFull");
-                GUI.DrawTexture(new Rect(21, offset + i * 17, 204, 10),
+                GUI.DrawTexture(new Rect(21, offset + i * 18, 204, 10),
                     PBEmpty, ScaleMode.ScaleAndCrop);
-                GUI.DrawTextureWithTexCoords(new Rect(21, offset + i * 17,
+                GUI.DrawTextureWithTexCoords(new Rect(21, offset + i * 18,
                     204 * selectedChar.CurrentHP / totalHP, 10), PBFull, 
                     new Rect(0, 0, selectedChar.CurrentHP / totalHP, 1));
-                offset += 12;
-                GUI.Label(new Rect(21, offset + i * 17, 150, 23),
+                offset += 10;
+                GUI.Label(new Rect(21, offset + i * 18, 150, 23),
                     "Experience");
-                GUI.Label(new Rect(171, offset + i * 17, 60, 23),
+                GUI.Label(new Rect(171, offset + i * 18, 53, 23),
                     selectedChar.Exp.ToString() + "/" +
-                    selectedChar.nextLevelExp.ToString());
-                offset += 21;
-                GUI.DrawTexture(new Rect(21, offset + i * 17, 204, 10),
+                    selectedChar.nextLevelExp.ToString(), "AttrValues");
+                offset += 23;
+                GUI.DrawTexture(new Rect(21, offset + i * 18, 204, 10),
                     PBEmpty, ScaleMode.ScaleAndCrop);
-                offset += 2;
+                offset -= 3;
             }
             else
-                GUI.Label(new Rect(171, offset + i * 17, 60, 23),
-                    secAttr.Value.ToString());
+                GUI.Label(new Rect(171, offset + i * 18, 53, 23),
+                    secAttr.Value.ToString(), "AttrValues");
         }
     }
 }
