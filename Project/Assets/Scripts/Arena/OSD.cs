@@ -34,7 +34,6 @@ public class OSD: MonoBehaviour
     void showHugeMessage(string message)
     {
         GUIStyle style = GUI.skin.GetStyle("box");
-        style.fontStyle = FontStyle.Bold;
         int oldSize = style.fontSize;
         style.fontSize = 72;
         if (GUI.Button(new Rect(Screen.width / 2 - 175,
@@ -68,18 +67,14 @@ public class OSD: MonoBehaviour
         string tooltipText = charName + "\nHP: " + curHP + " / " + maxHP;
         float mouseX = Input.mousePosition.x;
         float mouseY = Screen.height - Input.mousePosition.y;
-        GUIStyle style = GUI.skin.GetStyle("Label");
-        style.fontStyle = FontStyle.Bold;
-        GUIStyle boxStyle = GUI.skin.GetStyle("Box");
-        boxStyle.fontStyle = FontStyle.Bold;
         float maxWidth = 0;
         float minWidth = 0;
+        GUIStyle style = GUI.skin.GetStyle("Label");
         style.CalcMinMaxWidth(new GUIContent(tooltipText), out minWidth,
             out maxWidth);
         float height = style.CalcHeight(new GUIContent(GUI.tooltip), maxWidth);
-        
-        GUI.Box(new Rect(mouseX + 11, mouseY - 7,
-                maxWidth + 18, height + 14), tooltipText, boxStyle);
+        GUI.Box(new Rect(mouseX + 11, mouseY - 7, maxWidth + 18, height + 14), 
+            tooltipText);
     }
 
     public void showTooltip(Monster monster)
