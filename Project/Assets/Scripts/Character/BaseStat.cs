@@ -1,9 +1,6 @@
-//Bazinė attributų klasė
 public class BaseStat
 {
-	//bazinė vertė
 	public int baseValue;
-	//įgyjama vertė (feats, Archetype, items, potions ir pan gali pridet kažkiek)
 	public int gainedValue;
     public string description;
 	private string name;
