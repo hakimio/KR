@@ -6,7 +6,7 @@ public class MyCamera: MonoBehaviour
 {
     public bool controllingEnabled = true;
     public static MyCamera instance;
-    public Transform Target = null;
+    Transform Target = null;
     public bool DEBUG = false;
 
     private float Distance = 0f;
@@ -34,10 +34,9 @@ public class MyCamera: MonoBehaviour
     private HashSet<Renderer> hits;
     private Transform myTransform;
 
-    private Transform targetsParent;
     public float panSpeed = 2;
     public float returnInitSpeed = 1;
-    private Transform originalTarget;
+    public Transform originalTarget;
     public float maxPanX;
     public float maxPanY;
     float curPanXLimit, curPanYLimit;
@@ -55,23 +54,27 @@ public class MyCamera: MonoBehaviour
     {
         curPanSpeed = panSpeed;
         myTransform = transform;
-        targetsParent = Target.parent;
-        Target.parent = null;
-        duplicateTarget();
+        createTarget();
 
-        if (Target != null)
-            calcCameraPosition();
-        else
-            Debug.LogError("TargetLookAt was not assigned!");
+        calcCameraPosition();
         reCalcMaxPan();
+        if (!Application.loadedLevelName.Equals("Arena"))
+            Messenger.AddListener("selectedCharChanged", selectedCharChanged);
     }
 
-    void duplicateTarget()
+    void selectedCharChanged()
     {
-        GameObject targetClone = new GameObject("OriginalTarget");
-        targetClone.transform.parent = targetsParent;
-        targetClone.transform.position = Target.position;
-        originalTarget = targetClone.transform;
+        GameMaster GM = GameMaster.instance;
+        Transform selectedCharTr = GM.selectedChar.gameObject.transform;
+        Transform camTarget = selectedCharTr.Find("CameraTarget");
+        setTarget(camTarget);
+    }
+
+    void createTarget()
+    {
+        GameObject targetGO = new GameObject("tempTarget");
+        Target = targetGO.transform;
+        Target.position = originalTarget.position;
     }
 
     void calcCameraPosition()
@@ -85,6 +88,14 @@ public class MyCamera: MonoBehaviour
         reset();
     }
 
+    public void setTarget(Transform target)
+    {
+        originalTarget = target;
+        smothingT = 0;
+        if (Target != null)
+            targetOffset = Target.position - target.position;
+    }
+
     Vector3 targetOffset = Vector3.zero;
 
     void LateUpdate()
@@ -95,7 +106,7 @@ public class MyCamera: MonoBehaviour
             return;
         handlePlayerInput();
         calcDesiredPosition();
-        if (targetsParent != null)
+        if (originalTarget.parent != null)
             checkIfOccluded();
         updatePosition();
         targetOffset = Target.position - originalTarget.position;
@@ -241,7 +252,7 @@ public class MyCamera: MonoBehaviour
 
     void calcDesiredPosition()
     {
-        if (targetsParent != null)
+        if (originalTarget.parent != null)
             resetTransparency();
         Distance = Mathf.SmoothDamp(Distance, desiredDistance,
                                     ref velDistance, DistanceSmooth);
@@ -401,7 +412,7 @@ public class MyCamera: MonoBehaviour
         Transform cameraTransform = myTransform;
 
         float distance = Camera.mainCamera.nearClipPlane;
-        Bounds bounds = targetsParent.GetComponent<Collider>().bounds;
+        Bounds bounds = originalTarget.parent.GetComponent<Collider>().bounds;
         float height = bounds.size.x;
         float width = bounds.size.x / 2;
 
