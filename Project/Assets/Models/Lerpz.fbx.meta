@@ -1,320 +1,6 @@
-fileFormatVersion: 1
+fileFormatVersion: 2
 guid: 4a461e42cd11fe64a0002e294ada8c59
 ModelImporter:
-  importerVersion: 7
-  meshes:
-    scaleFactor: 1
-    useFileUnits: 1
-    meshCompression: 0
-    generateColliders: 0
-    swapUVs: 0
-  tangentSpace:
-    normalImportMode: 0
-    tangentImportMode: 1
-    smoothingAngle: 60
-    splitTangents: 0
-  materials:
-    generation: 1
-  animations:
-    generation: 3
-    bakeAnimations: 0
-    animationCompression: 1
-    animationWrapMode: 0
-    splitAnimations: 1
-    clips:
-      walk:
-        firstFrame: 1
-        lastFrame: 33
-        loop: 0
-        wrapMode: 0
-      run:
-        firstFrame: 41
-        lastFrame: 57
-        loop: 0
-        wrapMode: 0
-      kick:
-        firstFrame: 81
-        lastFrame: 97
-        loop: 0
-        wrapMode: 0
-      punch:
-        firstFrame: 101
-        lastFrame: 117
-        loop: 0
-        wrapMode: 0
-      jump:
-        firstFrame: 121
-        lastFrame: 129
-        loop: 0
-        wrapMode: 0
-      jumpfall:
-        firstFrame: 149
-        lastFrame: 157
-        loop: 0
-        wrapMode: 0
-      idle:
-        firstFrame: 201
-        lastFrame: 401
-        loop: 0
-        wrapMode: 0
-      gotbit:
-        firstFrame: 411
-        lastFrame: 419
-        loop: 0
-        wrapMode: 0
-      gothit:
-        firstFrame: 421
-        lastFrame: 429
-        loop: 0
-        wrapMode: 0
-      walljump:
-        firstFrame: 431
-        lastFrame: 448
-        loop: 0
-        wrapMode: 0
-      deathfall:
-        firstFrame: 451
-        lastFrame: 459
-        loop: 0
-        wrapMode: 0
-      jetpackjump:
-        firstFrame: 149
-        lastFrame: 150
-        loop: 0
-        wrapMode: 0
-      ledgefall:
-        firstFrame: 149
-        lastFrame: 150
-        loop: 0
-        wrapMode: 0
-      buttstomp:
-        firstFrame: 137
-        lastFrame: 145
-        loop: 0
-        wrapMode: 0
-      jumpland:
-        firstFrame: 161
-        lastFrame: 177
-        loop: 0
-        wrapMode: 0
-  nodeInfo:
-    Lerpz:
-    - 100000
-    - 400000
-    rootJoint:
-    - 100002
-    - 400002
-    - 13700000
-    torso:
-    - 100004
-    - 400004
-    shoulders:
-    - 100006
-    - 400006
-    shoulderRight:
-    - 100008
-    - 400008
-    elbowRight:
-    - 100010
-    - 400010
-    wristRight:
-    - 100012
-    - 400012
-    handRight:
-    - 100014
-    - 400014
-    thumbRight1:
-    - 100016
-    - 400016
-    thumbRight2:
-    - 100018
-    - 400018
-    thumbRight3:
-    - 100020
-    - 400020
-    pinkyFingerRight1:
-    - 100022
-    - 400022
-    pinkyFingerRight2:
-    - 100024
-    - 400024
-    pinkyFingerRight3:
-    - 100026
-    - 400026
-    pinkyFingerRight4:
-    - 100028
-    - 400028
-    middleFingerRight1:
-    - 100030
-    - 400030
-    middleFingerRight2:
-    - 100032
-    - 400032
-    middleFingerRight3:
-    - 100034
-    - 400034
-    middleFingerRight4:
-    - 100036
-    - 400036
-    indexFingerRight1:
-    - 100038
-    - 400038
-    indexFingerRight2:
-    - 100040
-    - 400040
-    indexFingerRight3:
-    - 100042
-    - 400042
-    indexFingerRight4:
-    - 100044
-    - 400044
-    shoulderLeft:
-    - 100046
-    - 400046
-    elbowLeft:
-    - 100048
-    - 400048
-    wristLeft:
-    - 100050
-    - 400050
-    handLeft:
-    - 100052
-    - 400052
-    thumbLeft1:
-    - 100054
-    - 400054
-    thumbLeft2:
-    - 100056
-    - 400056
-    thumbLeft3:
-    - 100058
-    - 400058
-    pinkyFingerLeft1:
-    - 100060
-    - 400060
-    pinkyFingerLeft2:
-    - 100062
-    - 400062
-    pinkyFingerLeft3:
-    - 100064
-    - 400064
-    pinkyFingerLeft4:
-    - 100066
-    - 400066
-    middleFingerLeft1:
-    - 100068
-    - 400068
-    middleFingerLeft2:
-    - 100070
-    - 400070
-    middleFingerLeft3:
-    - 100072
-    - 400072
-    middleFingerLeft4:
-    - 100074
-    - 400074
-    indexFingerLeft1:
-    - 100076
-    - 400076
-    indexFingerLeft2:
-    - 100078
-    - 400078
-    indexFingerLeft3:
-    - 100080
-    - 400080
-    indexFingerLeft4:
-    - 100082
-    - 400082
-    head:
-    - 100084
-    - 400084
-    aNTeNNa_trEE:
-    - 100086
-    - 400086
-    antennaRight1:
-    - 100088
-    - 400088
-    antennaRight2:
-    - 100090
-    - 400090
-    antennaRight3:
-    - 100092
-    - 400092
-    antennaLeft1:
-    - 100094
-    - 400094
-    antennaLeft2:
-    - 100096
-    - 400096
-    antennaLeft3:
-    - 100098
-    - 400098
-    mouthRight1:
-    - 100100
-    - 400100
-    mouthRight2:
-    - 100102
-    - 400102
-    mouthTop1:
-    - 100104
-    - 400104
-    mouthTop2:
-    - 100106
-    - 400106
-    mouthLeft1:
-    - 100108
-    - 400108
-    mouthLeft2:
-    - 100110
-    - 400110
-    mouthBottom1:
-    - 100112
-    - 400112
-    mouthBottom2:
-    - 100114
-    - 400114
-    hipRight:
-    - 100116
-    - 400116
-    kneeRight:
-    - 100118
-    - 400118
-    ankleRight:
-    - 100120
-    - 400120
-    footRight:
-    - 100122
-    - 400122
-    toeRight:
-    - 100124
-    - 400124
-    toeRightTip:
-    - 100126
-    - 400126
-    hipLeft:
-    - 100128
-    - 400128
-    kneeLeft:
-    - 100130
-    - 400130
-    ankleLeft:
-    - 100132
-    - 400132
-    footLeft:
-    - 100134
-    - 400134
-    toeLeft:
-    - 100136
-    - 400136
-    toeLeftTip:
-    - 100138
-    - 400138
-    //RootNode:
-    - 100140
-    - 400140
-    - 11100000
-AssetImporter:
-  importerVersion: 1
   fileIDToRecycleName:
     4300000: Lerpz
     7400000: Take 001 //// Lerpz
@@ -334,3 +20,616 @@ AssetImporter:
     7400028: buttstomp //// Lerpz
     7400030: jumpland //// Lerpz
     7400032: jetpackjump //// Lerpz
+    100100000: DataTemplate __Singleton__
+  serializedVersion: 10
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+  animations:
+    generateAnimations: 3
+    bakeSimulation: 0
+    splitAnimations: 1
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 2
+    clipAnimations:
+    - name: walk
+      firstFrame: 1
+      lastFrame: 33
+      wrapMode: 2
+      loop: 1
+    - name: run
+      firstFrame: 41
+      lastFrame: 57
+      wrapMode: 2
+      loop: 1
+    - name: kick
+      firstFrame: 81
+      lastFrame: 97
+      wrapMode: 0
+      loop: 0
+    - name: punch
+      firstFrame: 101
+      lastFrame: 117
+      wrapMode: 0
+      loop: 0
+    - name: jump
+      firstFrame: 121
+      lastFrame: 129
+      wrapMode: 0
+      loop: 0
+    - name: jumpfall
+      firstFrame: 149
+      lastFrame: 157
+      wrapMode: 0
+      loop: 0
+    - name: idle
+      firstFrame: 201
+      lastFrame: 401
+      wrapMode: 2
+      loop: 1
+    - name: gotbit
+      firstFrame: 411
+      lastFrame: 419
+      wrapMode: 0
+      loop: 0
+    - name: gothit
+      firstFrame: 421
+      lastFrame: 429
+      wrapMode: 0
+      loop: 0
+    - name: walljump
+      firstFrame: 431
+      lastFrame: 448
+      wrapMode: 0
+      loop: 0
+    - name: deathfall
+      firstFrame: 451
+      lastFrame: 459
+      wrapMode: 0
+      loop: 0
+    - name: jetpackjump
+      firstFrame: 149
+      lastFrame: 150
+      wrapMode: 0
+      loop: 0
+    - name: ledgefall
+      firstFrame: 149
+      lastFrame: 150
+      wrapMode: 0
+      loop: 0
+    - name: buttstomp
+      firstFrame: 137
+      lastFrame: 145
+      wrapMode: 0
+      loop: 0
+    - name: jumpland
+      firstFrame: 161
+      lastFrame: 177
+      wrapMode: 0
+      loop: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMesh: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 0
+    normalImportMode: 0
+    tangentImportMode: 1
+  textMetaNamesToFileIDs:
+    //RootNode:
+      data:
+        first: 1
+        second: 2c870100
+      data:
+        first: 4
+        second: 0c1b0600
+      data:
+        first: 111
+        second: 605fa900
+    Lerpz:
+      data:
+        first: 1
+        second: a0860100
+      data:
+        first: 4
+        second: 801a0600
+    aNTeNNa_trEE:
+      data:
+        first: 1
+        second: f6860100
+      data:
+        first: 4
+        second: d61a0600
+    ankleLeft:
+      data:
+        first: 1
+        second: 24870100
+      data:
+        first: 4
+        second: 041b0600
+    ankleRight:
+      data:
+        first: 1
+        second: 18870100
+      data:
+        first: 4
+        second: f81a0600
+    antennaLeft1:
+      data:
+        first: 1
+        second: fe860100
+      data:
+        first: 4
+        second: de1a0600
+    antennaLeft2:
+      data:
+        first: 1
+        second: 00870100
+      data:
+        first: 4
+        second: e01a0600
+    antennaLeft3:
+      data:
+        first: 1
+        second: 02870100
+      data:
+        first: 4
+        second: e21a0600
+    antennaRight1:
+      data:
+        first: 1
+        second: f8860100
+      data:
+        first: 4
+        second: d81a0600
+    antennaRight2:
+      data:
+        first: 1
+        second: fa860100
+      data:
+        first: 4
+        second: da1a0600
+    antennaRight3:
+      data:
+        first: 1
+        second: fc860100
+      data:
+        first: 4
+        second: dc1a0600
+    elbowLeft:
+      data:
+        first: 1
+        second: d0860100
+      data:
+        first: 4
+        second: b01a0600
+    elbowRight:
+      data:
+        first: 1
+        second: aa860100
+      data:
+        first: 4
+        second: 8a1a0600
+    footLeft:
+      data:
+        first: 1
+        second: 26870100
+      data:
+        first: 4
+        second: 061b0600
+    footRight:
+      data:
+        first: 1
+        second: 1a870100
+      data:
+        first: 4
+        second: fa1a0600
+    handLeft:
+      data:
+        first: 1
+        second: d4860100
+      data:
+        first: 4
+        second: b41a0600
+    handRight:
+      data:
+        first: 1
+        second: ae860100
+      data:
+        first: 4
+        second: 8e1a0600
+    head:
+      data:
+        first: 1
+        second: f4860100
+      data:
+        first: 4
+        second: d41a0600
+    hipLeft:
+      data:
+        first: 1
+        second: 20870100
+      data:
+        first: 4
+        second: 001b0600
+    hipRight:
+      data:
+        first: 1
+        second: 14870100
+      data:
+        first: 4
+        second: f41a0600
+    indexFingerLeft1:
+      data:
+        first: 1
+        second: ec860100
+      data:
+        first: 4
+        second: cc1a0600
+    indexFingerLeft2:
+      data:
+        first: 1
+        second: ee860100
+      data:
+        first: 4
+        second: ce1a0600
+    indexFingerLeft3:
+      data:
+        first: 1
+        second: f0860100
+      data:
+        first: 4
+        second: d01a0600
+    indexFingerLeft4:
+      data:
+        first: 1
+        second: f2860100
+      data:
+        first: 4
+        second: d21a0600
+    indexFingerRight1:
+      data:
+        first: 1
+        second: c6860100
+      data:
+        first: 4
+        second: a61a0600
+    indexFingerRight2:
+      data:
+        first: 1
+        second: c8860100
+      data:
+        first: 4
+        second: a81a0600
+    indexFingerRight3:
+      data:
+        first: 1
+        second: ca860100
+      data:
+        first: 4
+        second: aa1a0600
+    indexFingerRight4:
+      data:
+        first: 1
+        second: cc860100
+      data:
+        first: 4
+        second: ac1a0600
+    kneeLeft:
+      data:
+        first: 1
+        second: 22870100
+      data:
+        first: 4
+        second: 021b0600
+    kneeRight:
+      data:
+        first: 1
+        second: 16870100
+      data:
+        first: 4
+        second: f61a0600
+    middleFingerLeft1:
+      data:
+        first: 1
+        second: e4860100
+      data:
+        first: 4
+        second: c41a0600
+    middleFingerLeft2:
+      data:
+        first: 1
+        second: e6860100
+      data:
+        first: 4
+        second: c61a0600
+    middleFingerLeft3:
+      data:
+        first: 1
+        second: e8860100
+      data:
+        first: 4
+        second: c81a0600
+    middleFingerLeft4:
+      data:
+        first: 1
+        second: ea860100
+      data:
+        first: 4
+        second: ca1a0600
+    middleFingerRight1:
+      data:
+        first: 1
+        second: be860100
+      data:
+        first: 4
+        second: 9e1a0600
+    middleFingerRight2:
+      data:
+        first: 1
+        second: c0860100
+      data:
+        first: 4
+        second: a01a0600
+    middleFingerRight3:
+      data:
+        first: 1
+        second: c2860100
+      data:
+        first: 4
+        second: a21a0600
+    middleFingerRight4:
+      data:
+        first: 1
+        second: c4860100
+      data:
+        first: 4
+        second: a41a0600
+    mouthBottom1:
+      data:
+        first: 1
+        second: 10870100
+      data:
+        first: 4
+        second: f01a0600
+    mouthBottom2:
+      data:
+        first: 1
+        second: 12870100
+      data:
+        first: 4
+        second: f21a0600
+    mouthLeft1:
+      data:
+        first: 1
+        second: 0c870100
+      data:
+        first: 4
+        second: ec1a0600
+    mouthLeft2:
+      data:
+        first: 1
+        second: 0e870100
+      data:
+        first: 4
+        second: ee1a0600
+    mouthRight1:
+      data:
+        first: 1
+        second: 04870100
+      data:
+        first: 4
+        second: e41a0600
+    mouthRight2:
+      data:
+        first: 1
+        second: 06870100
+      data:
+        first: 4
+        second: e61a0600
+    mouthTop1:
+      data:
+        first: 1
+        second: 08870100
+      data:
+        first: 4
+        second: e81a0600
+    mouthTop2:
+      data:
+        first: 1
+        second: 0a870100
+      data:
+        first: 4
+        second: ea1a0600
+    pinkyFingerLeft1:
+      data:
+        first: 1
+        second: dc860100
+      data:
+        first: 4
+        second: bc1a0600
+    pinkyFingerLeft2:
+      data:
+        first: 1
+        second: de860100
+      data:
+        first: 4
+        second: be1a0600
+    pinkyFingerLeft3:
+      data:
+        first: 1
+        second: e0860100
+      data:
+        first: 4
+        second: c01a0600
+    pinkyFingerLeft4:
+      data:
+        first: 1
+        second: e2860100
+      data:
+        first: 4
+        second: c21a0600
+    pinkyFingerRight1:
+      data:
+        first: 1
+        second: b6860100
+      data:
+        first: 4
+        second: 961a0600
+    pinkyFingerRight2:
+      data:
+        first: 1
+        second: b8860100
+      data:
+        first: 4
+        second: 981a0600
+    pinkyFingerRight3:
+      data:
+        first: 1
+        second: ba860100
+      data:
+        first: 4
+        second: 9a1a0600
+    pinkyFingerRight4:
+      data:
+        first: 1
+        second: bc860100
+      data:
+        first: 4
+        second: 9c1a0600
+    rootJoint:
+      data:
+        first: 1
+        second: a2860100
+      data:
+        first: 4
+        second: 821a0600
+      data:
+        first: 137
+        second: a00bd100
+    shoulderLeft:
+      data:
+        first: 1
+        second: ce860100
+      data:
+        first: 4
+        second: ae1a0600
+    shoulderRight:
+      data:
+        first: 1
+        second: a8860100
+      data:
+        first: 4
+        second: 881a0600
+    shoulders:
+      data:
+        first: 1
+        second: a6860100
+      data:
+        first: 4
+        second: 861a0600
+    thumbLeft1:
+      data:
+        first: 1
+        second: d6860100
+      data:
+        first: 4
+        second: b61a0600
+    thumbLeft2:
+      data:
+        first: 1
+        second: d8860100
+      data:
+        first: 4
+        second: b81a0600
+    thumbLeft3:
+      data:
+        first: 1
+        second: da860100
+      data:
+        first: 4
+        second: ba1a0600
+    thumbRight1:
+      data:
+        first: 1
+        second: b0860100
+      data:
+        first: 4
+        second: 901a0600
+    thumbRight2:
+      data:
+        first: 1
+        second: b2860100
+      data:
+        first: 4
+        second: 921a0600
+    thumbRight3:
+      data:
+        first: 1
+        second: b4860100
+      data:
+        first: 4
+        second: 941a0600
+    toeLeft:
+      data:
+        first: 1
+        second: 28870100
+      data:
+        first: 4
+        second: 081b0600
+    toeLeftTip:
+      data:
+        first: 1
+        second: 2a870100
+      data:
+        first: 4
+        second: 0a1b0600
+    toeRight:
+      data:
+        first: 1
+        second: 1c870100
+      data:
+        first: 4
+        second: fc1a0600
+    toeRightTip:
+      data:
+        first: 1
+        second: 1e870100
+      data:
+        first: 4
+        second: fe1a0600
+    torso:
+      data:
+        first: 1
+        second: a4860100
+      data:
+        first: 4
+        second: 841a0600
+    wristLeft:
+      data:
+        first: 1
+        second: d2860100
+      data:
+        first: 4
+        second: b21a0600
+    wristRight:
+      data:
+        first: 1
+        second: ac860100
+      data:
+        first: 4
+        second: 8c1a0600
