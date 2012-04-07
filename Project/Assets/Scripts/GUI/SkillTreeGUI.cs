@@ -166,31 +166,31 @@ public class SkillTreeGUI: MonoBehaviour
         float mouseX = Input.mousePosition.x;
         float mouseY = Screen.height - Input.mousePosition.y;
         GUIStyle style = skin.GetStyle("tooltip");
-        float height = style.CalcHeight(new GUIContent(GUI.tooltip), 190f);
+        float height = style.CalcHeight(new GUIContent(GUI.tooltip), 210f);
         float maxWidth = 0;
         float minWidth = 0;
         style.CalcMinMaxWidth(new GUIContent(GUI.tooltip), out minWidth,
             out maxWidth);
-        if (maxWidth > 190)
-            maxWidth = 190;
+        if (maxWidth > 210)
+            maxWidth = 210;
         float yOffset = 0;
         float xOffset = 0;
         if (mouseY + height > Screen.height)
             yOffset = mouseY + height - Screen.height;
-        if (mouseX + 210 > Screen.width)
-            xOffset = 220;
+        if (mouseX + 230 > Screen.width)
+            xOffset = 240;
         int nameLength = GUI.tooltip.IndexOf('\n');
         string skillName = GUI.tooltip.Substring(0, nameLength);
         string description = GUI.tooltip.Replace(skillName + '\n', "");
         GUI.Box(new Rect(mouseX + 11 - xOffset, mouseY - yOffset - 7,
-            maxWidth + 18, height + 14), "");
+            maxWidth + 18, height + 17), "");
         skin.FindStyle("tooltip").normal.textColor = Color.yellow;
         GUI.Label(new Rect(mouseX + 20 - xOffset, mouseY - yOffset,
-            190, 23), skillName, "tooltip");
+            210, 23), skillName, "tooltip");
         skin.FindStyle("tooltip").normal.textColor = new Color(203f / 255f,
             220f / 255f, 220f / 255f);
         GUI.Label(new Rect(mouseX + 20 - xOffset, mouseY + 17 - yOffset,
-            190, height - 23), description, "tooltip");
+            210, height - 23), description, "tooltip");
     }
 
     void Update()
