@@ -5,11 +5,11 @@ public static class Characters
     public static BaseChar EricFrost = new BaseChar("Eric Frost", 1, 0, 
         setupEricsStat(), Classes.Stormer, 
         Helper.getImage("character pics/stormer"), setupEricsItems());
-    public static BaseChar Lerpz = new BaseChar("Lerpz", 1, 0,
-        setupEricsStat(), Classes.Stormer,
+    public static BaseChar Jared = new BaseChar("Jared", 1, 0,
+        setupJaredsStat(), Classes.Sniper,
         Helper.getImage("character pics/stormer"), setupEricsItems());
-    public static BaseChar TheRobot = new BaseChar("The Robot", 1, 0,
-        setupEricsStat(), Classes.Stormer,
+    public static BaseChar Thom = new BaseChar("Thom", 1, 0,
+        setupThomsStat(), Classes.GunSlinger,
         Helper.getImage("character pics/stormer"), setupEricsItems());
 
     private static BaseStat[] setupEricsStat()
@@ -25,6 +25,40 @@ public static class Characters
         attr[(int)AttrNames.Vitality].baseValue = 20;
         attr[(int)AttrNames.Soulpower].baseValue = 10;
         attr[(int)AttrNames.Technique].baseValue = 10;
+
+        return attr;
+    }
+
+    private static BaseStat[] setupJaredsStat()
+    {
+        BaseStat[] attr;
+        attr = new BaseStat[Enum.GetValues(typeof(AttrNames)).Length];
+
+        for (int i = 0; i < attr.Length; i++)
+            attr[i] = new BaseStat(((AttrNames)i).ToString());
+
+        attr[(int)AttrNames.Strength].baseValue = 15;
+        attr[(int)AttrNames.Dexterity].baseValue = 40;
+        attr[(int)AttrNames.Vitality].baseValue = 20;
+        attr[(int)AttrNames.Soulpower].baseValue = 10;
+        attr[(int)AttrNames.Technique].baseValue = 15;
+
+        return attr;
+    }
+
+    private static BaseStat[] setupThomsStat()
+    {
+        BaseStat[] attr;
+        attr = new BaseStat[Enum.GetValues(typeof(AttrNames)).Length];
+
+        for (int i = 0; i < attr.Length; i++)
+            attr[i] = new BaseStat(((AttrNames)i).ToString());
+
+        attr[(int)AttrNames.Strength].baseValue = 20;
+        attr[(int)AttrNames.Dexterity].baseValue = 30;
+        attr[(int)AttrNames.Vitality].baseValue = 20;
+        attr[(int)AttrNames.Soulpower].baseValue = 10;
+        attr[(int)AttrNames.Technique].baseValue = 20;
 
         return attr;
     }
