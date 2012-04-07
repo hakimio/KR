@@ -6,7 +6,8 @@ public class ArenaLoader: MonoBehaviour
     GUIText loadingText;
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag.Equals("Player"))
+        BaseChar selectedChar = GameMaster.instance.selectedChar;
+        if (collider.gameObject == selectedChar.gameObject)
         {
             Messenger.RemoveAllListeners();
             Application.LoadLevelAsync("Arena");
