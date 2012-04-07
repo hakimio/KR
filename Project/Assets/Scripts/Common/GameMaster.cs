@@ -26,13 +26,21 @@ public abstract class GameMaster : MonoBehaviour
         DontDestroyOnLoad(this);
         
         characters = new List<BaseChar>();
-        characters.Add(Characters.TheRobot);
         characters.Add(Characters.EricFrost);
-        characters.Add(Characters.Lerpz);
+        characters.Add(Characters.Jared);
+        characters.Add(Characters.Thom);
         selectedChar = characters[0];
 
         instantiateCharacters();
 	}
+
+    public BaseChar getCharByGO(GameObject go)
+    {
+        foreach (BaseChar character in characters)
+            if (character.gameObject == go)
+                return character;
+        return null;
+    }
 
     void Update()
     {
