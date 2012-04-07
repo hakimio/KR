@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-//Base Character. Iš šios klasės pasidarysim savo standartinius veikėjus.
 public class BaseChar
 {
     public BaseChar()
