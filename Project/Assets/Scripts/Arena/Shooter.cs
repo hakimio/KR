@@ -91,7 +91,7 @@ public class Shooter: MonoBehaviour
 
         //Debug.DrawRay(centerRotPoint, toTarget.normalized * distance, Color.blue, 30);
         Physics.Raycast(centerRotPoint, toTarget, out hitInfo, distance);
-        if (hitInfo.collider.gameObject != target)
+        if (hitInfo.collider != null && hitInfo.collider.gameObject != target)
             return true;
 
         toTarget = targetRight - maxRotPoint;
