@@ -110,6 +110,35 @@ public static class Helper
         }
     }
 
+    public static IEnumerator rotateLikeTarget(Transform target, 
+        Transform transform, float rotationDuration)
+    {
+        float t = 0;
+        Quaternion rotation = transform.rotation;
+
+        while (t < 1)
+        {
+            t += Time.deltaTime * (Time.timeScale / rotationDuration);
+            transform.rotation = Quaternion.Slerp(rotation, 
+                target.rotation, t);
+            yield return null;
+        }
+    }
+
+    public static IEnumerator rotate(Transform transform, Quaternion rotation,
+        float rotationDuration)
+    {
+        float t = 0;
+        Quaternion myRotation = transform.rotation;
+
+        while (t < 1)
+        {
+            t += Time.deltaTime * (Time.timeScale / rotationDuration);
+            transform.rotation = Quaternion.Slerp(myRotation, rotation, t);
+            yield return null;
+        }
+    }
+
     public static Texture2D getImage(string name)
     {
         return (Texture2D)Resources.Load(name, typeof(Texture2D));
