@@ -6,8 +6,8 @@ public class CharSelectorGUI: MonoBehaviour
     private const int OFFSET = 5;
     private const int LINE_HEIGHT = 25;
 
-    private const int LABEL_WIDTH = 150;
-    private const int VALUE_WIDTH = 30;
+    private const int LABEL_WIDTH = 170;
+    private const int VALUE_WIDTH = 50;
 
     private const int ATTR_OFFSET = 40;
 
@@ -20,8 +20,10 @@ public class CharSelectorGUI: MonoBehaviour
 
     void Start()
     {
-        characters = new BaseChar[1];
+        characters = new BaseChar[3];
         characters[0] = Characters.EricFrost;
+        characters[1] = Characters.Jared;
+        characters[2] = Characters.Thom;
     }
 
     void OnGUI()
@@ -39,7 +41,7 @@ public class CharSelectorGUI: MonoBehaviour
     void showTitle()
     {
         GUI.Label(new Rect(Screen.width / 2 - 125,
-            Screen.height / 2 - 300 + OFFSET, 250, LINE_HEIGHT), 
+            Screen.height / 2 - 300 + 2 * OFFSET, 250, LINE_HEIGHT), 
             "Character Selection", titleStyle);
     }
 
@@ -104,7 +106,7 @@ public class CharSelectorGUI: MonoBehaviour
     private void showDescription()
     {
         GUI.BeginGroup(new Rect(Screen.width / 2 - 400 + 4 * OFFSET, 
-            Screen.height / 2 + 10 + OFFSET, 400 - 2 * OFFSET, 250));
+            Screen.height / 2 + 10 + OFFSET, 400, 250));
 
         if (GUI.tooltip.Equals(""))
             GUI.Label(new Rect(OFFSET, 0, 400 - 2 * OFFSET, 250), 
@@ -127,7 +129,7 @@ public class CharSelectorGUI: MonoBehaviour
                 selectedChar--;
         }
 
-        if (GUI.Button(new Rect(Screen.width / 2 + 350 - OFFSET - LABEL_WIDTH,
+        if (GUI.Button(new Rect(Screen.width / 2 + 200 - 2 * OFFSET,
             Screen.height / 2 + 300 - 12 * OFFSET, 200,
             LINE_HEIGHT), "Next Character"))
         {
@@ -139,9 +141,9 @@ public class CharSelectorGUI: MonoBehaviour
             LINE_HEIGHT), "Back"))
             Application.LoadLevel("MainMenu");
 
-        if (GUI.Button(new Rect(Screen.width / 2 + 400 - OFFSET - LABEL_WIDTH,
-            Screen.height / 2 + 300 - OFFSET - LINE_HEIGHT, LABEL_WIDTH,
-            LINE_HEIGHT), "Take"))
+        if (GUI.Button(new Rect(Screen.width / 2 + 400 - 2 * OFFSET 
+            - LABEL_WIDTH, Screen.height / 2 + 300 - OFFSET - LINE_HEIGHT, 
+            LABEL_WIDTH, LINE_HEIGHT), "Take"))
         {
             GameSettings.instance.saveChar(characters[selectedChar]);
             Application.LoadLevel("Level1");
