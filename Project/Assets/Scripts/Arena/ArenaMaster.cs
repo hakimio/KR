@@ -9,6 +9,7 @@ public class ArenaMaster: GameMaster
     protected override void instantiateCharacters()
     {
         instance.inCombat = true;
+        GameObject parent = new GameObject("Characters");
         GameObject spawnPoint;
         for (int i = 1; i <= characters.Count; i++)
         {
@@ -17,6 +18,7 @@ public class ArenaMaster: GameMaster
             GameObject go = (GameObject)Instantiate(characterGOs[i - 1]);
             pos.y = go.transform.position.y;
             go.transform.position = pos;
+            go.transform.parent = parent.transform;
             characters[i - 1].gameObject = go;
             GameObject.Destroy(spawnPoint);
         }
