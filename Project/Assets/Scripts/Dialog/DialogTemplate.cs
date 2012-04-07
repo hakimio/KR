@@ -7,14 +7,11 @@ public class DialogTemplate : MonoBehaviour
 	public Conversation conversation = null;
 	private float dialogHeight = 120f;
 	private float dialogSpacer = 5f;
-    //private Vector2 scrollPosition = new Vector2();
-    private Transform PC;
     private string npcName;
     private bool justStarted;
     private int curPiece;
     private string[] npcPhrasePieces = new string[1];
     private const float maxNpcPhraseHeight = 55f;
-    //private const float maxNPCPhraseWidth = 790f;
     private Vector3 cameraPosition;
     private Quaternion cameraRotation;
 
@@ -40,8 +37,6 @@ public class DialogTemplate : MonoBehaviour
             boxDimensions.height - 10);
         Messenger<string>.AddListener("dialog starting", startDialog);
         Messenger<string>.AddListener("show conversation", showConversation);
-
-        PC = GameObject.Find("Player Character").transform;
 
         GameObject cameraGO = GameObject.Find("Main Camera");
         Level1Start level1Start = cameraGO.GetComponent<Level1Start>();
@@ -83,11 +78,13 @@ public class DialogTemplate : MonoBehaviour
         justStarted = true;
         curPiece = 0;
         Vector3 pcTarget = transform.position;
+        Transform PC = GameMaster.instance.selectedChar.gameObject.transform;
         pcTarget.y = PC.position.y;
-        PC.LookAt(pcTarget);
         Vector3 npcTarget = PC.position;
         npcTarget.y = transform.position.y;
-        transform.LookAt(npcTarget);
+        Vector3 dir = npcTarget - transform.position;
+        StartCoroutine(Helper.rotate(transform, Quaternion.LookRotation(dir), 
+            0.5f));
     }
 	
 	void OnGUI()
@@ -215,13 +212,13 @@ public class DialogTemplate : MonoBehaviour
 		if (conversation.resetConversationOnEnd && !switched)
 			conversation.curNode = conversation.startNode;
         Messenger<bool>.Broadcast("enable phrases", true);
-        transform.rotation = Quaternion.AngleAxis(180f, Vector3.up);
+        StartCoroutine(Helper.rotate(transform,
+                    Quaternion.AngleAxis(180f, Vector3.up), 0.5f));
         GameObject target = new GameObject("cameraPosition");
         target.transform.position = cameraPosition;
         target.transform.rotation = cameraRotation;
         StartCoroutine(Helper.transitionCamera(target.transform, true, 
             npcName));
-        //MyCamera.instance.enabled = true;
 		onEndDialog();
 	}
 	
